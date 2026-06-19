@@ -1,143 +1,183 @@
-# Mobile Engineering Agents
+<div align="center">
 
-> An AI-first engineering toolkit that turns coding agents into Senior/Staff mobile engineers.
+# 📱 Mobile Engineering Agents
 
-`mobile-engineering-agents` is **not** a tutorial or a handbook. It is a structured,
-reusable knowledge system designed to be loaded directly into AI coding agents —
-**Claude Code, OpenAI Codex, Cursor, Windsurf, Gemini CLI, and Aider** — so they
-produce mobile code that is secure, well-architected, testable, and consistent.
+## Turn your AI coding agent into a Senior/Staff mobile engineer
 
-It encodes the judgment of experienced mobile engineers as **agents**, **skills**,
-**workflows**, **checklists**, **templates**, **prompts**, **standards**, and
-**architecture references**, with a primary focus on **iOS / Swift / SwiftUI** and
-secondary coverage of **Android/Kotlin** and **Flutter**.
+A drop-in knowledge system that gives **Claude Code, Codex, Cursor, Windsurf, Gemini CLI, and Aider**
+the judgment of an experienced mobile team — architecture, security, testing, and standards — so the
+code they generate is production-grade, not just plausible.
 
----
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Platform](https://img.shields.io/badge/focus-iOS%20%7C%20Swift%20%7C%20SwiftUI-orange.svg)](#-whats-inside)
+[![AI-ready](https://img.shields.io/badge/AI-Claude%20%C2%B7%20Codex%20%C2%B7%20Cursor%20%C2%B7%20Windsurf%20%C2%B7%20Gemini%20%C2%B7%20Aider-blueviolet.svg)](#-how-to-use)
 
-## Project Vision
+[Quick Start](#-quick-start) · [What's Inside](#-whats-inside) · [The Agent Team](#-the-agent-team) · [How to Use](#-how-to-use) · [Workflows](#-example-workflows)
 
-AI agents are now capable of writing large amounts of mobile code quickly. The
-bottleneck is no longer typing speed — it is **engineering judgment**: choosing the
-right architecture, handling errors and concurrency correctly, securing data, and
-keeping a codebase maintainable as it scales.
-
-This repository supplies that judgment in a machine-loadable form. The goal is that
-an agent loaded with these files behaves like a senior engineer who:
-
-- Defaults to **Clean Architecture + MVVM** and **SOLID** principles.
-- Treats **security** (OWASP MASVS) as a first-class requirement, not an afterthought.
-- Writes **testable**, **modular**, **observable** code with explicit error handling.
-- Follows consistent **standards** so generated code looks like one team wrote it.
+</div>
 
 ---
 
-## Repository Structure
+## 💡 Why this exists
 
-```text
-mobile-engineering-agents/
-├── README.md                  # You are here
-├── AGENTS.md                  # Master orchestration: agent hierarchy, routing, review flow
-├── CONTRIBUTING.md            # How to contribute and keep content consistent
-├── GLOSSARY.md                # Shared terminology
-├── CLAUDE.md / GEMINI.md      # Platform auto-load entry points
-├── .cursorrules / .windsurfrules
-├── .github/                   # copilot-instructions, CI, issue/PR templates
-│
-├── agents/                    # Loadable operational AI roles (iOS architect, security, …)
-├── skills/                    # Deep, single-topic capabilities (auth, websockets, caching, …)
-├── workflows/                 # End-to-end procedures (build a feature, integrate an API, …)
-├── templates/                 # Copy-paste project scaffolding with boilerplate Swift
-├── checklists/                # Objective, automatable review checklists
-├── prompts/                   # Production prompts for common engineering tasks
-├── examples/                  # Reference apps (banking, chat, ecommerce, social)
-├── architecture/              # Architecture references with Mermaid diagrams
-└── standards/                 # Coding, security, testing, git standards
+AI agents can write a lot of mobile code, fast. The bottleneck isn't typing — it's **engineering
+judgment**: picking the right architecture, getting concurrency and error handling right, securing
+data, and keeping the codebase maintainable as it grows.
+
+> **Without this toolkit:** "Build me a login screen" → a Massive View Controller with the token in
+> `UserDefaults` and no tests.
+>
+> **With it:** the agent acts as a Security Expert + SwiftUI Expert — OAuth2 + PKCE, Keychain
+> storage, MVVM, typed errors, and unit tests — then self-reviews against a checklist.
+
+This repo encodes that judgment as machine-loadable **agents, skills, workflows, checklists,
+templates, prompts, standards, and architecture references**. Primary focus: **iOS / Swift /
+SwiftUI**; secondary: **Android/Kotlin** and **Flutter**.
+
+It is **not** a tutorial or handbook. It's an operational toolkit you point your AI agent at.
+
+---
+
+## ⚡ Quick Start
+
+```bash
+# 1. Clone it next to (or inside) your project
+git clone https://github.com/sokpichdev/mobile-engineering-agents.git
 ```
 
-Each top-level content directory has its own `README.md` index.
+Then just talk to your AI agent and reference the files:
+
+```text
+> Read agents/ios_architect.md and act as that agent.
+> Follow workflows/create_feature.md to build an Account Summary screen
+  that loads /accounts, then self-review against checklists/code_review.md.
+```
+
+That's it. Editors like **Cursor**, **Windsurf**, **Claude Code**, and **Gemini CLI** auto-load the
+matching config file (`.cursorrules`, `.windsurfrules`, `CLAUDE.md`, `GEMINI.md`) so the defaults
+apply with zero setup. Jump to [How to Use](#-how-to-use) for per-tool examples.
 
 ---
 
-## Agent System Overview
+## 📦 What's Inside
 
-The toolkit defines **14 specialized agents**. Each is a self-contained operational
-role describing its purpose, responsibilities, hard rules, coding standards, review
-checklist, common mistakes, and example tasks.
+| Directory | What it gives your agent | Count |
+|-----------|--------------------------|-------|
+| 🤖 [`agents/`](agents/) | Loadable expert roles (architect, security, testing…) | 14 |
+| 🧠 [`skills/`](skills/) | Deep, single-topic know-how (auth, websockets, caching…) | 31 |
+| 🔄 [`workflows/`](workflows/) | Step-by-step procedures (build a feature, integrate an API…) | 11 |
+| ✅ [`checklists/`](checklists/) | Objective, automatable review gates | 8 |
+| 📐 [`standards/`](standards/) | Non-negotiable rules (coding, security, testing, git) | 7 |
+| 🏛️ [`architecture/`](architecture/) | Reference designs with Mermaid diagrams | 6 |
+| ✍️ [`prompts/`](prompts/) | Copy-paste prompts for common tasks | 10 |
+| 🧩 [`templates/`](templates/) | Scaffolding with boilerplate Swift | 8 |
+| 📲 [`examples/`](examples/) | Reference apps (banking, chat, ecommerce, social) | 4 |
 
-| Agent | Focus |
-|-------|-------|
-| [iOS Architect](agents/ios_architect.md) | Module boundaries, layering, tech decisions |
-| [SwiftUI Expert](agents/swiftui_expert.md) | View composition, state, navigation |
-| [Networking Expert](agents/networking_expert.md) | REST/GraphQL clients, retries, error mapping |
-| [WebSocket Expert](agents/websocket_expert.md) | Realtime transport, reconnection, backpressure |
-| [Security Expert](agents/security_expert.md) | Keychain, pinning, crypto, OWASP MASVS |
-| [Backend Integrator](agents/backend_integrator.md) | API contracts, DTO mapping, pagination |
-| [Testing Expert](agents/testing_expert.md) | Unit/integration/UI test strategy |
-| [Performance Expert](agents/performance_expert.md) | Startup, memory, battery, rendering |
-| [Accessibility Expert](agents/accessibility_expert.md) | VoiceOver, Dynamic Type, contrast |
-| [Code Reviewer](agents/code_reviewer.md) | Correctness, style, risk gating |
-| [Refactoring Expert](agents/refactoring_expert.md) | Safe, incremental code improvement |
-| [Release Manager](agents/release_manager.md) | Versioning, signing, store submission |
-| [DevOps Expert](agents/devops_expert.md) | CI/CD, Fastlane, automation |
-| [System Design Expert](agents/system_design_expert.md) | Large-scale client/server design |
-
-Orchestration — how these agents hand off, review each other, and escalate — is
-defined in [AGENTS.md](AGENTS.md).
+Plus [`AGENTS.md`](AGENTS.md) (orchestration), [`GLOSSARY.md`](GLOSSARY.md) (shared terms), and a
+`README.md` index inside every directory.
 
 ---
 
-## How to Use
+## 🤖 The Agent Team
 
-The core idea is the same across every platform: **load the relevant agent, skill,
-or workflow file into the model's context, then ask for the task.**
+Each agent is a self-contained role: **purpose, responsibilities, hard rules, coding standards,
+review checklist, common mistakes, and example tasks**. They're organized into four tiers that hand
+off to each other (see [`AGENTS.md`](AGENTS.md)).
 
-### Claude Code
+### 🧭 Strategy
 
-`CLAUDE.md` at the repo root is loaded automatically. To pull in a specific role:
+- [System Design Expert](agents/system_design_expert.md) — large-scale client/server & cross-cutting design
+- [iOS Architect](agents/ios_architect.md) — module boundaries, layering, tech decisions
+
+### 🛠️ Implementation
+
+- [SwiftUI Expert](agents/swiftui_expert.md) — view composition, state, navigation
+- [Networking Expert](agents/networking_expert.md) — REST/GraphQL clients, retries, error mapping
+- [WebSocket Expert](agents/websocket_expert.md) — realtime transport, reconnection, backpressure
+- [Backend Integrator](agents/backend_integrator.md) — API contracts, DTO mapping, pagination
+
+### 🛡️ Quality & Hardening
+
+- [Security Expert](agents/security_expert.md) — Keychain, pinning, crypto, OWASP MASVS
+- [Testing Expert](agents/testing_expert.md) — unit/integration/UI strategy
+- [Performance Expert](agents/performance_expert.md) — startup, memory, battery, rendering
+- [Accessibility Expert](agents/accessibility_expert.md) — VoiceOver, Dynamic Type, contrast
+- [Refactoring Expert](agents/refactoring_expert.md) — safe, incremental improvement
+
+### 🚦 Gate & Delivery
+
+- [Code Reviewer](agents/code_reviewer.md) — correctness, style, risk gating
+- [Release Manager](agents/release_manager.md) — versioning, signing, store submission
+- [DevOps Expert](agents/devops_expert.md) — CI/CD, Fastlane, automation
+
+---
+
+## 🚀 How to Use
+
+The pattern is the same everywhere: **load the relevant agent/skill/workflow file into context, then
+ask for the task.**
+
+<details>
+<summary><b>Claude Code</b></summary>
+
+`CLAUDE.md` loads automatically. Pull in a specific role or workflow:
 
 ```text
 > Read agents/security_expert.md and act as that agent.
-> Then audit Sources/Auth for credential storage issues using checklists/security_review.md.
-```
-
-You can also reference workflows directly:
-
-```text
+> Audit Sources/Auth for credential issues using checklists/security_review.md.
 > Follow workflows/integrate_rest_api.md to add the /transactions endpoint.
 ```
 
-### OpenAI Codex
+</details>
 
-`AGENTS.md` is read automatically by Codex. Reference files explicitly in your prompt:
+<details>
+<summary><b>OpenAI Codex</b></summary>
+
+`AGENTS.md` is read automatically. Reference files in your prompt:
 
 ```text
 Using agents/swiftui_expert.md and standards/swiftui_standards.md, build the
 account summary screen described below.
 ```
 
-### Cursor
+</details>
 
-`.cursorrules` is applied automatically. For a focused task, add the relevant file to
-context (`@agents/networking_expert.md`) and prompt:
+<details>
+<summary><b>Cursor</b></summary>
+
+`.cursorrules` applies automatically. Add a file to context and prompt:
 
 ```text
 @workflows/integrate_graphql.md implement the feed query with pagination.
 ```
 
-### Windsurf
+</details>
 
-`.windsurfrules` is applied automatically by Cascade. Reference files in chat the same
-way, e.g. `@checklists/code_review.md review the open diff`.
+<details>
+<summary><b>Windsurf</b></summary>
 
-### Gemini CLI
+`.windsurfrules` is applied by Cascade. Reference files in chat:
 
-`GEMINI.md` is loaded automatically. Use `@path` to include files:
+```text
+@checklists/code_review.md review the open diff.
+```
+
+</details>
+
+<details>
+<summary><b>Gemini CLI</b></summary>
+
+`GEMINI.md` loads automatically. Use `@path` to include files:
 
 ```text
 @agents/testing_expert.md @standards/testing_standards.md write tests for AuthRepository.
 ```
 
-### Aider
+</details>
+
+<details>
+<summary><b>Aider</b></summary>
 
 Add files to the chat session:
 
@@ -145,53 +185,66 @@ Add files to the chat session:
 aider --read agents/ios_architect.md --read standards/architecture_standards.md
 ```
 
+</details>
+
 ---
 
-## Example Workflows
+## 🔄 Example Workflows
 
-- **Build a feature end-to-end:** [workflows/create_feature.md](workflows/create_feature.md)
-- **Integrate a REST API:** [workflows/integrate_rest_api.md](workflows/integrate_rest_api.md)
-- **Add realtime with WebSockets:** [workflows/integrate_websocket.md](workflows/integrate_websocket.md)
-- **Implement authentication:** [workflows/implement_authentication.md](workflows/implement_authentication.md)
-- **Run a security audit:** [workflows/perform_security_audit.md](workflows/perform_security_audit.md)
-- **Ship a release:** [workflows/release_application.md](workflows/release_application.md)
+Ready-made, end-to-end procedures — each with inputs, steps, validation, and acceptance criteria:
 
-A typical multi-agent flow:
+- 🏗️ **Build a feature end-to-end** — [`workflows/create_feature.md`](workflows/create_feature.md)
+- 🌐 **Integrate a REST API** — [`workflows/integrate_rest_api.md`](workflows/integrate_rest_api.md)
+- ⚡ **Add realtime with WebSockets** — [`workflows/integrate_websocket.md`](workflows/integrate_websocket.md)
+- 🔐 **Implement authentication** — [`workflows/implement_authentication.md`](workflows/implement_authentication.md)
+- 🛡️ **Run a security audit** — [`workflows/perform_security_audit.md`](workflows/perform_security_audit.md)
+- 🚢 **Ship a release** — [`workflows/release_application.md`](workflows/release_application.md)
 
-```text
-Feature Request
-  → iOS Architect      (define module + layer boundaries)
-  → SwiftUI Expert     (build the UI + state)
-  → Networking Expert  (wire the data layer)
-  → Security Expert    (review sensitive data handling)
-  → Testing Expert     (add unit + UI tests)
-  → Code Reviewer      (final gate)
+Behind the scenes, a non-trivial task flows through multiple agents:
+
+```mermaid
+flowchart LR
+    R[Feature Request] --> A[iOS Architect]
+    A --> U[SwiftUI Expert]
+    U --> N[Networking Expert]
+    N --> S[Security Expert]
+    S --> T[Testing Expert]
+    T --> C[Code Reviewer]
+    C --> Done([Merge-ready])
 ```
 
 ---
 
-## Best Practices
+## ✅ Best Practices
 
-1. **Load the smallest sufficient context.** Pull in the specific agent/skill/workflow
-   for the task instead of the whole repo.
-2. **Chain agents** for non-trivial work (architect → implementer → reviewer).
-3. **Always end with a checklist.** Have the agent self-review against the matching
-   file in `checklists/`.
-4. **Treat standards as non-negotiable.** Reference `standards/` so output stays
-   consistent across sessions and contributors.
-5. **Prefer workflows over ad-hoc prompts** for repeatable tasks.
+1. **Load the smallest sufficient context** — the specific agent/skill/workflow, not the whole repo.
+2. **Chain agents** for real work: architect → implementer → reviewer.
+3. **Always end with a checklist** — have the agent self-review against [`checklists/`](checklists/).
+4. **Treat standards as non-negotiable** — reference [`standards/`](standards/) for consistent output.
+5. **Prefer workflows over ad-hoc prompts** for anything you'll do more than once.
 
 ---
 
-## Contribution Guidelines
+## 🧭 Design Principles
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). In short: keep files focused, follow the
-section templates, cross-link instead of duplicating, and use illustrative — not
-necessarily compilable — Swift snippets that demonstrate the correct pattern.
+Every agent defaults to the same engineering values, so output looks like one team wrote it:
+
+- **Clean Architecture + MVVM** and **SOLID** by default.
+- **Security is a requirement, not an afterthought** (OWASP MASVS).
+- **Testable, modular, observable** code with explicit, typed error handling.
+- **Consistent standards** across sessions, tools, and contributors.
 
 ---
 
-## Roadmap
+## 🤝 Contributing
+
+Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md). In short: keep files focused,
+follow the section templates, cross-link instead of duplicating, and use illustrative (not
+necessarily compilable) Swift that demonstrates the correct pattern.
+
+---
+
+## 🗺️ Roadmap
 
 - [ ] Kotlin/Compose and Flutter parity for the iOS-first skills.
 - [ ] Machine-readable agent manifests (YAML front-matter) for automated routing.
@@ -201,6 +254,12 @@ necessarily compilable — Swift snippets that demonstrate the correct pattern.
 
 ---
 
-## License
+## 📄 License
 
-[MIT](LICENSE).
+[MIT](LICENSE) © Sok Pich — free to use, fork, and adapt.
+
+<div align="center">
+
+**If this makes your AI a better mobile engineer, give it a ⭐ and share it.**
+
+</div>

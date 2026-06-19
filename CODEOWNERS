@@ -1,18 +1,18 @@
 # Code owners for mobile-engineering-agents.
-# Replace the placeholder owners with real GitHub handles/teams before publishing.
+# https://github.com/sokpichdev
 
 # Default owner for everything
-*                       @maintainers
+*                       @sokpichdev
 
 # Orchestration and standards changes deserve extra scrutiny
-/AGENTS.md              @maintainers
-/standards/             @maintainers
-/architecture/         @maintainers
+/AGENTS.md              @sokpichdev
+/standards/             @sokpichdev
+/architecture/          @sokpichdev
 
 # Security content
-/skills/security/       @security-reviewers
-/agents/security_expert.md @security-reviewers
-/checklists/security_review.md @security-reviewers
+/skills/security/       @sokpichdev
+/agents/security_expert.md @sokpichdev
+/checklists/security_review.md @sokpichdev
 
 # CI / automation
-/.github/               @maintainers
+/.github/               @sokpichdev

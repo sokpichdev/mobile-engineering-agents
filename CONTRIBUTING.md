@@ -41,6 +41,7 @@ Use the canonical section set for each content type. Do not invent new section n
 ## Checklist Authoring Rules
 
 Each checklist item must be:
+
 - **Objective** — two reviewers would agree whether it passes.
 - **Measurable** — ideally automatable (lint rule, test, grep).
 - **Production-focused** — reflects real risk, not style preference (style → `standards/`).

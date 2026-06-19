@@ -4,6 +4,7 @@
 <!-- What does this PR add or change, and why? -->
 
 ## Type
+
 - [ ] New agent / skill / workflow / template
 - [ ] Update to existing content
 - [ ] Standards / architecture change
@@ -11,6 +12,7 @@
 - [ ] Fix (typo, broken link, inconsistency)
 
 ## Checklist
+
 - [ ] File follows the section template in [CONTRIBUTING.md](../CONTRIBUTING.md)
 - [ ] Cross-links use relative paths and resolve to real files
 - [ ] Directory `README.md` index updated (if a file was added/removed)

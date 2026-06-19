@@ -18,6 +18,7 @@ assignees: ''
 <!-- What it currently says or does -->
 
 ## Impact
+
 - [ ] Misleads an AI agent into producing incorrect code
 - [ ] Broken cross-link
 - [ ] Outdated API / deprecated pattern

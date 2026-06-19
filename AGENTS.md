@@ -137,6 +137,7 @@ graph LR
 ```
 
 Escalate (do not assume) when:
+
 - The required behavior is ambiguous or contradicts a standard.
 - A security/compliance decision has legal or data-privacy implications.
 - A change would break a public module boundary or API contract.
@@ -152,33 +153,43 @@ the agent's recommendation.
 These map directly to files in [`workflows/`](workflows/).
 
 ### 1. Build a Feature
+
 ```text
 iOS Architect → SwiftUI Expert → Networking Expert → Security Expert → Testing Expert → Code Reviewer
 ```
+
 See [`workflows/create_feature.md`](workflows/create_feature.md).
 
 ### 2. Integrate an API
+
 ```text
 Backend Integrator → Networking Expert → Security Expert → Testing Expert → Code Reviewer
 ```
+
 See [`workflows/integrate_rest_api.md`](workflows/integrate_rest_api.md).
 
 ### 3. Add Realtime
+
 ```text
 iOS Architect → WebSocket Expert → Security Expert → Performance Expert → Testing Expert → Code Reviewer
 ```
+
 See [`workflows/integrate_websocket.md`](workflows/integrate_websocket.md).
 
 ### 4. Implement Authentication
+
 ```text
 iOS Architect → Security Expert → Networking Expert → Testing Expert → Code Reviewer
 ```
+
 See [`workflows/implement_authentication.md`](workflows/implement_authentication.md).
 
 ### 5. Ship a Release
+
 ```text
 Code Reviewer → Release Manager → DevOps Expert
 ```
+
 See [`workflows/release_application.md`](workflows/release_application.md).
 
 ---

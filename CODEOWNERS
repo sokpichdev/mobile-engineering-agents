@@ -1,0 +1,18 @@
+# Code owners for mobile-engineering-agents.
+# Replace the placeholder owners with real GitHub handles/teams before publishing.
+
+# Default owner for everything
+*                       @maintainers
+
+# Orchestration and standards changes deserve extra scrutiny
+/AGENTS.md              @maintainers
+/standards/             @maintainers
+/architecture/         @maintainers
+
+# Security content
+/skills/security/       @security-reviewers
+/agents/security_expert.md @security-reviewers
+/checklists/security_review.md @security-reviewers
+
+# CI / automation
+/.github/               @maintainers

@@ -238,9 +238,27 @@ Every agent defaults to the same engineering values, so output looks like one te
 
 ## 🤝 Contributing
 
-Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md). In short: keep files focused,
-follow the section templates, cross-link instead of duplicating, and use illustrative (not
-necessarily compilable) Swift that demonstrates the correct pattern.
+Contributions of all sizes are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md). In short: keep
+files focused, follow the section templates, cross-link instead of duplicating, and use
+illustrative (not necessarily compilable) Swift that demonstrates the correct pattern.
+
+### 🌱 Good First Issues
+
+New to the project? These are scoped, beginner-friendly, and have clear acceptance criteria —
+the perfect place to start:
+
+👉 **[Browse `good first issue`s](https://github.com/sokpichdev/mobile-engineering-agents/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)**
+
+Your first contribution in four steps:
+
+1. **Pick an issue** from the list above and comment that you're taking it.
+2. **Fork & branch** — `git checkout -b feat/<short-name>`.
+3. **Make the change** following the [section templates](CONTRIBUTING.md#file-section-templates),
+   then run `npm install && npm run lint`.
+4. **Open a PR** with a [Conventional Commit](CONTRIBUTING.md#commit-convention) title
+   (e.g. `feat(skills): add SwiftData storage skill`).
+
+That's it — a maintainer will review and help you land it. 🚀
 
 ---
 

@@ -1,0 +1,13 @@
+{
+  // Markdownlint config for the toolkit. See standards/ for prose conventions.
+  "config": {
+    "default": true,
+    "MD013": false, // line length is governed by .editorconfig / prose flow, not the linter
+    "MD024": { "siblings_only": true }, // repeated section headings across files are expected
+    "MD033": false, // inline HTML occasionally needed (e.g. <br>, details)
+    "MD041": false, // some files lead with front-matter or badges
+    "MD046": false  // allow both fenced and indented code in examples
+  },
+  "globs": ["**/*.md"],
+  "ignores": ["node_modules", ".git"]
+}

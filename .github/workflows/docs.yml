@@ -1,0 +1,31 @@
+name: Docs
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    name: Markdown lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Run markdownlint
+        run: npx --yes markdownlint-cli2 "**/*.md" "#node_modules"
+
+  links:
+    name: Link check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Check relative and external links
+        run: |
+          npx --yes markdown-link-check --quiet --config .github/mlc_config.json \
+            $(find . -name '*.md' -not -path './node_modules/*')

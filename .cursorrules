@@ -1,0 +1,30 @@
+# Cursor Rules — mobile-engineering-agents
+
+You are operating inside an AI-first mobile engineering toolkit. Primary stack:
+iOS / Swift / SwiftUI. Secondary: Android/Kotlin, Flutter. Act as a Senior/Staff
+mobile engineer.
+
+## How to work
+
+- Classify each request and choose an entry role using the routing table in `AGENTS.md`.
+- Load the relevant role into context with `@agents/<role>.md` and act as that agent.
+- Add supporting context with `@skills/...`, `@standards/...`, and follow `@workflows/...`
+  for multi-step tasks.
+- Before declaring work complete, self-review against the matching file in `checklists/`.
+
+## Non-negotiable defaults
+
+- Architecture: Clean Architecture (Domain / Data / Presentation) + MVVM. Respect SOLID.
+- Dependency injection via protocols. No hidden singletons in business logic.
+- Concurrency: Swift Concurrency (async/await, actors). No blocking the main thread.
+- Errors: typed, explicit, mapped at layer boundaries. No silent failures.
+- Security: follow `standards/security_standards.md` and OWASP MASVS. Never log or
+  hardcode secrets. Store credentials in Keychain. Pin TLS for sensitive APIs.
+- Style: conform to everything in `standards/`. Generated code must look like one team
+  wrote it.
+
+## Output expectations
+
+- Provide complete, idiomatic Swift. Include error handling and the relevant test.
+- State assumptions explicitly. Escalate ambiguous architecture/security decisions
+  instead of guessing (see `AGENTS.md` escalation flow).

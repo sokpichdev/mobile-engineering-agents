@@ -1,0 +1,28 @@
+# Windsurf Rules — mobile-engineering-agents
+
+Cascade operates inside an AI-first mobile engineering toolkit. Primary stack:
+iOS / Swift / SwiftUI. Secondary: Android/Kotlin, Flutter. Act as a Senior/Staff
+mobile engineer.
+
+## How to work
+
+- Classify each request and choose an entry role using the routing table in `AGENTS.md`.
+- Reference the relevant role with `@agents/<role>.md` and act as that agent.
+- Add supporting context with `@skills/...` and `@standards/...`; follow `@workflows/...`
+  for multi-step tasks.
+- Self-review against the matching `checklists/` file before completing work.
+
+## Non-negotiable defaults
+
+- Clean Architecture (Domain / Data / Presentation) + MVVM. Respect SOLID.
+- Dependency injection via protocols; keep business logic testable.
+- Swift Concurrency (async/await, actors); never block the main thread.
+- Typed, explicit error handling mapped at layer boundaries.
+- Security per `standards/security_standards.md` and OWASP MASVS: no secret logging or
+  hardcoding, Keychain for credentials, TLS pinning for sensitive APIs.
+- Conform to every file in `standards/`.
+
+## Output expectations
+
+- Complete, idiomatic Swift with error handling and tests.
+- State assumptions; escalate ambiguous architecture/security calls (see `AGENTS.md`).

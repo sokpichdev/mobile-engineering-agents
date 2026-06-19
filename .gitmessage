@@ -1,0 +1,20 @@
+# <type>(<scope>): <subject>
+# │      │          │
+# │      │          └─ imperative, lower-case, no trailing period, ≤ 100 chars total
+# │      └─ optional: security|networking|ui|auth|storage|agents|skills|workflows|
+# │                   checklists|standards|architecture|prompts|templates|examples|ci|repo
+# └─ feat|fix|docs|refactor|test|chore|perf|build|ci|revert
+#
+# (blank line, then the body — explain WHAT and WHY, wrap ~72 chars)
+#
+# (blank line, then footer — e.g. "Closes #123" or "BREAKING CHANGE: ...")
+#
+# Example:
+#   feat(security): add public-key TLS pinning with backup pin
+#
+#   Concurrent 401s previously triggered multiple refreshes. Serialize refresh
+#   through an actor so callers share one in-flight refresh.
+#
+#   Closes #142
+#
+# Enable this template once:  git config commit.template .gitmessage

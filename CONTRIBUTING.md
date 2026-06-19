@@ -1,8 +1,36 @@
 # Contributing
 
-Thanks for helping build the definitive AI-first mobile engineering toolkit. The value
-of this repository depends on **consistency** — every file should feel like it came from
-the same senior engineering team.
+Thanks for helping build the definitive AI-first mobile engineering toolkit! Contributions
+of all sizes are welcome — fixing a typo, improving a skill, adding an agent, or proposing a
+whole new section. The value of this repository depends on **consistency**, so this guide
+explains how to keep everything coherent.
+
+New here? Look for issues labeled **good first issue**, or open an issue describing what you'd
+like to add before starting larger work.
+
+## How to Contribute
+
+1. **Fork** the repo and create a branch: `git checkout -b feat/<short-name>`.
+2. **Set up locally** (see [Local Setup](#local-setup)) so you can validate before pushing.
+3. **Make your change**, following the [file section templates](#file-section-templates) and
+   [style](#style).
+4. **Commit** using the [Conventional Commit format](#commit-convention) — this is enforced in CI.
+5. **Validate**: run `npm run lint` and confirm cross-links resolve.
+6. **Open a pull request** using the template; fill in the checklist.
+
+## Local Setup
+
+The toolkit is markdown + illustrative Swift, so the only tooling is for docs validation:
+
+```bash
+npm install                 # installs markdownlint, link-check, commitlint
+npm run lint                # markdown lint + relative/external link check
+npm run lint:md:fix         # auto-fix common markdown issues
+git config commit.template .gitmessage   # (optional) prefill the commit format
+```
+
+CI runs the same checks on every PR, plus commit-message linting, so running them locally
+saves a round-trip.
 
 ## Principles
 
@@ -46,12 +74,48 @@ Each checklist item must be:
 - **Measurable** — ideally automatable (lint rule, test, grep).
 - **Production-focused** — reflects real risk, not style preference (style → `standards/`).
 
+## Commit Convention
+
+All commits **must** follow [Conventional Commits](https://www.conventionalcommits.org/).
+CI lints **every commit in a PR** and the **PR title** — non-conforming messages fail the build.
+
+Format:
+
+```text
+<type>(<scope>): <subject>
+
+<optional body — explain what and why>
+
+<optional footer — e.g. Closes #123>
+```
+
+- **type** (required): `feat` · `fix` · `docs` · `refactor` · `test` · `chore` · `perf` ·
+  `build` · `ci` · `revert`
+- **scope** (optional): the area touched — common ones: `security`, `networking`, `ui`, `auth`,
+  `storage`, `agents`, `skills`, `workflows`, `checklists`, `standards`, `architecture`,
+  `prompts`, `templates`, `examples`, `ci`, `repo`.
+- **subject** (required): imperative, lower-case, no trailing period, ≤ 100 chars total.
+
+Examples:
+
+```text
+feat(security): add public-key TLS pinning with backup pin
+fix(networking): map 404 to DomainError.notFound
+docs(readme): clarify Cursor setup
+chore(repo): add markdown link-check to CI
+```
+
+Run `git config commit.template .gitmessage` to prefill the format in your editor, and
+`npm run lint:commits` to check your branch's commits before pushing. See
+[`standards/git_standards.md`](standards/git_standards.md) for the full convention.
+
 ## Pull Requests
 
 - Keep PRs scoped to one area (e.g. "add storage skills", not "misc updates").
 - Update the relevant directory `README.md` index when adding a file.
 - Verify cross-links resolve (`workflows/` references should point to real files).
-- Run the docs CI locally if possible: `npx markdownlint-cli2 '**/*.md'`.
+- Run the docs checks locally: `npm run lint`.
+- Use a Conventional Commit **PR title** (it's linted, and becomes the squash-merge commit).
 - Follow [`standards/git_standards.md`](standards/git_standards.md) for commits and PR
   descriptions.
 

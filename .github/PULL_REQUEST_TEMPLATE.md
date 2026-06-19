@@ -19,7 +19,9 @@
 - [ ] `README.md` / `AGENTS.md` updated (if an agent was added/removed)
 - [ ] Conforms to `standards/` and uses consistent terminology (`GLOSSARY.md`)
 - [ ] Code snippets are idiomatic Swift and language-tagged
-- [ ] `npx markdownlint-cli2 '**/*.md'` passes locally
+- [ ] `npm run lint` passes locally (markdown + links)
+- [ ] Commits and PR title follow [Conventional Commits](../CONTRIBUTING.md#commit-convention),
+      e.g. `feat(security): ...`
 
 ## Related
 <!-- Link issues, related agents/skills/workflows -->

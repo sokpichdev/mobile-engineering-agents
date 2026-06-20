@@ -29,17 +29,45 @@ protocol-injected data sources, real-time sync, atomic money mutations, role-bas
 
 ```mermaid
 graph TD
-    App[CoffeeCraftApp] --> Root[RootView: auth gate + role tab routing]
-    Root --> Cust[Customer surface: Home / Menu / Orders / Account]
-    Root --> Mgr[Manager surface: + Admin Dashboard]
-    Cust & Mgr --> VM[ViewModels @MainActor]
-    VM --> Repo[Repository Protocols]
-    Repo --> FB[Firebase impls: Firestore / Auth]
-    VM --> WS[WalletService: atomic txns]
-    WS --> FB
-    App --> NC[NotificationCoordinator]
-    NC --> FCM((Firebase Cloud Messaging))
-    FB --> FS((Cloud Firestore))
+    App[CoffeeCraftApp @main] --> Root[RootView: auth gate + role tab routing]
+
+    subgraph Customer[Customer tabs]
+        Home[Home: AnnouncementVM] --> Menu[Menu: ProductVM]
+        Menu --> Cust[ProductCustomization]
+        Cust --> Cart[Cart: CartManager]
+        Cart --> Order[Order: OrderVM]
+        Order --> Review[Review: ReviewVM]
+        Account[Account: Wallet · Cards · Inbox · Favorites]
+    end
+
+    subgraph Manager[Manager-only]
+        Admin[AdminDashboard: Summary · OrderAnalytics · SalesAnalytics · ReviewModeration]
+    end
+
+    Root --> Home & Account
+    Root -.manager role.-> Admin
+
+    subgraph Services[Services & Repositories]
+        WalletSvc[WalletService: atomic txns]
+        RatingSvc[RatingService: aggregate ratings]
+        OrderSvc[OrderService]
+        AuthRepo[AuthRepositoryProtocol]
+        ProdRepo[ProductRepositoryProtocol]
+        OrderRepo[OrderRepositoryProtocol]
+        WalletRepo[WalletRepositoryProtocol]
+    end
+
+    Order --> OrderSvc & OrderRepo
+    Account --> WalletSvc & WalletRepo
+    Review --> RatingSvc
+    Menu --> ProdRepo
+    Root --> AuthRepo
+    Admin --> OrderRepo & ProdRepo
+
+    WalletSvc & RatingSvc & OrderSvc & AuthRepo & ProdRepo & OrderRepo & WalletRepo --> FB[Firebase: Firestore + Auth]
+
+    App --> NC[NotificationCoordinator] --> FCM((FCM push))
+    FB --> FS[(Firestore: users · products · carts<br/>orders · wallets · wallet_transactions<br/>branches · loyaltyCards · announcements)]
 ```
 
 ## Dependency Injection

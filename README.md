@@ -13,7 +13,7 @@ code they generate is production-grade, not just plausible.
 [![Platform](https://img.shields.io/badge/focus-iOS%20%7C%20Swift%20%7C%20SwiftUI-orange.svg)](#-whats-inside)
 [![AI-ready](https://img.shields.io/badge/AI-Claude%20%C2%B7%20Codex%20%C2%B7%20Cursor%20%C2%B7%20Windsurf%20%C2%B7%20Gemini%20%C2%B7%20Aider-blueviolet.svg)](#-how-to-use)
 
-[Quick Start](#-quick-start) · [What's Inside](#-whats-inside) · [The Agent Team](#-the-agent-team) · [How to Use](#-how-to-use) · [Workflows](#-example-workflows)
+[Quick Start](#-quick-start) · [What's Inside](#-whats-inside) · [The Agent Team](#-the-agent-team) · [How to Use](#-how-to-use) · [How It Works](#-how-it-works) · [Workflows](#-example-workflows)
 
 </div>
 
@@ -46,7 +46,19 @@ It is **not** a tutorial or handbook. It's an operational toolkit you point your
 git clone https://github.com/sokpichdev/mobile-engineering-agents.git
 ```
 
-Then just talk to your AI agent and reference the files:
+There are two ways to drive it — and the everyday one needs **zero file paths**.
+
+**Mode A — just describe the task** (the default). Tell your agent what you want in plain
+language. The entry file routes it to the right experts and self-reviews automatically:
+
+```text
+> Build an Account Summary screen that loads /accounts and stores the auth token securely.
+```
+
+Behind the scenes that gets routed iOS Architect → SwiftUI → Networking → Security → Testing →
+Code Reviewer — you didn't name a single file. See [How It Works](#-how-it-works).
+
+**Mode B — name a file to steer it** (optional, for precision or to override the routing):
 
 ```text
 > Read agents/ios_architect.md and act as that agent.
@@ -54,7 +66,7 @@ Then just talk to your AI agent and reference the files:
   that loads /accounts, then self-review against checklists/code_review.md.
 ```
 
-That's it. Editors like **Cursor**, **Windsurf**, **Claude Code**, and **Gemini CLI** auto-load the
+Either way, editors like **Cursor**, **Windsurf**, **Claude Code**, and **Gemini CLI** auto-load the
 matching config file (`.cursorrules`, `.windsurfrules`, `CLAUDE.md`, `GEMINI.md`) so the defaults
 apply with zero setup. Jump to [How to Use](#-how-to-use) for per-tool examples.
 
@@ -72,7 +84,7 @@ apply with zero setup. Jump to [How to Use](#-how-to-use) for per-tool examples.
 | 🏛️ [`architecture/`](architecture/) | Reference designs with Mermaid diagrams | 6 |
 | ✍️ [`prompts/`](prompts/) | Copy-paste prompts for common tasks | 10 |
 | 🧩 [`templates/`](templates/) | Scaffolding with boilerplate Swift | 8 |
-| 📲 [`examples/`](examples/) | Reference apps (banking, chat, ecommerce, social) | 4 |
+| 📲 [`examples/`](examples/) | Reference apps (banking, chat, CoffeeCraft, ecommerce, social) | 5 |
 
 Plus [`AGENTS.md`](AGENTS.md) (orchestration), [`GLOSSARY.md`](GLOSSARY.md) (shared terms), and a
 `README.md` index inside every directory.
@@ -115,8 +127,9 @@ off to each other (see [`AGENTS.md`](AGENTS.md)).
 
 ## 🚀 How to Use
 
-The pattern is the same everywhere: **load the relevant agent/skill/workflow file into context, then
-ask for the task.**
+The pattern is the same everywhere: **describe the task and let it route** (Mode A), or **load a
+specific agent/skill/workflow file to steer it** (Mode B). The per-tool examples below show the
+explicit Mode B form, but in day-to-day use a plain-language request is enough.
 
 <details>
 <summary><b>Claude Code</b></summary>
@@ -186,6 +199,31 @@ aider --read agents/ios_architect.md --read standards/architecture_standards.md
 ```
 
 </details>
+
+---
+
+## 🧭 How It Works
+
+You describe a **task**; the toolkit handles the assignment. The entry file classifies your
+request by its *primary deliverable* (architecture, UI, data, security, a test, a release), picks
+the **entry agent** that owns it, and hands off down a tier chain that ends in a checklist
+self-review. You don't pick the agent — the request does.
+
+A few examples of how plain-language requests route (full table in [`AGENTS.md`](AGENTS.md)):
+
+| You ask for… | Entry agent | Typical chain |
+|--------------|-------------|---------------|
+| A login / token flow | Security Expert | Architect → Security → Networking → Testing → Reviewer |
+| A new screen or UI change | SwiftUI Expert | SwiftUI → Accessibility → Testing → Reviewer |
+| A new/changed API integration | Backend Integrator | Backend → Networking → Security → Testing → Reviewer |
+| "It's slow / janky" | Performance Expert | Performance → specialist → Testing |
+
+**What loads automatically vs. on demand:** the entry files (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`,
+`.cursorrules`, `.windsurfrules`) are loaded by your tool at startup. Everything else — `agents/`,
+`skills/`, `standards/`, `workflows/`, `checklists/` — is pulled in by the agent itself *as the task
+needs it*. You don't have to name those files; naming one (Mode B) is just how you override or
+sharpen the routing. The multi-agent handoff for a real task looks like the
+[Example Workflows](#-example-workflows) diagram below.
 
 ---
 

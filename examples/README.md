@@ -7,6 +7,7 @@ diagram and key illustrative snippets.
 
 - [banking_app/](banking_app/) — security-first: OAuth2/PKCE, Keychain, TLS pinning, idempotent transfers
 - [chat_app/](chat_app/) — realtime + offline: WebSocket actor, optimistic sends, sync
+- [coffeecraft_app/](coffeecraft_app/) — real Firebase app: two roles, real-time orders, atomic wallet, proof-of-purchase reviews
 - [ecommerce_app/](ecommerce_app/) — catalog + cart + checkout: pagination, caching, idempotent payment
 - [social_media_app/](social_media_app/) — feed-centric: infinite scroll, media performance, realtime interactions
 

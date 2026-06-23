@@ -2,7 +2,7 @@
 
 # 📱 Mobile Engineering Agents
 
-## Turn your AI coding agent into a Senior/Staff mobile engineer
+## Turn your AI coding agent into a Senior mobile engineer
 
 A drop-in knowledge system that gives **Claude Code, Codex, Cursor, Windsurf, Gemini CLI, and Aider**
 the judgment of an experienced mobile team — architecture, security, testing, and standards — so the

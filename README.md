@@ -72,6 +72,63 @@ apply with zero setup. Jump to [How to Use](#-how-to-use) for per-tool examples.
 
 ---
 
+## 🗂️ Install into your own project
+
+Two steps and you're done. After cloning, the session start banner fires automatically on
+every Claude Code session — no further config needed.
+
+### 1. Clone the toolkit inside your project
+
+```bash
+cd ~/Desktop/Git/DevDesign
+git clone https://github.com/sokpichdev/mobile-engineering-agents.git .mobile-agents
+```
+
+This puts the whole toolkit in a hidden subfolder `.mobile-agents/` so it doesn't clutter
+your project files. Add it to `.gitignore` if you don't want it committed:
+
+```bash
+echo ".mobile-agents/" >> .gitignore
+```
+
+### 2. Create entry-point files that import it
+
+```bash
+echo "@.mobile-agents/CLAUDE.md" > CLAUDE.md
+```
+
+The `@` syntax tells Claude Code to import that file's full contents. For Cursor and Windsurf,
+do the same for their config files:
+
+```bash
+echo "@.mobile-agents/.cursorrules" > .cursorrules
+echo "@.mobile-agents/.windsurfrules" > .windsurfrules
+```
+
+That's it. Open your project and the banner appears automatically at the start of every session:
+
+```text
+Mobile Engineering Agents — loaded ✓
+14 agents · 31 skills · 12 workflows · 8 checklists
+
+  Mode A — Full workflow  (new feature · API · architecture)
+  Mode B — Quick fix      (bug · UI tweak · small change)
+
+Choose a mode, or just describe your task.
+```
+
+The banner is driven by a `SessionStart` hook in `.mobile-agents/.claude/settings.json` —
+it's included in the repo, so cloning is all you need.
+
+### 3. Keep the toolkit up to date
+
+```bash
+cd ~/Desktop/Git/DevDesign/.mobile-agents
+git pull
+```
+
+---
+
 ## 📦 What's Inside
 
 | Directory | What it gives your agent | Count |

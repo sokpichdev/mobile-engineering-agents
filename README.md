@@ -120,7 +120,31 @@ Choose a mode, or just describe your task.
 The banner is driven by a `SessionStart` hook in `.mobile-agents/.claude/settings.json` —
 it's included in the repo, so cloning is all you need.
 
-### 3. Keep the toolkit up to date
+> **Note:** The banner appears in Claude's first response. You can type anything to trigger
+> it, or just describe your task directly — Claude will show the banner and auto-detect
+> the mode (A or B) from your message at the same time.
+
+### 3. (Optional) Show the banner instantly — Claude Code only
+
+If you want the banner to appear in the terminal **before** you type anything, add this
+alias to your `~/.zshrc` (or `~/.bashrc`):
+
+```bash
+alias claude-mobile='printf "\n\033[1;36mMobile Engineering Agents — loaded ✓\033[0m\n14 agents · 31 skills · 12 workflows · 8 checklists\n\n  Mode A — Full workflow  (new feature · API · architecture)\n  Mode B — Quick fix      (bug · UI tweak · small change)\n\nChoose a mode, or just describe your task.\n\n" && claude'
+```
+
+Then reload your shell and use `claude-mobile` instead of `claude`:
+
+```bash
+source ~/.zshrc
+claude-mobile
+```
+
+This is purely optional — Cursor, Windsurf, and Gemini CLI don't support pre-session
+terminal output, so the default behavior (banner on first response) is consistent across
+all tools.
+
+### 4. Keep the toolkit up to date
 
 ```bash
 cd ~/Desktop/Git/DevDesign/.mobile-agents

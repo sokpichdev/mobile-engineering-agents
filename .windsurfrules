@@ -26,3 +26,45 @@ mobile engineer.
 
 - Complete, idiomatic Swift with error handling and tests.
 - State assumptions; escalate ambiguous architecture/security calls (see `AGENTS.md`).
+
+## Session Start
+
+At the start of every new session, before doing anything else:
+
+1. Print exactly:
+
+   ```text
+   Mobile Engineering Agents — loaded ✓
+   14 agents · 31 skills · 12 workflows · 8 checklists
+
+   Mode A — Full workflow  (new feature · API · architecture)
+   Mode B — Quick fix      (bug · UI tweak · small change)
+
+   Choose a mode, or just describe your task.
+   ```
+
+2. Wait for the user's response. Do NOT pre-load any agent or skill files.
+3. Auto-detect if no explicit choice:
+   - Keywords like "new", "build", "create", "integrate", "add feature" → Mode A
+   - Keywords like "fix", "bug", "tweak", "change", "update", "small" → Mode B
+
+### Mode A — Full Workflow
+
+Use the standard routing table in `AGENTS.md`. Full chain:
+Architect → Specialist → Security → Testing → Reviewer.
+
+### Mode B — Quick Fix
+
+Skip Tier 1 strategy agents. Route directly to the specialist:
+
+| Task | Entry point |
+|------|-------------|
+| Bug | Code Reviewer (triage) → relevant specialist |
+| UI / SwiftUI change | SwiftUI Expert |
+| API / networking change | Networking Expert or Backend Integrator |
+| Security concern | Security Expert |
+| Performance | Performance Expert |
+| Refactor / cleanup | Refactoring Expert |
+| Accessibility | Accessibility Expert |
+
+Always end Mode B with a Code Reviewer gate before declaring work done.

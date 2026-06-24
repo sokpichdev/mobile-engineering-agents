@@ -91,6 +91,7 @@ Route the request to the **entry agent** based on intent, then follow the chain.
 | Architecture question | System Design / iOS Architect | (advisory, may not produce code) |
 | Release / store submission | Release Manager | Release → DevOps |
 | CI/CD / automation | DevOps Expert | DevOps → Reviewer |
+| `!verify` | (workflow) | Run [`workflows/verify_setup.md`](workflows/verify_setup.md) |
 
 **Routing heuristic for an orchestrator:** classify the request by *primary deliverable*
 (architecture decision, UI, data, security, test, release). Pick the agent that owns that

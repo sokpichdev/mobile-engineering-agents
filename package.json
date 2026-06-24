@@ -16,7 +16,8 @@
     "lint:md:fix": "markdownlint-cli2 --fix \"**/*.md\"",
     "lint:links": "markdown-link-check --quiet --config .github/mlc_config.json $(find . -name '*.md' -not -path './node_modules/*')",
     "lint:commits": "commitlint --from origin/main --to HEAD --verbose",
-    "commitlint": "commitlint --edit"
+    "commitlint": "commitlint --edit",
+    "verify": "bash verify.sh"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",

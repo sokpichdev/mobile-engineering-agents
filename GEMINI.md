@@ -26,42 +26,15 @@ See `README.md` for the full overview and `AGENTS.md` for orchestration.
 
 ## Session Start
 
-At the start of every new session, before doing anything else:
+Open your first reply of every session with a single confirmation line, then get to work:
 
-1. Print exactly:
+```text
+Mobile Engineering Agents — loaded ✓
+```
 
-   ```text
-   Mobile Engineering Agents — loaded ✓
-   14 agents · 31 skills · 12 workflows · 8 checklists
-
-   Mode A — Full workflow  (new feature · API · architecture)
-   Mode B — Quick fix      (bug · UI tweak · small change)
-
-   Choose a mode, or just describe your task.
-   ```
-
-2. Wait for the user's response. Do NOT pre-load any agent or skill files.
-3. Auto-detect if no explicit choice:
-   - Keywords like "new", "build", "create", "integrate", "add feature" → Mode A
-   - Keywords like "fix", "bug", "tweak", "change", "update", "small" → Mode B
-
-### Mode A — Full Workflow
-
-Use the standard routing table in `AGENTS.md`. Full chain:
-Architect → Specialist → Security → Testing → Reviewer.
-
-### Mode B — Quick Fix
-
-Skip Tier 1 strategy agents. Route directly to the specialist:
-
-| Task | Entry point |
-|------|-------------|
-| Bug | Code Reviewer (triage) → relevant specialist |
-| UI / SwiftUI change | SwiftUI Expert |
-| API / networking change | Networking Expert or Backend Integrator |
-| Security concern | Security Expert |
-| Performance | Performance Expert |
-| Refactor / cleanup | Refactoring Expert |
-| Accessibility | Accessibility Expert |
-
-Always end Mode B with a Code Reviewer gate before declaring work done.
+That line is the "it's working" signal — if the user sees it, the toolkit loaded. After it,
+act on the request directly as a Senior/Staff mobile engineer: route per `AGENTS.md` and
+**scale process depth to the task** — a one-line fix goes straight to the owning specialist
+plus a Code Reviewer pass; substantial work runs the full Architect → Specialist → Security →
+Testing → Reviewer chain. Decide this yourself by reading the request; don't ask the user to
+pick a "mode". Honor any plain-language steer like "keep it quick" or "do a full review".

@@ -97,6 +97,16 @@ Route the request to the **entry agent** based on intent, then follow the chain.
 (architecture decision, UI, data, security, test, release). Pick the agent that owns that
 deliverable as the entry point; everything else becomes a downstream review step.
 
+**Scale process depth to scope.** Match the chain length to the task — don't run every gate
+for every change:
+
+- *Trivial / quick change* (bug, UI tweak, small edit) → go straight to the owning specialist,
+  then a single Code Reviewer pass. Skip the Tier 1 strategy agents.
+- *Substantial work* (new feature, new/changed API, architecture) → run the full chain above.
+
+The agent makes this call itself by reading the request — it is **not** a mode the user has to
+pick. A user can always override in plain language ("keep it quick" / "do a full review").
+
 ---
 
 ## Review Flow

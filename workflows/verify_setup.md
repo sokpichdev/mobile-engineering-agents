@@ -1,7 +1,7 @@
 # Workflow: Verify Toolkit Setup
 
 Confirms the toolkit is intact after cloning or pulling. Ensures all entry points, core directories,
-and expected file counts are present and ready for use in Mode A or Mode B.
+and expected file counts are present and ready for use.
 
 ## Objective
 
@@ -14,7 +14,7 @@ Confirm that the toolkit has been properly initialized and all critical files an
 ## Outputs
 
 - A pass/fail report with ✓/✗ per check.
-- A final health summary: either "Toolkit is healthy — ready for Mode A or Mode B" or
+- A final health summary: either "Toolkit is healthy — ready to use" or
   a list of missing/short items with recovery suggestions.
 
 ## Step-by-Step Process
@@ -45,7 +45,7 @@ Confirm that the toolkit has been properly initialized and all critical files an
 4. **Report each check** — display ✓ for pass, ✗ for fail.
 
 5. **Print health summary** — on all pass, print:
-   > Toolkit is healthy — ready for Mode A or Mode B
+   > Toolkit is healthy — ready to use
 
    On any fail, list missing/short items and suggest:
    - Run `git status` to check for missing files
@@ -72,7 +72,7 @@ Confirm that the toolkit has been properly initialized and all critical files an
 - Verify by reading directory listings and file counts — no shell commands required.
 - Be thorough: check all entry points and all core directories before declaring pass.
 - If any single check fails, the overall health is fail; list all failures and suggest recovery steps.
-- Do not proceed with Mode A/B guidance if the toolkit is not healthy.
+- Do not proceed with task guidance if the toolkit is not healthy.
 
 ## Acceptance Criteria
 

@@ -48,7 +48,7 @@ git clone https://github.com/sokpichdev/mobile-engineering-agents.git
 
 There are two ways to drive it — and the everyday one needs **zero file paths**.
 
-**Mode A — just describe the task** (the default). Tell your agent what you want in plain
+**Just describe the task** (the default). Tell your agent what you want in plain
 language. The entry file routes it to the right experts and self-reviews automatically:
 
 ```text
@@ -58,7 +58,7 @@ language. The entry file routes it to the right experts and self-reviews automat
 Behind the scenes that gets routed iOS Architect → SwiftUI → Networking → Security → Testing →
 Code Reviewer — you didn't name a single file. See [How It Works](#-how-it-works).
 
-**Mode B — name a file to steer it** (optional, for precision or to override the routing):
+**Name a file to steer it** (optional, for precision or to override the routing):
 
 ```text
 > Read agents/ios_architect.md and act as that agent.
@@ -74,8 +74,8 @@ apply with zero setup. Jump to [How to Use](#-how-to-use) for per-tool examples.
 
 ## 🗂️ Install into your own project
 
-Two steps and you're done. After cloning, the session start banner fires automatically on
-every Claude Code session — no further config needed.
+Two steps and you're done. After cloning, the agent confirms it loaded on its first reply,
+then just works.
 
 ### 1. Clone the toolkit inside your project
 
@@ -105,46 +105,24 @@ echo "@.mobile-agents/.cursorrules" > .cursorrules
 echo "@.mobile-agents/.windsurfrules" > .windsurfrules
 ```
 
-That's it. Open your project and the banner appears automatically at the start of every session:
+That's it. On its first reply of every session, the agent leads with a one-line confirmation:
 
 ```text
 Mobile Engineering Agents — loaded ✓
-14 agents · 31 skills · 12 workflows · 8 checklists
-
-  Mode A — Full workflow  (new feature · API · architecture)
-  Mode B — Quick fix      (bug · UI tweak · small change)
-
-Choose a mode, or just describe your task.
 ```
 
-The banner is driven by a `SessionStart` hook in `.mobile-agents/.claude/settings.json` —
-it's included in the repo, so cloning is all you need.
+If you see that line, the toolkit is wired in. From there just describe what you want — the
+agent routes to the right experts and scales its process to the size of the task on its own,
+no mode to pick.
 
-> **Note:** The banner appears in Claude's first response. You can type anything to trigger
-> it, or just describe your task directly — Claude will show the banner and auto-detect
-> the mode (A or B) from your message at the same time.
+### How to confirm it's working
 
-### 3. (Optional) Show the banner instantly — Claude Code only
+- **Quick check:** start a session and type anything — the `loaded ✓` line should head the reply.
+- **Deterministic check:** run `./verify.sh` (or `!verify` in an agent session, which runs
+  [`workflows/verify_setup.md`](workflows/verify_setup.md)) to validate every entry-point file
+  and the agent/skill/workflow/checklist counts.
 
-If you want the banner to appear in the terminal **before** you type anything, add this
-alias to your `~/.zshrc` (or `~/.bashrc`):
-
-```bash
-alias claude-mobile='printf "\n\033[1;36mMobile Engineering Agents — loaded ✓\033[0m\n14 agents · 31 skills · 12 workflows · 8 checklists\n\n  Mode A — Full workflow  (new feature · API · architecture)\n  Mode B — Quick fix      (bug · UI tweak · small change)\n\nChoose a mode, or just describe your task.\n\n" && claude'
-```
-
-Then reload your shell and use `claude-mobile` instead of `claude`:
-
-```bash
-source ~/.zshrc
-claude-mobile
-```
-
-This is purely optional — Cursor, Windsurf, and Gemini CLI don't support pre-session
-terminal output, so the default behavior (banner on first response) is consistent across
-all tools.
-
-### 4. Keep the toolkit up to date
+### 3. Keep the toolkit up to date
 
 ```bash
 cd ~/Desktop/Git/DevDesign/.mobile-agents
@@ -208,9 +186,9 @@ off to each other (see [`AGENTS.md`](AGENTS.md)).
 
 ## 🚀 How to Use
 
-The pattern is the same everywhere: **describe the task and let it route** (Mode A), or **load a
-specific agent/skill/workflow file to steer it** (Mode B). The per-tool examples below show the
-explicit Mode B form, but in day-to-day use a plain-language request is enough.
+The pattern is the same everywhere: **describe the task and let it route**, or **load a
+specific agent/skill/workflow file to steer it**. The per-tool examples below show the
+explicit file-steer form, but in day-to-day use a plain-language request is enough.
 
 <details>
 <summary><b>Claude Code</b></summary>
@@ -302,7 +280,7 @@ A few examples of how plain-language requests route (full table in [`AGENTS.md`]
 **What loads automatically vs. on demand:** the entry files (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`,
 `.cursorrules`, `.windsurfrules`) are loaded by your tool at startup. Everything else — `agents/`,
 `skills/`, `standards/`, `workflows/`, `checklists/` — is pulled in by the agent itself *as the task
-needs it*. You don't have to name those files; naming one (Mode B) is just how you override or
+needs it*. You don't have to name those files; naming one is just how you override or
 sharpen the routing. The multi-agent handoff for a real task looks like the
 [Example Workflows](#-example-workflows) diagram below.
 

@@ -47,3 +47,4 @@ else
   echo "Try: git status   (check for missing or untracked files)"
 fi
 echo ""
+exit $FAIL

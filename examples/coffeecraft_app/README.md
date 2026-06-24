@@ -6,7 +6,7 @@ dashboard. Built with **SwiftUI + Firebase**. It shows how the toolkit's princip
 protocol-injected data sources, real-time sync, atomic money mutations, role-based UI — apply on a
 **Firebase/Firestore** backend rather than a hand-rolled REST stack.
 
-> Real app by the repo author. Source: [github.com/cobra-PICH/CoffeeCraft](https://github.com/cobra-PICH/CoffeeCraft).
+> Real app by the repo author. Source: [github.com/sokpichdev/CoffeeCraft](https://github.com/sokpichdev/CoffeeCraft).
 
 ## What it demonstrates
 

@@ -1,4 +1,7 @@
 {
+  "companyAnnouncements": [
+    "Mobile Engineering Agents — loaded ✓\n14 agents · 31 skills · 12 workflows · 8 checklists\n\n  Mode A — Full workflow  (new feature · API · architecture)\n  Mode B — Quick fix      (bug · UI tweak · small change)\n\nChoose a mode, or just describe your task."
+  ],
   "hooks": {
     "SessionStart": [
       {

@@ -72,6 +72,67 @@ apply with zero setup. Jump to [How to Use](#-how-to-use) for per-tool examples.
 
 ---
 
+## 🗂️ Install into your own project
+
+The toolkit only activates when your AI tool opens it. If you want it to load automatically
+whenever you open **your own project** (e.g. `~/Desktop/Git/DevDesign`), follow these steps.
+
+### 1. Clone the toolkit inside your project
+
+```bash
+cd ~/Desktop/Git/DevDesign
+git clone https://github.com/sokpichdev/mobile-engineering-agents.git .mobile-agents
+```
+
+This puts the whole toolkit in a hidden subfolder `.mobile-agents/` so it doesn't clutter
+your project files. Add it to `.gitignore` if you don't want it committed:
+
+```bash
+echo ".mobile-agents/" >> .gitignore
+```
+
+### 2. Create a `CLAUDE.md` in your project that imports it
+
+```bash
+echo "@.mobile-agents/CLAUDE.md" > CLAUDE.md
+```
+
+The `@` syntax tells Claude Code to import that file's full contents. For Cursor and Windsurf,
+do the same for their config files:
+
+```bash
+echo "@.mobile-agents/.cursorrules" > .cursorrules
+echo "@.mobile-agents/.windsurfrules" > .windsurfrules
+```
+
+### 3. Open your project — the toolkit loads automatically
+
+```bash
+cd ~/Desktop/Git/DevDesign
+claude          # or open Cursor / Windsurf here
+```
+
+You'll see the session start banner immediately:
+
+```text
+Mobile Engineering Agents — loaded ✓
+14 agents · 31 skills · 12 workflows · 8 checklists
+
+Mode A — Full workflow  (new feature · API · architecture)
+Mode B — Quick fix      (bug · UI tweak · small change)
+
+Choose a mode, or just describe your task.
+```
+
+### 4. Keep the toolkit up to date
+
+```bash
+cd ~/Desktop/Git/DevDesign/.mobile-agents
+git pull
+```
+
+---
+
 ## 📦 What's Inside
 
 | Directory | What it gives your agent | Count |

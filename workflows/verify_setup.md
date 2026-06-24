@@ -50,7 +50,8 @@ Confirm that the toolkit has been properly initialized and all critical files an
    On any fail, list missing/short items and suggest:
    - Run `git status` to check for missing files
    - Re-clone if the issue persists:
-     ```
+
+     ```bash
      git clone https://github.com/sokpichdev/mobile-engineering-agents.git
      ```
 

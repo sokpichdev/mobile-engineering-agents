@@ -1,7 +1,8 @@
 {
   "ignorePatterns": [
     { "pattern": "^http://localhost" },
-    { "pattern": "^https://example.com" }
+    { "pattern": "^https://example.com" },
+    { "pattern": "^https://sokpichdev.github.io/mobile-engineering-agents" }
   ],
   "timeout": "20s",
   "retryOn429": true,

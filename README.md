@@ -16,8 +16,6 @@ code they generate is production-grade, not just plausible.
 
 [Docs Site](https://sokpichdev.github.io/mobile-engineering-agents/) · [Quick Start](#quick-start) · [What's Inside](#whats-inside) · [The Agent Team](#the-agent-team) · [How to Use](#how-to-use-the-agents) · [How It Works](#how-it-works) · [Workflows](#example-workflows)
 
-
-
 </div>
 
 ---

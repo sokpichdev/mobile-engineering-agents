@@ -11,9 +11,9 @@ code they generate is production-grade, not just plausible.
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![Platform](https://img.shields.io/badge/focus-iOS%20%7C%20Swift%20%7C%20SwiftUI-orange.svg)](#-whats-inside)
-[![AI-ready](https://img.shields.io/badge/AI-Claude%20%C2%B7%20Codex%20%C2%B7%20Cursor%20%C2%B7%20Windsurf%20%C2%B7%20Gemini%20%C2%B7%20Aider-blueviolet.svg)](#-how-to-use)
+[![AI-ready](https://img.shields.io/badge/AI-Claude%20%C2%B7%20Codex%20%C2%B7%20Cursor%20%C2%B7%20Windsurf%20%C2%B7%20Gemini%20%C2%B7%20Aider-blueviolet.svg)](#-how-to-use-the-agents)
 
-[Quick Start](#-quick-start) · [What's Inside](#-whats-inside) · [The Agent Team](#-the-agent-team) · [How to Use](#-how-to-use) · [How It Works](#-how-it-works) · [Workflows](#-example-workflows)
+[Quick Start](#-quick-start) · [What's Inside](#-whats-inside) · [The Agent Team](#-the-agent-team) · [How to Use](#-how-to-use-the-agents) · [How It Works](#-how-it-works) · [Workflows](#-example-workflows)
 
 </div>
 
@@ -41,93 +41,52 @@ It is **not** a tutorial or handbook. It's an operational toolkit you point your
 
 ## ⚡ Quick Start
 
-```bash
-# 1. Clone it next to (or inside) your project
-git clone https://github.com/sokpichdev/mobile-engineering-agents.git
-```
+Get running in three steps. The everyday workflow needs **zero file paths**.
 
-There are two ways to drive it — and the everyday one needs **zero file paths**.
-
-**Just describe the task** (the default). Tell your agent what you want in plain
-language. The entry file routes it to the right experts and self-reviews automatically:
-
-```text
-> Build an Account Summary screen that loads /accounts and stores the auth token securely.
-```
-
-Behind the scenes that gets routed iOS Architect → SwiftUI → Networking → Security → Testing →
-Code Reviewer — you didn't name a single file. See [How It Works](#-how-it-works).
-
-**Name a file to steer it** (optional, for precision or to override the routing):
-
-```text
-> Read agents/ios_architect.md and act as that agent.
-> Follow workflows/create_feature.md to build an Account Summary screen
-  that loads /accounts, then self-review against checklists/code_review.md.
-```
-
-Either way, editors like **Cursor**, **Windsurf**, **Claude Code**, and **Gemini CLI** auto-load the
-matching config file (`.cursorrules`, `.windsurfrules`, `CLAUDE.md`, `GEMINI.md`) so the defaults
-apply with zero setup. Jump to [How to Use](#-how-to-use) for per-tool examples.
-
----
-
-## 🗂️ Install into your own project
-
-Two steps and you're done. After cloning, the agent confirms it loaded on its first reply,
-then just works.
-
-### 1. Clone the toolkit inside your project
+### 1. Clone the toolkit into your project
 
 ```bash
-cd ~/Desktop/Git/DevDesign
+cd your-project
 git clone https://github.com/sokpichdev/mobile-engineering-agents.git .mobile-agents
+echo ".mobile-agents/" >> .gitignore   # optional: keep it out of your repo
 ```
 
-This puts the whole toolkit in a hidden subfolder `.mobile-agents/` so it doesn't clutter
-your project files. Add it to `.gitignore` if you don't want it committed:
+The hidden `.mobile-agents/` folder keeps the toolkit from cluttering your own files.
+
+### 2. Wire up the entry file for your tool
 
 ```bash
-echo ".mobile-agents/" >> .gitignore
+echo "@.mobile-agents/CLAUDE.md" > CLAUDE.md             # Claude Code
+echo "@.mobile-agents/.cursorrules" > .cursorrules       # Cursor
+echo "@.mobile-agents/.windsurfrules" > .windsurfrules   # Windsurf
 ```
 
-### 2. Create entry-point files that import it
+The `@` import pulls in the full toolkit. Codex (`AGENTS.md`) and Gemini CLI (`GEMINI.md`)
+auto-load their entry files straight from the cloned folder — no extra step.
 
-```bash
-echo "@.mobile-agents/CLAUDE.md" > CLAUDE.md
+### 3. Describe what you want
+
+```text
+> Build a Profile screen that loads /me and stores the auth token securely.
 ```
 
-The `@` syntax tells Claude Code to import that file's full contents. For Cursor and Windsurf,
-do the same for their config files:
-
-```bash
-echo "@.mobile-agents/.cursorrules" > .cursorrules
-echo "@.mobile-agents/.windsurfrules" > .windsurfrules
-```
-
-That's it. On its first reply of every session, the agent leads with a one-line confirmation:
+On its first reply of every session, the agent confirms it loaded:
 
 ```text
 Mobile Engineering Agents — loaded ✓
 ```
 
-If you see that line, the toolkit is wired in. From there just describe what you want — the
-agent routes to the right experts and scales its process to the size of the task on its own,
-no mode to pick.
+See that line and you're wired in — the agent now routes every plain-language request to the
+right experts and scales its process to the task. Head to
+[How to Use the Agents](#-how-to-use-the-agents) for the full usage model.
 
-### How to confirm it's working
+### Confirm & keep updated
 
-- **Quick check:** start a session and type anything — the `loaded ✓` line should head the reply.
-- **Deterministic check:** run `./verify.sh` (or `!verify` in an agent session, which runs
-  [`workflows/verify_setup.md`](workflows/verify_setup.md)) to validate every entry-point file
-  and the agent/skill/workflow/checklist counts.
-
-### 3. Keep the toolkit up to date
-
-```bash
-cd ~/Desktop/Git/DevDesign/.mobile-agents
-git pull
-```
+- **Quick check:** start a session — the `loaded ✓` line should head the reply.
+- **Deterministic check:** run `./verify.sh` (or `!verify` in-session, which runs
+  [`workflows/verify_setup.md`](workflows/verify_setup.md)) to validate every entry-point
+  file and the agent/skill/workflow/checklist counts.
+- **Update:** `cd .mobile-agents && git pull`.
 
 ---
 
@@ -184,11 +143,45 @@ off to each other (see [`AGENTS.md`](AGENTS.md)).
 
 ---
 
-## 🚀 How to Use
+## 🚀 How to Use the Agents
 
-The pattern is the same everywhere: **describe the task and let it route**, or **load a
-specific agent/skill/workflow file to steer it**. The per-tool examples below show the
-explicit file-steer form, but in day-to-day use a plain-language request is enough.
+There are only two ways to drive the toolkit, and you'll use the first one 95% of the time.
+
+### Way 1 — Just describe the task (the default)
+
+Talk to your agent in plain language. The entry file reads the request, routes it to the
+right experts, and self-reviews — **you never name a file**:
+
+```text
+> Build an Account Summary screen that loads /accounts and stores the token securely.
+```
+
+### Way 2 — Name a file to steer it (for precision or to override routing)
+
+Point the agent at a specific role, workflow, or checklist when you want exact control:
+
+```text
+> Read agents/security_expert.md and act as that agent, then audit Sources/Auth.
+```
+
+### What to type for common goals
+
+| Your goal | Just say… | Or steer with… |
+|-----------|-----------|----------------|
+| Build a feature | "Build a profile screen that loads `/me`" | `workflows/create_feature.md` |
+| Add / change an API | "Add the `/transactions` endpoint" | `workflows/integrate_rest_api.md` |
+| Add auth / login | "Add OAuth login with secure token storage" | `agents/security_expert.md` |
+| Review a diff | "Review my changes" | `checklists/code_review.md` |
+| Fix something slow | "The feed scroll is janky, fix it" | `agents/performance_expert.md` |
+| Write tests | "Write tests for `AuthRepository`" | `agents/testing_expert.md` |
+
+> 💡 You don't need to know which agent owns a task — that's the toolkit's job. Naming a
+> file (Way 2) is just how you override or sharpen the automatic routing.
+
+### Per-tool syntax
+
+The mental model above is identical in every tool; only the way you *reference a file*
+changes. The examples below show the file-steer form (Way 2).
 
 <details>
 <summary><b>Claude Code</b></summary>
@@ -261,28 +254,27 @@ aider --read agents/ios_architect.md --read standards/architecture_standards.md
 
 ---
 
-## 🧭 How It Works
+## ⚙️ How It Works
 
-You describe a **task**; the toolkit handles the assignment. The entry file classifies your
-request by its *primary deliverable* (architecture, UI, data, security, a test, a release), picks
-the **entry agent** that owns it, and hands off down a tier chain that ends in a checklist
-self-review. You don't pick the agent — the request does.
+You describe a task; the toolkit handles the assignment. Every request goes through the same
+four moves:
 
-A few examples of how plain-language requests route (full table in [`AGENTS.md`](AGENTS.md)):
+1. **Classify** — the entry file reads your request and identifies its *primary deliverable*
+   (architecture, UI, data, security, a test, a release).
+2. **Route** — it picks the one **entry agent** that owns that deliverable. You don't choose the
+   agent; the request does.
+3. **Chain** — that agent hands off down the tiers (Strategy → Implementation → Hardening →
+   Gate), scaling the chain to the task: a one-line fix gets the specialist plus a review, a new
+   feature runs the full sequence.
+4. **Self-review** — the chain ends against the matching file in [`checklists/`](checklists/).
 
-| You ask for… | Entry agent | Typical chain |
-|--------------|-------------|---------------|
-| A login / token flow | Security Expert | Architect → Security → Networking → Testing → Reviewer |
-| A new screen or UI change | SwiftUI Expert | SwiftUI → Accessibility → Testing → Reviewer |
-| A new/changed API integration | Backend Integrator | Backend → Networking → Security → Testing → Reviewer |
-| "It's slow / janky" | Performance Expert | Performance → specialist → Testing |
+**What loads when.** Only the entry files (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`,
+`.cursorrules`, `.windsurfrules`) load at startup. Everything else — `agents/`, `skills/`,
+`standards/`, `workflows/`, `checklists/` — is pulled in by the agent *as the task needs it*, so
+context stays lean. Naming a file yourself just overrides or sharpens this automatic routing.
 
-**What loads automatically vs. on demand:** the entry files (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`,
-`.cursorrules`, `.windsurfrules`) are loaded by your tool at startup. Everything else — `agents/`,
-`skills/`, `standards/`, `workflows/`, `checklists/` — is pulled in by the agent itself *as the task
-needs it*. You don't have to name those files; naming one is just how you override or
-sharpen the routing. The multi-agent handoff for a real task looks like the
-[Example Workflows](#-example-workflows) diagram below.
+> See [`AGENTS.md`](AGENTS.md) for the full routing table and the tier hierarchy, or the
+> [Example Workflows](#-example-workflows) diagram below for a real multi-agent handoff.
 
 ---
 

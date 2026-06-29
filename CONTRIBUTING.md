@@ -8,6 +8,34 @@ explains how to keep everything coherent.
 New here? Look for issues labeled **good first issue**, or open an issue describing what you'd
 like to add before starting larger work.
 
+## Ways to Contribute
+
+You do **not** need to be an iOS engineer — contributions of every kind keep this toolkit
+honest and useful:
+
+| If you're a… | You can help by… |
+|--------------|------------------|
+| 📱 iOS / Swift dev | Sharpening agents, skills, and standards; adding production-tested patterns |
+| 🤖 Android / Kotlin dev | Porting iOS skills to Kotlin/Compose (Android parity is on the roadmap) |
+| 🦋 Flutter / cross-platform dev | Adding Flutter, React Native, or KMP equivalents |
+| 🔌 Backend / API dev | Improving networking, API-contract, and integration workflows |
+| 🧪 Tester / QA | Strengthening the testing agent, checklists, and test-strategy skills |
+| 🛡️ Security reviewer | Auditing security standards and Keychain / crypto / pinning guidance |
+| 🧐 Critic / reviewer | Running agents on real tasks and reporting where the output falls short |
+| ✍️ Writer / typo hunter | Fixing typos, tightening wording, improving clarity and examples |
+| 🌐 Web dev | Building a docs site or landing page (open an issue to claim it first) |
+| 🎨 Designer | Improving diagrams, the logo / banner, and visual explanations |
+| 💡 Anyone | Filing ideas and bug reports, starring, and sharing the repo |
+
+**Not writing code?** Issues and feedback are first-class contributions. The most valuable
+reports describe a real task you gave an agent, the output you got, and what a senior engineer
+would have done instead — that directly drives what we fix.
+
+**Porting to another platform?** Mirror the existing file's structure and section template,
+keep it in the same directory (e.g. a Kotlin skill lives in `skills/`), label code blocks with
+the right language (`kotlin`, `dart`), and cross-link the iOS counterpart so the two stay in
+sync. Open an issue first for anything beyond a single file so we can agree on scope.
+
 ## How to Contribute
 
 1. **Fork** the repo and create a branch: `git checkout -b feat/<short-name>`.

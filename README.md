@@ -254,7 +254,7 @@ aider --read agents/ios_architect.md --read standards/architecture_standards.md
 
 ---
 
-## ⚙️ How It Works
+## 🔀 How It Works
 
 You describe a task; the toolkit handles the assignment. Every request goes through the same
 four moves:
@@ -325,11 +325,33 @@ Every agent defaults to the same engineering values, so output looks like one te
 
 ---
 
-## 🤝 Contributing
+## 🤝 Contributing — everyone is welcome
 
-Contributions of all sizes are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md). In short: keep
-files focused, follow the section templates, cross-link instead of duplicating, and use
-illustrative (not necessarily compilable) Swift that demonstrates the correct pattern.
+This is a **community toolkit**, and it gets sharper with every perspective. You do **not** need
+to be an iOS engineer to help. Here's where people of every background fit in:
+
+| If you're a… | You can help by… |
+|--------------|------------------|
+| 📱 **iOS / Swift dev** | Sharpening agents, skills, and standards; adding patterns you ship in production |
+| 🤖 **Android / Kotlin dev** | Porting iOS skills to Kotlin/Compose — Android parity is a top [roadmap](#-roadmap) goal |
+| 🦋 **Flutter / cross-platform dev** | Adding Flutter, React Native, or KMP equivalents of existing skills and agents |
+| 🔌 **Backend / API dev** | Improving the networking, API-contract, and integration workflows |
+| 🧪 **Tester / QA** | Strengthening the testing agent, the checklists, and test-strategy skills |
+| 🛡️ **Security reviewer** | Auditing the security standards and Keychain / crypto / pinning guidance |
+| 🧐 **Critic / reviewer** | Running the agents on real tasks and filing where the output falls short |
+| ✍️ **Writer / typo hunter** | Fixing typos, tightening wording, and improving clarity and examples |
+| 🌐 **Web dev** | Building a docs site or landing page for the toolkit (open an issue to claim it) |
+| 🎨 **Designer** | Improving the diagrams, the logo / banner, and visual explanations |
+| 💡 **Anyone** | Filing ideas and bug reports, ⭐ starring, and sharing the repo |
+
+Three ways in, smallest effort first — pick whichever fits:
+
+1. **Spot something off?** [Open an issue](https://github.com/sokpichdev/mobile-engineering-agents/issues/new/choose)
+   — a typo, a wrong recommendation, a missing topic, or just an idea.
+2. **Have feedback on agent output?** Tell us what you asked, what you got, and what a senior
+   engineer would have done instead — that's some of the most valuable input we receive.
+3. **Want to write code or docs?** See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, section
+   templates, and style, then send a PR.
 
 ### 🌱 Good First Issues
 
@@ -351,7 +373,7 @@ That's it — a maintainer will review and help you land it. 🚀
 
 ---
 
-## 🗺️ Roadmap
+## 🚩 Roadmap
 
 - [ ] Kotlin/Compose and Flutter parity for the iOS-first skills.
 - [ ] Machine-readable agent manifests (YAML front-matter) for automated routing.

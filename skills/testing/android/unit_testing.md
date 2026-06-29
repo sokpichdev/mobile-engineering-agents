@@ -138,4 +138,4 @@ class FakeAccountRepository(private val balanceCents: Int) : AccountRepository {
 - Related: [iOS Unit Testing](../ios/unit_testing.md),
   [`integration_testing.md`](../ios/integration_testing.md),
   [`../../../standards/testing_standards.md`](../../../standards/testing_standards.md),
-  [`../../../templates/unit_test_template/`](../../../templates/unit_test_template/).
+  [`../../../templates/ios/unit_test_template/`](../../../templates/ios/unit_test_template/).

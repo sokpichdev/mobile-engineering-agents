@@ -53,7 +53,8 @@ porting a skill? Add it in the sibling platform folder and cross-link its iOS co
 
 ## Testing
 
-- [unit_testing.md](testing/ios/unit_testing.md)
+- [unit_testing.md](testing/ios/unit_testing.md) (iOS)
+- [unit_testing.md](testing/android/unit_testing.md) (Android)
 - [integration_testing.md](testing/ios/integration_testing.md)
 - [ui_testing.md](testing/ios/ui_testing.md)
 

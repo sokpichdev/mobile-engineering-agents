@@ -21,7 +21,7 @@ reconnection, backpressure, and typed events exposed to the UI as an `AsyncStrea
    event types, and buffering/overflow policy
    (see [`architecture/websocket_architecture.md`](../architecture/websocket_architecture.md)).
 2. **Build the transport** as an `actor`: connect, authenticate, heartbeat, receive loop,
-   capped backoff reconnection (see [`skills/networking/websocket.md`](../skills/networking/websocket.md)).
+   capped backoff reconnection (see [`skills/networking/ios/websocket.md`](../skills/networking/ios/websocket.md)).
 3. **Decode events** into typed domain events; de-duplicate by id.
 4. **Apply backpressure** — bounded buffer with drop/coalesce policy.
 5. **Auth** ([Security Expert](../agents/security_expert.md)) — refresh token on each (re)connect;

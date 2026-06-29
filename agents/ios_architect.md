@@ -37,7 +37,7 @@ that implementation agents work within.
   [`standards/coding_standards.md`](../standards/coding_standards.md).
 - Public module APIs are minimal, documented, and stable; internals are `internal`/`private`.
 - DI via initializers; a composition root wires concrete types (see
-  [`skills/architecture/dependency_injection.md`](../skills/architecture/dependency_injection.md)).
+  [`skills/architecture/ios/dependency_injection.md`](../skills/architecture/ios/dependency_injection.md)).
 - Folder structure mirrors the layer/module map (see
   [`architecture/feature_module_architecture.md`](../architecture/feature_module_architecture.md)).
 
@@ -73,4 +73,4 @@ that implementation agents work within.
 
 - Workflow: [`workflows/create_feature.md`](../workflows/create_feature.md)
 - Architecture: [`architecture/clean_architecture.md`](../architecture/clean_architecture.md)
-- Skill: [`skills/architecture/clean_architecture.md`](../skills/architecture/clean_architecture.md)
+- Skill: [`skills/architecture/ios/clean_architecture.md`](../skills/architecture/ios/clean_architecture.md)

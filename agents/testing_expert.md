@@ -66,5 +66,5 @@ seams (DI, protocols).
 ## Related
 
 - Workflow: [`workflows/investigate_bug.md`](../workflows/investigate_bug.md)
-- Template: [`templates/unit_test_template/`](../templates/unit_test_template/)
+- Template: [`templates/ios/unit_test_template/`](../templates/ios/unit_test_template/)
 - Skills: [`skills/testing/`](../skills/testing/)

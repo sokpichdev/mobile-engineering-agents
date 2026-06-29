@@ -54,7 +54,7 @@ Feature/
 
 - Split into **Core** (networking, design system, models) + **Feature** modules.
 - Features depend on Core, not on each other; keep public API minimal.
-- See [`skills/architecture/modularization.md`](../skills/architecture/modularization.md).
+- See [`skills/architecture/ios/modularization.md`](../skills/architecture/ios/modularization.md).
 
 ## Decision Records
 

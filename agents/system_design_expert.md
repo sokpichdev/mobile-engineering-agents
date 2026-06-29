@@ -66,5 +66,5 @@ caching, consistency, and cross-cutting concerns. You set the high-level shape t
 ## Related
 
 - Architecture: [`architecture/offline_first_architecture.md`](../architecture/offline_first_architecture.md)
-- Skill: [`skills/storage/offline_sync.md`](../skills/storage/offline_sync.md)
+- Skill: [`skills/storage/ios/offline_sync.md`](../skills/storage/ios/offline_sync.md)
 - Agent: [`agents/ios_architect.md`](ios_architect.md)

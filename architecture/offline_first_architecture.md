@@ -1,7 +1,7 @@
 # Architecture: Offline-First Architecture
 
 Structure for apps where the **local store is the source of truth** and the network syncs in
-the background. See [`skills/storage/offline_sync.md`](../skills/storage/offline_sync.md) and the
+the background. See [`skills/storage/ios/offline_sync.md`](../skills/storage/ios/offline_sync.md) and the
 [System Design Expert](../agents/system_design_expert.md).
 
 ## Overview
@@ -86,6 +86,6 @@ The UI can surface `pending`/`failed` (e.g. a small "not synced" indicator).
 
 ## Related
 
-- [`skills/storage/caching.md`](../skills/storage/caching.md)
-- [`skills/storage/coredata.md`](../skills/storage/coredata.md)
+- [`skills/storage/ios/caching.md`](../skills/storage/ios/caching.md)
+- [`skills/storage/ios/coredata.md`](../skills/storage/ios/coredata.md)
 - [`agents/system_design_expert.md`](../agents/system_design_expert.md)

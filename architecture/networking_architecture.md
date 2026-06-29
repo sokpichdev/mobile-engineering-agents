@@ -1,7 +1,7 @@
 # Architecture: Networking Architecture
 
 The structure of the network/data layer. See
-[`skills/networking/rest_api.md`](../skills/networking/rest_api.md) and
+[`skills/networking/ios/rest_api.md`](../skills/networking/ios/rest_api.md) and
 [`standards/networking_standards.md`](../standards/networking_standards.md).
 
 ## Overview
@@ -87,5 +87,5 @@ final class LiveAPIClient: APIClient {
 ## Related
 
 - [authentication_architecture.md](authentication_architecture.md)
-- [`templates/networking_layer/`](../templates/networking_layer/)
+- [`templates/ios/networking_layer/`](../templates/ios/networking_layer/)
 - [`checklists/api_review.md`](../checklists/api_review.md)

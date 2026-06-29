@@ -66,6 +66,6 @@ state with the right tool for each scope.
 
 ## Related
 
-- Template: [`templates/swiftui_screen/`](../templates/swiftui_screen/)
+- Template: [`templates/ios/swiftui_screen/`](../templates/ios/swiftui_screen/)
 - Standard: [`standards/swiftui_standards.md`](../standards/swiftui_standards.md)
 - Agent: [`agents/accessibility_expert.md`](accessibility_expert.md)

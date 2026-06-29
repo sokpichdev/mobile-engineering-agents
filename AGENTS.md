@@ -26,6 +26,37 @@ should load it alongside `README.md` when coordinating multi-step work.
 
 ---
 
+## Platform Scoping
+
+This toolkit supports multiple platforms. **Detect the platform first, then load only that
+platform's subtree plus the shared layers** — this keeps context lean and prevents loading
+another platform's code.
+
+**Detect from the project:**
+
+| Signal | Platform |
+|--------|----------|
+| `Package.swift`, `*.xcodeproj`, `*.xcworkspace` | `ios` |
+| `build.gradle`, `settings.gradle`, `gradlew` | `android` |
+| `pubspec.yaml` | `flutter` |
+| `package.json` with a `react-native` dependency | `react_native` |
+
+When the signal is ambiguous or absent, **ask**; default to `ios`.
+
+**What is platform-scoped vs shared:**
+
+- **Platform-scoped** (load only the detected platform): `skills/<topic>/<platform>/…`,
+  `templates/<platform>/…`. Each platform-specific file also declares `platform:` in its
+  front-matter for precise filtering.
+- **Shared** (always in scope, never forked per platform): [`standards/`](standards/),
+  [`architecture/`](architecture/), [`checklists/`](checklists/), [`workflows/`](workflows/),
+  and the agents in [`agents/`](agents/) (selected by name, e.g. `swiftui_expert` for iOS).
+
+If the detected platform has no file for a needed topic yet (e.g. Android is mid-port), say so
+and fall back to the shared concept docs rather than silently using iOS code.
+
+---
+
 ## Agent Hierarchy
 
 Agents are organized into four tiers. Higher tiers set constraints that lower tiers must

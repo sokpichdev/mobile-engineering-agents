@@ -18,7 +18,7 @@ handling, DTO→entity mapping, and tests — behind a repository.
 
 1. **Design the operation** ([Backend Integrator](../agents/backend_integrator.md)) — select
    only needed fields; use fragments + variables (see
-   [`skills/networking/graphql.md`](../skills/networking/graphql.md)).
+   [`skills/networking/ios/graphql.md`](../skills/networking/ios/graphql.md)).
 2. **Define the response DTO** matching the selected shape; capture fixtures (incl. `errors`).
 3. **Handle partial failures** — check the `errors` array even on HTTP 200; map to a typed error.
 4. **Map DTO→entity**; unit-test mapping with fixtures.

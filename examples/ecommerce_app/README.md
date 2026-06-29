@@ -27,9 +27,9 @@ graph TD
 ## Catalog: Pagination + Caching
 
 - Cursor pagination with de-dup and prefetch threshold
-  ([`skills/networking/pagination.md`](../../skills/networking/pagination.md)).
+  ([`skills/networking/ios/pagination.md`](../../skills/networking/ios/pagination.md)).
 - `CachingProductRepository` (actor) serves cached pages, revalidates in the background
-  ([`skills/storage/caching.md`](../../skills/storage/caching.md)).
+  ([`skills/storage/ios/caching.md`](../../skills/storage/ios/caching.md)).
 
 ```swift
 func products(after cursor: String?) async throws -> Page<Product> {

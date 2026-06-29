@@ -1,7 +1,7 @@
 # Architecture: WebSocket / Realtime Architecture
 
 Structure for reliable realtime features. See
-[`skills/networking/websocket.md`](../skills/networking/websocket.md) and the
+[`skills/networking/ios/websocket.md`](../skills/networking/ios/websocket.md) and the
 [WebSocket Expert](../agents/websocket_expert.md).
 
 ## Overview
@@ -80,12 +80,12 @@ actor ChatSocket {
     let events: AsyncStream<ChatEvent>
     // connect() authenticates, starts heartbeat, runs receiveLoop(),
     // scheduleReconnect() uses min(pow(2, attempt), 30) + jitter.
-    // Full implementation in skills/networking/websocket.md
+    // Full implementation in skills/networking/ios/websocket.md
 }
 ```
 
 ## Related
 
 - [`checklists/websocket_review.md`](../checklists/websocket_review.md)
-- [`templates/websocket_layer/`](../templates/websocket_layer/)
+- [`templates/ios/websocket_layer/`](../templates/ios/websocket_layer/)
 - [`workflows/integrate_websocket.md`](../workflows/integrate_websocket.md)

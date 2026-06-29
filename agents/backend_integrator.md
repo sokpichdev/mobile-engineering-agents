@@ -63,6 +63,6 @@ contracts and the app's Domain layer.
 
 ## Related
 
-- Skill: [`skills/networking/pagination.md`](../skills/networking/pagination.md)
-- Template: [`templates/repository_layer/`](../templates/repository_layer/)
+- Skill: [`skills/networking/ios/pagination.md`](../skills/networking/ios/pagination.md)
+- Template: [`templates/ios/repository_layer/`](../templates/ios/repository_layer/)
 - Agent: [`agents/networking_expert.md`](networking_expert.md)

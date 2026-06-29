@@ -9,11 +9,14 @@ the judgment of an experienced mobile team — architecture, security, testing, 
 code they generate is production-grade, not just plausible.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Docs](https://img.shields.io/badge/docs-live-blue.svg)](https://sokpichdev.github.io/mobile-engineering-agents/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![Platform](https://img.shields.io/badge/focus-iOS%20%7C%20Swift%20%7C%20SwiftUI-orange.svg)](#whats-inside)
 [![AI-ready](https://img.shields.io/badge/AI-Claude%20%C2%B7%20Codex%20%C2%B7%20Cursor%20%C2%B7%20Windsurf%20%C2%B7%20Gemini%20%C2%B7%20Aider-blueviolet.svg)](#how-to-use-the-agents)
 
-[Quick Start](#quick-start) · [What's Inside](#whats-inside) · [The Agent Team](#the-agent-team) · [How to Use](#how-to-use-the-agents) · [How It Works](#how-it-works) · [Workflows](#example-workflows)
+[Docs Site](https://sokpichdev.github.io/mobile-engineering-agents/) · [Quick Start](#quick-start) · [What's Inside](#whats-inside) · [The Agent Team](#the-agent-team) · [How to Use](#how-to-use-the-agents) · [How It Works](#how-it-works) · [Workflows](#example-workflows)
+
+
 
 </div>
 

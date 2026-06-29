@@ -38,6 +38,11 @@ front-matter, label code blocks with the right language (`kotlin`, `dart`), and 
 iOS counterpart so the two stay in sync. Open an issue first for anything beyond a single file
 so we can agree on scope.
 
+> **Rebase on `main` before you start, and reference shared paths as they exist on `main`.**
+> The layout evolves (e.g. templates now live under `templates/ios/`, not `templates/`). A
+> branch cut before such a change can pass its own CI yet break links after merge, so rebase
+> first and run `npm run lint` (it link-checks) before opening the PR.
+
 ## Repository Layout (platforms)
 
 This toolkit is loaded as **context for an AI agent**, so the layout is optimized for an agent

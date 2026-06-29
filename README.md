@@ -10,16 +10,16 @@ code they generate is production-grade, not just plausible.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-[![Platform](https://img.shields.io/badge/focus-iOS%20%7C%20Swift%20%7C%20SwiftUI-orange.svg)](#-whats-inside)
-[![AI-ready](https://img.shields.io/badge/AI-Claude%20%C2%B7%20Codex%20%C2%B7%20Cursor%20%C2%B7%20Windsurf%20%C2%B7%20Gemini%20%C2%B7%20Aider-blueviolet.svg)](#-how-to-use-the-agents)
+[![Platform](https://img.shields.io/badge/focus-iOS%20%7C%20Swift%20%7C%20SwiftUI-orange.svg)](#whats-inside)
+[![AI-ready](https://img.shields.io/badge/AI-Claude%20%C2%B7%20Codex%20%C2%B7%20Cursor%20%C2%B7%20Windsurf%20%C2%B7%20Gemini%20%C2%B7%20Aider-blueviolet.svg)](#how-to-use-the-agents)
 
-[Quick Start](#-quick-start) · [What's Inside](#-whats-inside) · [The Agent Team](#-the-agent-team) · [How to Use](#-how-to-use-the-agents) · [How It Works](#-how-it-works) · [Workflows](#-example-workflows)
+[Quick Start](#quick-start) · [What's Inside](#whats-inside) · [The Agent Team](#the-agent-team) · [How to Use](#how-to-use-the-agents) · [How It Works](#how-it-works) · [Workflows](#example-workflows)
 
 </div>
 
 ---
 
-## 💡 Why this exists
+## Why this exists
 
 AI agents can write a lot of mobile code, fast. The bottleneck isn't typing — it's **engineering
 judgment**: picking the right architecture, getting concurrency and error handling right, securing
@@ -39,7 +39,7 @@ It is **not** a tutorial or handbook. It's an operational toolkit you point your
 
 ---
 
-## ⚡ Quick Start
+## Quick Start
 
 Get running in three steps. The everyday workflow needs **zero file paths**.
 
@@ -78,7 +78,7 @@ Mobile Engineering Agents — loaded ✓
 
 See that line and you're wired in — the agent now routes every plain-language request to the
 right experts and scales its process to the task. Head to
-[How to Use the Agents](#-how-to-use-the-agents) for the full usage model.
+[How to Use the Agents](#how-to-use-the-agents) for the full usage model.
 
 ### Confirm & keep updated
 
@@ -90,44 +90,44 @@ right experts and scales its process to the task. Head to
 
 ---
 
-## 📦 What's Inside
+## What's Inside
 
 | Directory | What it gives your agent | Count |
 |-----------|--------------------------|-------|
-| 🤖 [`agents/`](agents/) | Loadable expert roles (architect, security, testing…) | 14 |
-| 🧠 [`skills/`](skills/) | Deep, single-topic know-how (auth, websockets, caching…) | 31 |
-| 🔄 [`workflows/`](workflows/) | Step-by-step procedures (build a feature, integrate an API…) | 11 |
-| ✅ [`checklists/`](checklists/) | Objective, automatable review gates | 8 |
-| 📐 [`standards/`](standards/) | Non-negotiable rules (coding, security, testing, git) | 7 |
-| 🏛️ [`architecture/`](architecture/) | Reference designs with Mermaid diagrams | 6 |
-| ✍️ [`prompts/`](prompts/) | Copy-paste prompts for common tasks | 10 |
-| 🧩 [`templates/`](templates/) | Scaffolding with boilerplate Swift | 8 |
-| 📲 [`examples/`](examples/) | Reference apps (banking, chat, CoffeeCraft, ecommerce, social) | 5 |
+| [`agents/`](agents/) | Loadable expert roles (architect, security, testing…) | 14 |
+| [`skills/`](skills/) | Deep, single-topic know-how (auth, websockets, caching…) | 31 |
+| [`workflows/`](workflows/) | Step-by-step procedures (build a feature, integrate an API…) | 11 |
+| [`checklists/`](checklists/) | Objective, automatable review gates | 8 |
+| [`standards/`](standards/) | Non-negotiable rules (coding, security, testing, git) | 7 |
+| [`architecture/`](architecture/) | Reference designs with Mermaid diagrams | 6 |
+| [`prompts/`](prompts/) | Copy-paste prompts for common tasks | 10 |
+| [`templates/`](templates/) | Scaffolding with boilerplate Swift | 8 |
+| [`examples/`](examples/) | Reference apps (banking, chat, CoffeeCraft, ecommerce, social) | 5 |
 
 Plus [`AGENTS.md`](AGENTS.md) (orchestration), [`GLOSSARY.md`](GLOSSARY.md) (shared terms), and a
 `README.md` index inside every directory.
 
 ---
 
-## 🤖 The Agent Team
+## The Agent Team
 
 Each agent is a self-contained role: **purpose, responsibilities, hard rules, coding standards,
 review checklist, common mistakes, and example tasks**. They're organized into four tiers that hand
 off to each other (see [`AGENTS.md`](AGENTS.md)).
 
-### 🧭 Strategy
+### Strategy
 
 - [System Design Expert](agents/system_design_expert.md) — large-scale client/server & cross-cutting design
 - [iOS Architect](agents/ios_architect.md) — module boundaries, layering, tech decisions
 
-### 🛠️ Implementation
+### Implementation
 
 - [SwiftUI Expert](agents/swiftui_expert.md) — view composition, state, navigation
 - [Networking Expert](agents/networking_expert.md) — REST/GraphQL clients, retries, error mapping
 - [WebSocket Expert](agents/websocket_expert.md) — realtime transport, reconnection, backpressure
 - [Backend Integrator](agents/backend_integrator.md) — API contracts, DTO mapping, pagination
 
-### 🛡️ Quality & Hardening
+### Quality & Hardening
 
 - [Security Expert](agents/security_expert.md) — Keychain, pinning, crypto, OWASP MASVS
 - [Testing Expert](agents/testing_expert.md) — unit/integration/UI strategy
@@ -135,7 +135,7 @@ off to each other (see [`AGENTS.md`](AGENTS.md)).
 - [Accessibility Expert](agents/accessibility_expert.md) — VoiceOver, Dynamic Type, contrast
 - [Refactoring Expert](agents/refactoring_expert.md) — safe, incremental improvement
 
-### 🚦 Gate & Delivery
+### Gate & Delivery
 
 - [Code Reviewer](agents/code_reviewer.md) — correctness, style, risk gating
 - [Release Manager](agents/release_manager.md) — versioning, signing, store submission
@@ -143,7 +143,7 @@ off to each other (see [`AGENTS.md`](AGENTS.md)).
 
 ---
 
-## 🚀 How to Use the Agents
+## How to Use the Agents
 
 There are only two ways to drive the toolkit, and you'll use the first one 95% of the time.
 
@@ -175,7 +175,7 @@ Point the agent at a specific role, workflow, or checklist when you want exact c
 | Fix something slow | "The feed scroll is janky, fix it" | `agents/performance_expert.md` |
 | Write tests | "Write tests for `AuthRepository`" | `agents/testing_expert.md` |
 
-> 💡 You don't need to know which agent owns a task — that's the toolkit's job. Naming a
+> You don't need to know which agent owns a task — that's the toolkit's job. Naming a
 > file (Way 2) is just how you override or sharpen the automatic routing.
 
 ### Per-tool syntax
@@ -254,7 +254,7 @@ aider --read agents/ios_architect.md --read standards/architecture_standards.md
 
 ---
 
-## 🔀 How It Works
+## How It Works
 
 You describe a task; the toolkit handles the assignment. Every request goes through the same
 four moves:
@@ -278,23 +278,23 @@ React Native) and loads only that platform's subtree — `skills/<topic>/<platfo
 `templates/<platform>/` — plus the shared, platform-neutral layers (`standards/`,
 `architecture/`, `checklists/`, `workflows/`). It never pulls another platform's code into
 context. iOS is the most complete today; see
-[Contributing](#-contributing--everyone-is-welcome) to help port the rest.
+[Contributing](#contributing--everyone-is-welcome) to help port the rest.
 
 > See [`AGENTS.md`](AGENTS.md) for the full routing table and the tier hierarchy, or the
-> [Example Workflows](#-example-workflows) diagram below for a real multi-agent handoff.
+> [Example Workflows](#example-workflows) diagram below for a real multi-agent handoff.
 
 ---
 
-## 🔄 Example Workflows
+## Example Workflows
 
 Ready-made, end-to-end procedures — each with inputs, steps, validation, and acceptance criteria:
 
-- 🏗️ **Build a feature end-to-end** — [`workflows/create_feature.md`](workflows/create_feature.md)
-- 🌐 **Integrate a REST API** — [`workflows/integrate_rest_api.md`](workflows/integrate_rest_api.md)
-- ⚡ **Add realtime with WebSockets** — [`workflows/integrate_websocket.md`](workflows/integrate_websocket.md)
-- 🔐 **Implement authentication** — [`workflows/implement_authentication.md`](workflows/implement_authentication.md)
-- 🛡️ **Run a security audit** — [`workflows/perform_security_audit.md`](workflows/perform_security_audit.md)
-- 🚢 **Ship a release** — [`workflows/release_application.md`](workflows/release_application.md)
+- **Build a feature end-to-end** — [`workflows/create_feature.md`](workflows/create_feature.md)
+- **Integrate a REST API** — [`workflows/integrate_rest_api.md`](workflows/integrate_rest_api.md)
+- **Add realtime with WebSockets** — [`workflows/integrate_websocket.md`](workflows/integrate_websocket.md)
+- **Implement authentication** — [`workflows/implement_authentication.md`](workflows/implement_authentication.md)
+- **Run a security audit** — [`workflows/perform_security_audit.md`](workflows/perform_security_audit.md)
+- **Ship a release** — [`workflows/release_application.md`](workflows/release_application.md)
 
 Behind the scenes, a non-trivial task flows through multiple agents:
 
@@ -311,7 +311,7 @@ flowchart LR
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 
 1. **Load the smallest sufficient context** — the specific agent/skill/workflow, not the whole repo.
 2. **Chain agents** for real work: architect → implementer → reviewer.
@@ -321,7 +321,7 @@ flowchart LR
 
 ---
 
-## 🧭 Design Principles
+## Design Principles
 
 Every agent defaults to the same engineering values, so output looks like one team wrote it:
 
@@ -332,24 +332,24 @@ Every agent defaults to the same engineering values, so output looks like one te
 
 ---
 
-## 🤝 Contributing — everyone is welcome
+## Contributing — everyone is welcome
 
 This is a **community toolkit**, and it gets sharper with every perspective. You do **not** need
 to be an iOS engineer to help. Here's where people of every background fit in:
 
 | If you're a… | You can help by… |
 |--------------|------------------|
-| 📱 **iOS / Swift dev** | Sharpening agents, skills, and standards; adding patterns you ship in production |
-| 🤖 **Android / Kotlin dev** | Porting iOS skills to Kotlin/Compose — Android parity is a top [roadmap](#-roadmap) goal |
-| 🦋 **Flutter / cross-platform dev** | Adding Flutter, React Native, or KMP equivalents of existing skills and agents |
-| 🔌 **Backend / API dev** | Improving the networking, API-contract, and integration workflows |
-| 🧪 **Tester / QA** | Strengthening the testing agent, the checklists, and test-strategy skills |
-| 🛡️ **Security reviewer** | Auditing the security standards and Keychain / crypto / pinning guidance |
-| 🧐 **Critic / reviewer** | Running the agents on real tasks and filing where the output falls short |
-| ✍️ **Writer / typo hunter** | Fixing typos, tightening wording, and improving clarity and examples |
-| 🌐 **Web dev** | Building a docs site or landing page for the toolkit (open an issue to claim it) |
-| 🎨 **Designer** | Improving the diagrams, the logo / banner, and visual explanations |
-| 💡 **Anyone** | Filing ideas and bug reports, ⭐ starring, and sharing the repo |
+| **iOS / Swift dev** | Sharpening agents, skills, and standards; adding patterns you ship in production |
+| **Android / Kotlin dev** | Porting iOS skills to Kotlin/Compose — Android parity is a top [roadmap](#roadmap) goal |
+| **Flutter / cross-platform dev** | Adding Flutter, React Native, or KMP equivalents of existing skills and agents |
+| **Backend / API dev** | Improving the networking, API-contract, and integration workflows |
+| **Tester / QA** | Strengthening the testing agent, the checklists, and test-strategy skills |
+| **Security reviewer** | Auditing the security standards and Keychain / crypto / pinning guidance |
+| **Critic / reviewer** | Running the agents on real tasks and filing where the output falls short |
+| **Writer / typo hunter** | Fixing typos, tightening wording, and improving clarity and examples |
+| **Web dev** | Building a docs site or landing page for the toolkit (open an issue to claim it) |
+| **Designer** | Improving the diagrams, the logo / banner, and visual explanations |
+| **Anyone** | Filing ideas and bug reports, starring, and sharing the repo |
 
 Three ways in, smallest effort first — pick whichever fits:
 
@@ -360,12 +360,12 @@ Three ways in, smallest effort first — pick whichever fits:
 3. **Want to write code or docs?** See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, section
    templates, and style, then send a PR.
 
-### 🌱 Good First Issues
+### Good First Issues
 
 New to the project? These are scoped, beginner-friendly, and have clear acceptance criteria —
 the perfect place to start:
 
-👉 **[Browse `good first issue`s](https://github.com/sokpichdev/mobile-engineering-agents/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)**
+**[Browse `good first issue`s](https://github.com/sokpichdev/mobile-engineering-agents/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)**
 
 Your first contribution in four steps:
 
@@ -376,11 +376,11 @@ Your first contribution in four steps:
 4. **Open a PR** with a [Conventional Commit](CONTRIBUTING.md#commit-convention) title
    (e.g. `feat(skills): add SwiftData storage skill`).
 
-That's it — a maintainer will review and help you land it. 🚀
+That's it — a maintainer will review and help you land it.
 
 ---
 
-## 🚩 Roadmap
+## Roadmap
 
 - [ ] Kotlin/Compose and Flutter parity for the iOS-first skills.
 - [ ] Machine-readable agent manifests (YAML front-matter) for automated routing.
@@ -390,7 +390,7 @@ That's it — a maintainer will review and help you land it. 🚀
 
 ---
 
-## 📄 License
+## License
 
 [MIT](LICENSE) © Sok Pich — free to use, fork, and adapt.
 

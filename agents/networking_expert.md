@@ -65,6 +65,6 @@ protocols.
 
 ## Related
 
-- Skill: [`skills/networking/rest_api.md`](../skills/networking/rest_api.md)
-- Template: [`templates/networking_layer/`](../templates/networking_layer/)
+- Skill: [`skills/networking/ios/rest_api.md`](../skills/networking/ios/rest_api.md)
+- Template: [`templates/ios/networking_layer/`](../templates/ios/networking_layer/)
 - Agent: [`agents/security_expert.md`](security_expert.md)

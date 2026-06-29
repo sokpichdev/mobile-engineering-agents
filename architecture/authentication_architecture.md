@@ -1,7 +1,7 @@
 # Architecture: Authentication Architecture
 
 Structure for secure auth: OAuth2 + PKCE, Keychain storage, single-flight refresh, and
-authorized networking. See [`skills/security/oauth2.md`](../skills/security/oauth2.md) and
+authorized networking. See [`skills/security/ios/oauth2.md`](../skills/security/ios/oauth2.md) and
 [`workflows/implement_authentication.md`](../workflows/implement_authentication.md).
 
 ## Overview
@@ -82,5 +82,5 @@ sequenceDiagram
 ## Related
 
 - [networking_architecture.md](networking_architecture.md)
-- [`templates/authentication_layer/`](../templates/authentication_layer/)
+- [`templates/ios/authentication_layer/`](../templates/ios/authentication_layer/)
 - [`checklists/security_review.md`](../checklists/security_review.md)

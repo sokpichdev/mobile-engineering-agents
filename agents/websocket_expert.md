@@ -67,6 +67,6 @@ domain events.
 
 ## Related
 
-- Skill: [`skills/networking/websocket.md`](../skills/networking/websocket.md)
+- Skill: [`skills/networking/ios/websocket.md`](../skills/networking/ios/websocket.md)
 - Architecture: [`architecture/websocket_architecture.md`](../architecture/websocket_architecture.md)
-- Template: [`templates/websocket_layer/`](../templates/websocket_layer/)
+- Template: [`templates/ios/websocket_layer/`](../templates/ios/websocket_layer/)

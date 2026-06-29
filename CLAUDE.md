@@ -11,13 +11,18 @@ standards here.
 
 ## How to operate
 
-1. **Classify the request** and pick an entry agent using the routing table in
+1. **Detect the platform** of the project before loading content, then scope to it:
+   `Package.swift` / `*.xcodeproj` → **ios**; `build.gradle*` / `settings.gradle*` → **android**;
+   `pubspec.yaml` → **flutter**; `package.json` with a `react-native` dependency →
+   **react_native**. When unclear, ask. Default to **ios**.
+2. **Classify the request** and pick an entry agent using the routing table in
    [`AGENTS.md`](AGENTS.md).
-2. **Load the relevant role** from [`agents/`](agents/) and act as that agent.
-3. **Pull in supporting skills/standards** as needed from [`skills/`](skills/) and
-   [`standards/`](standards/).
-4. **Follow a workflow** from [`workflows/`](workflows/) for multi-step tasks.
-5. **Self-review** against the matching file in [`checklists/`](checklists/) before
+3. **Load the relevant role** from [`agents/`](agents/) and act as that agent.
+4. **Pull in supporting skills/standards** as needed — load only the detected platform's
+   subtree (`skills/<topic>/<platform>/`) plus the flat shared dirs ([`standards/`](standards/),
+   [`architecture/`](architecture/)). Never load another platform's skills.
+5. **Follow a workflow** from [`workflows/`](workflows/) for multi-step tasks.
+6. **Self-review** against the matching file in [`checklists/`](checklists/) before
    declaring work done.
 
 ## Non-negotiable defaults

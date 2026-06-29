@@ -1,7 +1,7 @@
 # Architecture: Feature Module Architecture
 
 How features are structured as self-contained, layered modules. See
-[`skills/architecture/modularization.md`](../skills/architecture/modularization.md).
+[`skills/architecture/ios/modularization.md`](../skills/architecture/ios/modularization.md).
 
 ## Overview
 
@@ -87,4 +87,4 @@ the App target resolves it and presents the target feature. Features stay decoup
 ## Related
 
 - [clean_architecture.md](clean_architecture.md)
-- [`templates/feature_module/`](../templates/feature_module/)
+- [`templates/ios/feature_module/`](../templates/ios/feature_module/)

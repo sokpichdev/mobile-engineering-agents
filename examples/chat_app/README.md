@@ -28,7 +28,7 @@ graph TD
 ## Realtime
 
 - `ChatSocket` actor: connect → authenticate → heartbeat → receive loop → capped backoff
-  reconnection; de-dup by message id ([`skills/networking/websocket.md`](../../skills/networking/websocket.md)).
+  reconnection; de-dup by message id ([`skills/networking/ios/websocket.md`](../../skills/networking/ios/websocket.md)).
 - UI reflects `connecting/connected/reconnecting` state in the chat header.
 
 ```swift
@@ -45,7 +45,7 @@ for await event in chatSocket.events {     // typed domain events
 - The message list reads from the **local store**, not the socket directly.
 - Sending inserts a `pending` message immediately; the outbox syncs via REST/socket; status
   moves `pending → sent → delivered` (or `failed` with retry).
-- See [`skills/storage/offline_sync.md`](../../skills/storage/offline_sync.md) and
+- See [`skills/storage/ios/offline_sync.md`](../../skills/storage/ios/offline_sync.md) and
   [`architecture/offline_first_architecture.md`](../../architecture/offline_first_architecture.md).
 
 ## Authentication

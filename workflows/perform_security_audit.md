@@ -20,9 +20,9 @@ platform usage, mapped to OWASP MASVS with severities.
 
 1. **Scope + threat model** — what data is sensitive, who the adversary is, target MASVS level.
 2. **Storage** — scan for secrets/tokens/PII in `UserDefaults`, plists, files, logs; verify
-   Keychain usage (see [`skills/security/keychain.md`](../skills/security/keychain.md)).
+   Keychain usage (see [`skills/security/ios/keychain.md`](../skills/security/ios/keychain.md)).
 3. **Transport** — TLS enforced; pinning for sensitive hosts; no arbitrary-loads exceptions
-   (see [`skills/security/ssl_pinning.md`](../skills/security/ssl_pinning.md)).
+   (see [`skills/security/ios/ssl_pinning.md`](../skills/security/ios/ssl_pinning.md)).
 4. **Auth + session** — OAuth2/PKCE, JWT handling, refresh races, logout clears credentials.
 5. **Crypto** — CryptoKit AES-GCM, no homegrown crypto, secure randomness, key storage.
 6. **Platform** — pasteboard, screenshots/backups of sensitive data, deep-link auth, jailbreak

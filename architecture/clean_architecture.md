@@ -1,7 +1,7 @@
 # Architecture: Clean Architecture
 
 How the toolkit applies Clean Architecture to iOS. The companion skill is
-[`skills/architecture/clean_architecture.md`](../skills/architecture/clean_architecture.md);
+[`skills/architecture/ios/clean_architecture.md`](../skills/architecture/ios/clean_architecture.md);
 the rules are in [`standards/architecture_standards.md`](../standards/architecture_standards.md).
 
 ## Overview
@@ -92,7 +92,7 @@ final class RemoteAccountRepository: AccountRepository {
     }
 }
 
-// Presentation (see skills/architecture/mvvm.md for the full ViewModel)
+// Presentation (see skills/architecture/ios/mvvm.md for the full ViewModel)
 ```
 
 ## Composition Root
@@ -115,5 +115,5 @@ For a tiny app, collapsing use cases into the repository is acceptable — but k
 ## Related
 
 - [feature_module_architecture.md](feature_module_architecture.md)
-- [`skills/architecture/repository_pattern.md`](../skills/architecture/repository_pattern.md)
-- [`templates/clean_architecture_feature/`](../templates/clean_architecture_feature/)
+- [`skills/architecture/ios/repository_pattern.md`](../skills/architecture/ios/repository_pattern.md)
+- [`templates/ios/clean_architecture_feature/`](../templates/ios/clean_architecture_feature/)

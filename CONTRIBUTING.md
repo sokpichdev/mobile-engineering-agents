@@ -31,10 +31,47 @@ honest and useful:
 reports describe a real task you gave an agent, the output you got, and what a senior engineer
 would have done instead — that directly drives what we fix.
 
-**Porting to another platform?** Mirror the existing file's structure and section template,
-keep it in the same directory (e.g. a Kotlin skill lives in `skills/`), label code blocks with
-the right language (`kotlin`, `dart`), and cross-link the iOS counterpart so the two stay in
-sync. Open an issue first for anything beyond a single file so we can agree on scope.
+**Porting to another platform?** Drop your file in the matching platform subfolder (see
+[Repository layout](#repository-layout-platforms)) — e.g. a Kotlin secure-storage skill goes in
+`skills/security/android/`. Mirror the iOS file's section template, add the `platform:`
+front-matter, label code blocks with the right language (`kotlin`, `dart`), and cross-link the
+iOS counterpart so the two stay in sync. Open an issue first for anything beyond a single file
+so we can agree on scope.
+
+## Repository Layout (platforms)
+
+This toolkit is loaded as **context for an AI agent**, so the layout is optimized for an agent
+that works on **one platform at a time**: platform lives in the *path* (a cheap signal the agent
+reads without opening files), and genuinely shared material stays single-source so the agent can
+never load two conflicting copies.
+
+- **Platform-specific directories** carry per-platform subfolders. Code and APIs differ by
+  platform, so each topic splits into `ios/`, `android/`, `flutter/`, `react_native/`:
+
+  ```text
+  skills/security/ios/keychain.md
+  skills/security/android/keystore.md
+  templates/ios/networking_layer/
+  ```
+
+- **Shared directories stay flat** — they describe concepts, rules, and procedures that hold
+  across platforms: `standards/`, `architecture/`, `checklists/`, `workflows/`. Don't fork these
+  per platform; if a rule is platform-specific, add a clearly labeled subsection instead.
+
+- **Agents stay flat** and are distinguished by name (e.g. `swiftui_expert.md` vs a future
+  `compose_expert.md`); they are selected individually, not globbed in bulk.
+
+- **Every platform-specific file declares its platform in front-matter** so an agent (or tooling)
+  can filter precisely:
+
+  ```yaml
+  ---
+  platform: ios        # ios | android | flutter | react_native
+  ---
+  ```
+
+  `_shared/` is reserved for a platform-neutral file inside an otherwise platform-split
+  directory; such a file uses `platform: shared`.
 
 ## How to Contribute
 
@@ -68,8 +105,9 @@ saves a round-trip.
    two things, split it.
 3. **Cross-link, don't duplicate.** Reference other files with relative links instead of
    repeating content. Duplication drifts out of sync.
-4. **Illustrative code.** Swift/SwiftUI snippets demonstrate the correct pattern; they do
-   not need to compile as a whole project. Keep them idiomatic and current.
+4. **Illustrative code.** Snippets (Swift/SwiftUI, Kotlin/Compose, Dart, …) demonstrate the
+   correct pattern; they need not compile as a whole project. Keep them idiomatic and current,
+   and match the file's `platform:`.
 5. **Standards are law.** New content must conform to [`standards/`](standards/).
 
 ## File Section Templates

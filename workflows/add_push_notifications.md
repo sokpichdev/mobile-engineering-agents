@@ -20,12 +20,12 @@ upload, foreground handling, and deep-link tap routing.
    capability, APNs auth key (.p8); for FCM, configure the APNs key in Firebase.
 2. **Request permission in context** — explain value first, then
    `UNUserNotificationCenter.requestAuthorization`
-   (see [`skills/notifications/apns.md`](../skills/notifications/apns.md) or
-   [`fcm.md`](../skills/notifications/fcm.md)).
+   (see [`skills/notifications/ios/apns.md`](../skills/notifications/ios/apns.md) or
+   [`fcm.md`](../skills/notifications/ios/fcm.md)).
 3. **Upload the token** — device token (APNs) or registration token (FCM); handle refresh.
 4. **Handle presentation** — `willPresent` for foreground banners.
 5. **Route taps** — parse `userInfo` deep link through the
-   [router](../skills/notifications/deep_links.md); handle cold start.
+   [router](../skills/notifications/ios/deep_links.md); handle cold start.
 6. **Security** ([Security Expert](../agents/security_expert.md)) — ensure no PII/secrets in
    payloads; don't authorize off payload contents.
 7. **Test** registration, foreground, and tap routing (use a stub router); document silent-push

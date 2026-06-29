@@ -91,7 +91,7 @@ graph TD
 
 The order list reads from the local listener state, so status moves
 `Pending → Preparing → Ready → Completed` update live without a manual refresh — the same
-local-store-as-source-of-truth idea as [`skills/storage/offline_sync.md`](../../skills/storage/offline_sync.md).
+local-store-as-source-of-truth idea as [`skills/storage/ios/offline_sync.md`](../../skills/storage/ios/offline_sync.md).
 
 ## Wallet: Atomic Money Mutations
 
@@ -140,7 +140,7 @@ try await db.runTransaction { txn, _ in
 - **Integration:** Firestore encode/decode for `CartItem`/`Order` snapshots; pagination cursor
   behavior with a stubbed data source.
 - **UI:** place-order happy path and role-filtered tab visibility on a stubbed backend.
-- See [`skills/testing/unit_testing.md`](../../skills/testing/unit_testing.md).
+- See [`skills/testing/ios/unit_testing.md`](../../skills/testing/ios/unit_testing.md).
 
 ## Scalability Considerations
 

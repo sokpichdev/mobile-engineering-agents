@@ -46,14 +46,14 @@ struct TransferUseCase {
 ## Authentication
 
 - Authorization Code + PKCE via `ASWebAuthenticationSession`
-  ([`skills/security/oauth2.md`](../../skills/security/oauth2.md)).
+  ([`skills/security/ios/oauth2.md`](../../skills/security/ios/oauth2.md)).
 - Tokens in Keychain (`...ThisDeviceOnly`), refresh via a single-flight `TokenManager` actor.
-- Biometric app-lock gates the dashboard ([`skills/security/biometric_auth.md`](../../skills/security/biometric_auth.md)).
+- Biometric app-lock gates the dashboard ([`skills/security/ios/biometric_auth.md`](../../skills/security/ios/biometric_auth.md)).
 
 ## Security
 
 - Public-key pinning on the banking host with a backup pin
-  ([`skills/security/ssl_pinning.md`](../../skills/security/ssl_pinning.md)).
+  ([`skills/security/ios/ssl_pinning.md`](../../skills/security/ios/ssl_pinning.md)).
 - No secrets/PII in logs; sensitive fields excluded from screenshots/backups.
 - Audited against [`checklists/security_review.md`](../../checklists/security_review.md).
 
@@ -77,7 +77,7 @@ struct TransferUseCase {
 ## Scalability Considerations
 
 - Feature modules build/test independently; new products (Cards, Loans) added as modules.
-- Pagination for transaction history ([`skills/networking/pagination.md`](../../skills/networking/pagination.md)).
+- Pagination for transaction history ([`skills/networking/ios/pagination.md`](../../skills/networking/ios/pagination.md)).
 - Caching of account summaries with short TTL; invalidation after transfers.
 
 ## Build it with the toolkit

@@ -1,7 +1,7 @@
 # Checklist: WebSocket / Realtime Review
 
 Owned by the [WebSocket Expert](../agents/websocket_expert.md). See
-[`skills/networking/websocket.md`](../skills/networking/websocket.md) and
+[`skills/networking/ios/websocket.md`](../skills/networking/ios/websocket.md) and
 [`architecture/websocket_architecture.md`](../architecture/websocket_architecture.md).
 
 ## Connection Lifecycle (Critical)

@@ -29,9 +29,9 @@ graph TD
 ## Feed: Pagination + Performance
 
 - Cursor pagination, de-dup by post id, prefetch a few items before the end
-  ([`skills/networking/pagination.md`](../../skills/networking/pagination.md)).
+  ([`skills/networking/ios/pagination.md`](../../skills/networking/ios/pagination.md)).
 - `LazyVStack`/`List` with stable ids; images **downsampled** to cell size; bounded `MediaCache`
-  ([`skills/performance/memory_optimization.md`](../../skills/performance/memory_optimization.md)).
+  ([`skills/performance/ios/memory_optimization.md`](../../skills/performance/ios/memory_optimization.md)).
 
 ```swift
 .onAppear { Task { await viewModel.loadNextPageIfNeeded(currentItem: post) } }
@@ -40,7 +40,7 @@ graph TD
 ## Realtime Interactions
 
 - Live like/comment counts via SSE (server→client) or a WebSocket
-  ([`skills/networking/sse.md`](../../skills/networking/sse.md));
+  ([`skills/networking/ios/sse.md`](../../skills/networking/ios/sse.md));
   counts coalesce so a hot post doesn't flood the UI.
 
 ## Authentication
@@ -67,7 +67,7 @@ graph TD
 - Handles very large feeds via pagination, lazy loading, and image downsampling.
 - Backpressure on realtime counters (coalesce to latest).
 - Battery: prefer push/SSE over polling; respect Low Power Mode
-  ([`skills/performance/battery_optimization.md`](../../skills/performance/battery_optimization.md)).
+  ([`skills/performance/ios/battery_optimization.md`](../../skills/performance/ios/battery_optimization.md)).
 
 ## Build it with the toolkit
 

@@ -21,13 +21,13 @@ handling, and tests — exposed behind a repository.
 2. **Define the DTO(s)** matching the wire format exactly (`Codable`); capture JSON fixtures.
 3. **Write the mapper** DTO→domain entity; unit-test it with fixtures (incl. edge cases).
 4. **Add the typed endpoint** and repository method using the
-   [`APIClient`](../skills/networking/rest_api.md) abstraction.
+   [`APIClient`](../skills/networking/ios/rest_api.md) abstraction.
 5. **Map errors** ([Networking Expert](../agents/networking_expert.md)) — status/transport/
    decoding → typed domain error.
 6. **Auth** ([Security Expert](../agents/security_expert.md)) — ensure headers injected
    centrally; handle 401 refresh; no token leakage.
 7. **Integration test** the decode→map path with `URLProtocol` stubbing
-   ([integration testing](../skills/testing/integration_testing.md)).
+   ([integration testing](../skills/testing/ios/integration_testing.md)).
 8. **Review** against [`checklists/api_review.md`](../checklists/api_review.md).
 
 ## Validation Steps

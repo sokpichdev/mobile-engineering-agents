@@ -273,6 +273,13 @@ four moves:
 `standards/`, `workflows/`, `checklists/` — is pulled in by the agent *as the task needs it*, so
 context stays lean. Naming a file yourself just overrides or sharpens this automatic routing.
 
+**Multi-platform by design.** The agent detects your project's platform (iOS, Android, Flutter,
+React Native) and loads only that platform's subtree — `skills/<topic>/<platform>/` and
+`templates/<platform>/` — plus the shared, platform-neutral layers (`standards/`,
+`architecture/`, `checklists/`, `workflows/`). It never pulls another platform's code into
+context. iOS is the most complete today; see
+[Contributing](#-contributing--everyone-is-welcome) to help port the rest.
+
 > See [`AGENTS.md`](AGENTS.md) for the full routing table and the tier hierarchy, or the
 > [Example Workflows](#-example-workflows) diagram below for a real multi-agent handoff.
 

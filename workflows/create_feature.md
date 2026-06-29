@@ -24,7 +24,7 @@ tested, and reviewed — from requirement to merge-ready PR.
 1. **Architect** ([iOS Architect](../agents/ios_architect.md)) — define entities, use cases,
    repository protocols, module placement, and DI wiring. Produce a short architecture brief.
 2. **Domain** — implement entities + use cases (pure, framework-free) with unit tests first
-   ([TDD](../skills/testing/unit_testing.md)).
+   ([TDD](../skills/testing/ios/unit_testing.md)).
 3. **Data** ([Networking](../agents/networking_expert.md)/[Backend Integrator](../agents/backend_integrator.md))
    — implement DTOs, mappers, and the repository against the API contract.
 4. **Presentation** ([SwiftUI Expert](../agents/swiftui_expert.md)) — build the ViewModel

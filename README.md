@@ -13,6 +13,7 @@ code they generate is production-grade, not just plausible.
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![Platform](https://img.shields.io/badge/focus-iOS%20%7C%20Swift%20%7C%20SwiftUI-orange.svg)](#whats-inside)
 [![AI-ready](https://img.shields.io/badge/AI-Claude%20%C2%B7%20Codex%20%C2%B7%20Cursor%20%C2%B7%20Windsurf%20%C2%B7%20Gemini%20%C2%B7%20Aider-blueviolet.svg)](#how-to-use-the-agents)
+<img alt="" src="https://komarev.com/ghpvc/?username=sokpichdev&color=blueviolet"/>
 
 [Docs Site](https://sokpichdev.github.io/mobile-engineering-agents/) · [Quick Start](#quick-start) · [What's Inside](#whats-inside) · [The Agent Team](#the-agent-team) · [How to Use](#how-to-use-the-agents) · [How It Works](#how-it-works) · [Workflows](#example-workflows)
 

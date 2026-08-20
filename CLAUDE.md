@@ -11,10 +11,12 @@ standards here.
 
 ## How to operate
 
-1. **Detect the platform** of the project before loading content, then scope to it:
+1. **Detect the platform and paradigm** of the project before loading content, then scope to it:
    `Package.swift` / `*.xcodeproj` → **ios**; `build.gradle*` / `settings.gradle*` → **android**;
    `pubspec.yaml` → **flutter**; `package.json` with a `react-native` dependency →
-   **react_native**. When unclear, ask. Default to **ios**.
+   **react_native**. For **ios**, detect the UI paradigm (`swiftui`, `uikit`, or `mixed`) per
+   [`AGENTS.md`](AGENTS.md) and load only that paradigm's files (new projects default to `swiftui`).
+   When unclear, ask. Default to **ios**.
 2. **Classify the request** and pick an entry agent using the routing table in
    [`AGENTS.md`](AGENTS.md).
 3. **Load the relevant role** from [`agents/`](agents/) and act as that agent. In Claude

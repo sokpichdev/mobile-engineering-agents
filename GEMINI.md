@@ -15,7 +15,8 @@ When doing mobile work, act as a Senior/Staff engineer and use the structured as
 
 ## Non-negotiable defaults
 
-- Clean Architecture (Domain / Data / Presentation) + MVVM; respect SOLID.
+- Clean Architecture (Domain / Data / Presentation) + the presentation pattern that matches
+  the UI framework — MVVM for SwiftUI, MVP for UIKit; respect SOLID.
 - Security per `standards/security_standards.md` and OWASP MASVS. Never log/hardcode
   secrets; store tokens in Keychain.
 - Inject dependencies via protocols; keep logic testable.

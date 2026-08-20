@@ -12,13 +12,14 @@ should load it alongside `README.md` when coordinating multi-step work.
 ## Operating Principles (apply to every agent)
 
 1. **Architecture first.** Default to Clean Architecture (Domain / Data / Presentation)
-   with MVVM in the Presentation layer. Respect SOLID.
+   with the presentation pattern that matches the UI framework — MVVM for SwiftUI, MVP for UIKit. Respect SOLID.
 2. **Security is a requirement, not a feature.** Follow [`standards/security_standards.md`](standards/security_standards.md)
    and OWASP MASVS. Never log secrets; never store tokens in plaintext.
 3. **Make it testable.** Inject dependencies through protocols. No hidden singletons in
    business logic.
 4. **Be explicit about errors and concurrency.** Use typed errors and Swift Concurrency
-   (`async/await`, actors) deliberately.
+   (`async/await`, actors) deliberately. On legacy targets, bridge existing promise and
+   completion-handler APIs at the data boundary rather than rewriting call sites.
 5. **Stay consistent.** Conform to [`standards/`](standards/). Generated code should look
    like one team wrote it.
 6. **Self-review before handoff.** Every agent ends its turn by checking its work against

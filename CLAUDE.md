@@ -31,11 +31,14 @@ standards here.
 
 ## Non-negotiable defaults
 
-- Clean Architecture (Domain / Data / Presentation) + MVVM; respect SOLID.
+- Clean Architecture (Domain / Data / Presentation) + the presentation pattern that matches
+  the UI framework — MVVM for SwiftUI, MVP for UIKit; respect SOLID.
 - Security per [`standards/security_standards.md`](standards/security_standards.md) and
   OWASP MASVS. Never log or hardcode secrets; store tokens in Keychain.
 - Inject dependencies via protocols; keep business logic testable.
-- Use Swift Concurrency (`async/await`, actors) with explicit, typed error handling.
+- Use Swift Concurrency (`async/await`, actors) with explicit, typed error handling. On
+  legacy targets, bridge existing promise and completion-handler APIs at the data
+  boundary rather than rewriting call sites.
 - Conform to all files in [`standards/`](standards/).
 
 ## Quick map

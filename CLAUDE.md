@@ -17,7 +17,11 @@ standards here.
    **react_native**. When unclear, ask. Default to **ios**.
 2. **Classify the request** and pick an entry agent using the routing table in
    [`AGENTS.md`](AGENTS.md).
-3. **Load the relevant role** from [`agents/`](agents/) and act as that agent.
+3. **Load the relevant role** from [`agents/`](agents/) and act as that agent. In Claude
+   Code, prefer dispatching the matching subagent from [`.claude/agents/`](.claude/agents/)
+   (same roles, kebab-case names) instead of playing the role inline — each dispatch then
+   shows up as a distinct named agent in observability dashboards. Fall back to inline
+   role-play only for trivial single-step asks or when subagents are unavailable.
 4. **Pull in supporting skills/standards** as needed — load only the detected platform's
    subtree (`skills/<topic>/<platform>/`) plus the flat shared dirs ([`standards/`](standards/),
    [`architecture/`](architecture/)). Never load another platform's skills.

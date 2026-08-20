@@ -124,6 +124,12 @@ Route the request to the **entry agent** based on intent, then follow the chain.
 | CI/CD / automation | DevOps Expert | DevOps → Reviewer |
 | `!verify` | (workflow) | Run [`workflows/verify_setup.md`](workflows/verify_setup.md) |
 
+**Claude Code:** each role has a matching native subagent in `.claude/agents/` (kebab-case,
+e.g. `swiftui-expert`). Prefer dispatching those subagents over inline role-play — dispatched
+agents appear as distinct named lanes in observability dashboards (see the "Visualizing agent
+activity" section in [`README.md`](README.md)). Other platforms keep reading the plain
+markdown roles in [`agents/`](agents/) as before.
+
 **Routing heuristic for an orchestrator:** classify the request by *primary deliverable*
 (architecture decision, UI, data, security, test, release). Pick the agent that owns that
 deliverable as the entry point; everything else becomes a downstream review step.

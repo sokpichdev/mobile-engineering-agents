@@ -287,6 +287,31 @@ context. iOS is the most complete today; see
 
 ---
 
+## Visualizing Agent Activity (Claude Code)
+
+Watch the agents work in real time with [agents-observe](https://github.com/simple10/agents-observe) —
+a local, open-source (MIT) observability dashboard. It captures Claude Code hook events into a
+local SQLite database and streams them to a live web UI: tool calls, subagent hierarchy, session
+replay, and token/cost stats. Nothing leaves your machine.
+
+Setup (requires Docker and Node):
+
+```bash
+claude plugin marketplace add simple10/agents-observe
+claude plugin install agents-observe
+```
+
+The plugin auto-starts its server on the next Claude Code session; the dashboard lives at
+<http://localhost:4981>. Manage it from inside Claude Code with `/observe status`,
+`/observe restart`, and `/observe logs`.
+
+Each role in [`agents/`](agents/) is mirrored as a native Claude Code subagent in
+[`.claude/agents/`](.claude/agents/) (e.g. `swiftui-expert`, `security-expert`), so when work is
+delegated, every specialist appears as its own named agent in the dashboard instead of one
+anonymous session.
+
+---
+
 ## Example Workflows
 
 Ready-made, end-to-end procedures — each with inputs, steps, validation, and acceptance criteria:

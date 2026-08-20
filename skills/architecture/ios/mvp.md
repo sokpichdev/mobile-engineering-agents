@@ -83,11 +83,15 @@ class ArticleListPresenter: ArticleListPresenterProtocol {
     }
 
     func loadArticles() {
-        ArticleCloud.shared.getArticles()   // concrete singleton
+        ArticleCloud.shared.getArticles(forceRefresh: false)   // concrete singleton
             .done { self.items = $0 }
     }
 }
 ```
+
+`ArticleRepository` lives in the Domain layer and is defined in
+[`repository_pattern.md`](repository_pattern.md) — it is referenced here, never redeclared,
+the same way `ApiProtocol` and `PresenterProtocol` are referenced without being restated.
 
 ```swift
 // ArticleListPresenter.swift
@@ -102,16 +106,16 @@ final class ArticleListPresenter: ArticleListPresenterProtocol {
         self.articles = articles
     }
 
-    func onViewDidLoad() { load() }
-    func refresh() { load() }
+    func onViewDidLoad() { load(refresh: false) }
+    func refresh() { load(refresh: true) }
 
-    private func load() {
+    private func load(refresh: Bool) {
         view?.showLoading()
         Task { [weak self] in
             guard let self else { return }
             defer { self.view?.hideLoading() }
             do {
-                self.items = try await self.articles.fetch()
+                self.items = try await self.articles.latest(refresh: refresh)
                 self.view?.reloadList()
             } catch {
                 self.view?.handleApiError(error: error)

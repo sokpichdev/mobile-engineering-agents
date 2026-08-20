@@ -133,17 +133,26 @@ only after `platform: ios` is established:
 | `UIViewController` subclasses dominate the UI tree | `uikit` |
 | Both present, plus `UIHostingController` | `mixed` |
 
-When signals conflict or are absent, **ask** — consistent with how the existing platform
-detection already handles ambiguity. Never guess at a codebase's architecture silently.
+**New projects default to `swiftui`.** With no existing UI tree to inspect, the paradigm is
+a choice rather than a discovery, and SwiftUI remains the toolkit's stated primary focus.
+UIKit is selected for greenfield work only when the user asks for it.
+
+When an **existing** codebase gives conflicting signals, **ask** — consistent with how the
+existing platform detection already handles ambiguity. Never guess at a codebase's
+architecture silently.
+
+This axis is per-project and additive. It introduces no repo-wide default and demotes
+nothing: a SwiftUI project loads no UIKit file, and every existing content file, all of
+which omit `ui:`, keeps applying to both paradigms.
 
 ### 3.3 Mixed mode
 
-Mixed is the primary supported mode, because it is the common real-world state — the
-reference codebase is 42 SwiftUI files against roughly 1,550 UIKit ones. Mixed resolves to a
-**primary** and a **secondary** paradigm:
+Mixed is a fully supported mode rather than a fallback, because it is the common real-world
+state — the reference codebase is 42 SwiftUI files against roughly 1,550 UIKit ones. A mixed
+codebase resolves to a **dominant** and a **secondary** paradigm:
 
-- Primary is whichever paradigm holds the majority of the UI tree.
-- **Existing code** is read and modified under the primary's rules.
+- Dominant is whichever paradigm holds the majority of the UI tree.
+- **Existing code** is read and modified under the dominant paradigm's rules.
 - **New screens** may use the secondary, but only via the migration workflow — never ad hoc.
 
 This rule is load-bearing in both directions. It prevents an agent from rewriting a working
@@ -388,7 +397,7 @@ so it reads as a known gap rather than an oversight.
 **Axis confusion for existing users.** Fully mitigated by the omit-means-both default: a
 SwiftUI-only project sees no behavioral change.
 
-**Detection misfire on mixed codebases.** Mitigated by the explicit primary/secondary
+**Detection misfire on mixed codebases.** Mitigated by the explicit dominant/secondary
 resolution in 3.3 and by the instruction to ask when signals conflict.
 
 ---

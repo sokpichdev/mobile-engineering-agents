@@ -27,7 +27,7 @@ Two genuine red-green cycles do exist, and both are used:
 1. **Task 12** raises the `verify.sh` file-count floors *before* confirming they pass, so the script fails first and passes after.
 2. **Task 11** carries a behavioral acceptance check: before the control plane is wired, asking an agent how to structure a UIKit MVP screen yields SwiftUI/MVVM guidance (wrong); after, it yields MVP guidance (right). Record both answers.
 
-**Known pre-existing lint failure:** `.superpowers/sdd/progress.md` reports `MD022`. It is untracked scratch state, not part of this work. Do not fix it, and do not treat it as a regression.
+**Ignore `.superpowers/` entirely.** That directory is gitignored scratch — it holds this plan's own ledger, briefs, and reports, and CI never checks it out. Lint errors reported against it are noise from the build process, not defects in the product. Never fix them, and exclude the directory when running repo-wide checks.
 
 ---
 
@@ -59,9 +59,9 @@ Type consistency across files is a correctness requirement, not a style preferen
 | Role | Exact name |
 |------|-----------|
 | Domain entity | `Article` |
-| Repository protocol (Domain) | `ArticleRepository`, sole method `func fetch() async throws -> [Article]` |
+| Repository protocol (Domain) | `ArticleRepository` — **already exists in this toolkit; never redefine it.** Declared in `skills/architecture/ios/repository_pattern.md` and `templates/ios/clean_architecture_feature/Domain.swift` as `func latest(refresh: Bool) async throws -> [Article]`. Reference it and link to the repository skill. |
 | Repository implementation (Data) | `ArticleCloudRepository` |
-| Legacy PromiseKit singleton | `ArticleCloud.shared.getArticles()` returning `Promise<[Article]>` |
+| Legacy PromiseKit singleton | `ArticleCloud.shared.getArticles(forceRefresh:)` returning `Promise<[Article]>` |
 | Screen prefix | `ArticleList` |
 | Four screen files | `ArticleListContract.swift`, `ArticleListView.swift`, `ArticleListViewController.swift`, `ArticleListPresenter.swift` |
 | View protocol | `ArticleListViewProtocol` |
@@ -232,7 +232,7 @@ class ArticleListPresenter: ArticleListPresenterProtocol {
     }
 
     func loadArticles() {
-        ArticleCloud.shared.getArticles()   // concrete singleton
+        ArticleCloud.shared.getArticles(forceRefresh: false)   // concrete singleton
             .done { self.items = $0 }
     }
 }
@@ -253,16 +253,16 @@ final class ArticleListPresenter: ArticleListPresenterProtocol {
         self.articles = articles
     }
 
-    func onViewDidLoad() { load() }
-    func refresh() { load() }
+    func onViewDidLoad() { load(refresh: false) }
+    func refresh() { load(refresh: true) }
 
-    private func load() {
+    private func load(refresh: Bool) {
         view?.showLoading()
         Task { [weak self] in
             guard let self else { return }
             defer { self.view?.hideLoading() }
             do {
-                self.items = try await self.articles.fetch()
+                self.items = try await self.articles.latest(refresh: refresh)
                 self.view?.reloadList()
             } catch {
                 self.view?.handleApiError(error: error)
@@ -271,6 +271,8 @@ final class ArticleListPresenter: ArticleListPresenterProtocol {
     }
 }
 ```
+
+`ArticleRepository` is referenced, never declared here — link to `repository_pattern.md` for it, exactly as `ApiProtocol` and `PresenterProtocol` are referenced without being restated.
 
 - [ ] **Step 3: Write `## Common Interview Questions` and `## AI Implementation Notes`**
 
@@ -329,23 +331,19 @@ Use cases: making a presenter or view model testable; adopting `async`/`await` i
 
 - [ ] **Step 3: Write `## Swift Examples`**
 
-The domain protocol:
-
-```swift
-// Domain
-protocol ArticleRepository {
-    func fetch() async throws -> [Article]
-}
-```
+**Do not redefine `ArticleRepository`.** It already exists in this toolkit — see
+`../../architecture/ios/repository_pattern.md`, which declares
+`func latest(refresh: Bool) async throws -> [Article]`. Link to it and write only the
+adapters. Open the section by saying so, so a reader knows where the protocol lives.
 
 The promise adapter:
 
 ```swift
-// Data
+// Data — adapts a PromiseKit source to the existing ArticleRepository protocol
 struct ArticleCloudRepository: ArticleRepository {
-    func fetch() async throws -> [Article] {
+    func latest(refresh: Bool) async throws -> [Article] {
         try await withCheckedThrowingContinuation { continuation in
-            ArticleCloud.shared.getArticles()
+            ArticleCloud.shared.getArticles(forceRefresh: refresh)
                 .done { continuation.resume(returning: $0) }
                 .catch { continuation.resume(throwing: $0) }
         }
@@ -358,9 +356,9 @@ The completion-handler variant, for data sources that never used PromiseKit:
 ```swift
 // Data — completion-handler source
 struct LegacyArticleRepository: ArticleRepository {
-    func fetch() async throws -> [Article] {
+    func latest(refresh: Bool) async throws -> [Article] {
         try await withCheckedThrowingContinuation { continuation in
-            ArticleCloud.shared.getArticles { result in
+            ArticleCloud.shared.getArticles(forceRefresh: refresh) { result in
                 continuation.resume(with: result)   // Result<[Article], Error>
             }
         }
@@ -665,9 +663,16 @@ final class ArticleListPresenterTests: XCTestCase {
 
 enum TestError: Error { case any }
 
-struct ArticleRepositoryStub: ArticleRepository {
+final class ArticleRepositoryStub: ArticleRepository {
     let result: Result<[Article], Error>
-    func fetch() async throws -> [Article] { try result.get() }
+    private(set) var receivedRefreshFlags: [Bool] = []
+
+    init(result: Result<[Article], Error>) { self.result = result }
+
+    func latest(refresh: Bool) async throws -> [Article] {
+        receivedRefreshFlags.append(refresh)
+        return try result.get()
+    }
 }
 
 @MainActor
@@ -692,7 +697,7 @@ Follow the shape of `templates/ios/clean_architecture_feature/README.md`. Must s
 
 - [ ] **Step 7: Verify type consistency across the template**
 
-Read all five Swift files together and confirm: `ArticleRepository.fetch()` signature identical in all uses; `ArticleListViewProtocol` members match exactly between the contract, the view controller, and the spy; `ArticleListCoordinatorDelegate` is declared exactly once, in the contract; `make(articles:delegate:)` matches Task 5's call site exactly.
+Read all five Swift files together and confirm: every call site uses `ArticleRepository.latest(refresh:)` and no file redeclares the protocol; `ArticleListViewProtocol` members match exactly between the contract, the view controller, and the spy; `ArticleListCoordinatorDelegate` is declared exactly once, in the contract; `make(articles:delegate:)` matches Task 5's call site exactly.
 
 - [ ] **Step 8: Lint, link-check, commit**
 
@@ -1053,13 +1058,13 @@ Each is a plain list; add one entry per new file, matching the surrounding forma
 - [ ] **Step 4: Run the full CI gate set exactly as CI does**
 
 ```bash
-npx --yes markdownlint-cli2 "**/*.md" "#node_modules"
+npx --yes markdownlint-cli2 "**/*.md" "#node_modules" "#.superpowers"
 npx --yes markdown-link-check --quiet --config .github/mlc_config.json \
-  $(find . -name '*.md' -not -path './node_modules/*')
+  $(find . -name '*.md' -not -path './node_modules/*' -not -path './.superpowers/*')
 ./verify.sh
 ```
 
-Expected: link-check fully clean; `verify.sh` all green; markdownlint reporting **only** the known pre-existing `.superpowers/sdd/progress.md` MD022 error.
+Expected: **zero** errors from all three. `.superpowers/` is excluded because it is gitignored scratch that CI never checks out — it holds this run's own ledger and reports, so linting it reports failures against the build process rather than the product.
 
 - [ ] **Step 5: Confirm the front-matter axis is correct across all new skills**
 

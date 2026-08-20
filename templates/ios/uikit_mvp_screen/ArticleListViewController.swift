@@ -29,18 +29,28 @@ final class ArticleListViewController: UIViewController, ArticleListViewProtocol
 
     static func make(articles: ArticleRepository,
                      delegate: ArticleListCoordinatorDelegate?) -> ArticleListViewController {
-        let viewController = ArticleListViewController()
+        let viewController = ArticleListViewController(nibName: nil, bundle: nil)
         viewController.delegate = delegate
         viewController.presenter = ArticleListPresenter(view: viewController, articles: articles)
         return viewController
     }
 
-    // `private` so `make` is the only way to construct this screen — a bare
-    // `ArticleListViewController()` from outside this file would leave `presenter` nil and
-    // crash on first use. Still callable from `make` because `private` is file-scoped.
+    // `private` blocks the explicit-argument path from outside this file; `make` above still
+    // reaches it because `private` is file-scoped, and calls it as
+    // `ArticleListViewController(nibName: nil, bundle: nil)` rather than the bare `()` form.
     private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
+
+    // Overriding every one of `UIViewController`'s designated initializers above makes Swift
+    // re-inherit its parameterless convenience initializer `init()` — and that re-inherited
+    // initializer keeps its original *public* access level, unaffected by `private` on the
+    // designated initializer it wraps. Left alone, `ArticleListViewController()` would still
+    // be callable from outside this file and would crash on the nil-`presenter` force-unwrap
+    // in `viewDidLoad()`. Marking it unavailable here shadows the re-inherited initializer
+    // module-wide, so only `make(articles:delegate:)` can construct this screen.
+    @available(*, unavailable)
+    init() { fatalError("Use ArticleListViewController.make(articles:delegate:)") }
 
     @available(*, unavailable)
     required init?(coder: NSCoder) { fatalError("init(coder:) is not supported") }

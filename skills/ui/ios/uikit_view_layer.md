@@ -118,29 +118,40 @@ final class ArticleListViewController: UIViewController {
 ```
 
 A diffable data source (iOS 13+) keeps the table in sync with presenter state without manual
-`reloadData()` calls:
+`reloadData()` calls. Key the snapshot on `Article.ID`, not `Article` itself: diffable data
+sources require their identifier type to be `Hashable`, and this toolkit's `Article` entity
+(`templates/ios/clean_architecture_feature/Domain.swift`) declares only
+`Equatable, Identifiable, Sendable` — it is deliberately not `Hashable`. `Article` is already
+`Identifiable`, so `Article.ID` (`String`) is available and is `Hashable`. Because the
+snapshot now holds only identifiers, the cell provider needs a way to resolve an identifier
+back to the `Article` it should display; the example below takes that lookup as a closure
+supplied by the caller, which already holds the current `[Article]`:
 
 ```swift
 // ArticleListView+DataSource.swift
 extension ArticleListView {
     enum Section { case main }
 
-    func makeDataSource() -> UITableViewDiffableDataSource<Section, Article> {
+    func makeDataSource(
+        articleForID: @escaping (Article.ID) -> Article?
+    ) -> UITableViewDiffableDataSource<Section, Article.ID> {
         tableView.register(ArticleCell.self, forCellReuseIdentifier: ArticleCell.reuseID)
-        return UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, article in
+        return UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, articleID in
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: ArticleCell.reuseID,
                 for: indexPath
             ) as! ArticleCell
-            cell.configure(with: article)
+            if let article = articleForID(articleID) {
+                cell.configure(with: article)
+            }
             return cell
         }
     }
 
-    func apply(_ articles: [Article], to dataSource: UITableViewDiffableDataSource<Section, Article>) {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Article>()
+    func apply(_ articles: [Article], to dataSource: UITableViewDiffableDataSource<Section, Article.ID>) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Article.ID>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(articles, toSection: .main)
+        snapshot.appendItems(articles.map(\.id), toSection: .main)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
 }

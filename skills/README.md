@@ -14,10 +14,23 @@ porting a skill? Add it in the sibling platform folder and cross-link its iOS co
 ## Architecture
 
 - [mvvm.md](architecture/ios/mvvm.md)
+- [mvp.md](architecture/ios/mvp.md)
 - [clean_architecture.md](architecture/ios/clean_architecture.md)
 - [dependency_injection.md](architecture/ios/dependency_injection.md)
 - [repository_pattern.md](architecture/ios/repository_pattern.md)
+- [coordinator_navigation.md](architecture/ios/coordinator_navigation.md)
 - [modularization.md](architecture/ios/modularization.md)
+
+## UI
+
+> Note: `skills/ui/` currently holds UIKit files only because SwiftUI's equivalent guidance lives in [`standards/swiftui_standards.md`](../standards/swiftui_standards.md) and [`agents/swiftui_expert.md`](../agents/swiftui_expert.md).
+
+- [uikit_view_layer.md](ui/ios/uikit_view_layer.md)
+- [massive_view_controller.md](ui/ios/massive_view_controller.md)
+
+## Concurrency
+
+- [promisekit_to_async.md](concurrency/ios/promisekit_to_async.md)
 
 ## Networking
 

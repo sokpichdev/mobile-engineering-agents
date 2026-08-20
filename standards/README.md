@@ -5,6 +5,7 @@ a [checklist](../checklists/) used in review.
 
 - [coding_standards.md](coding_standards.md) — Swift naming, safety, concurrency, logging
 - [swiftui_standards.md](swiftui_standards.md) — views, state, navigation, styling, a11y
+- [uikit_standards.md](uikit_standards.md) — programmatic views, Auto Layout, VC lifecycle, cell reuse, presenter rules
 - [architecture_standards.md](architecture_standards.md) — layers, SOLID, DI, structure
 - [networking_standards.md](networking_standards.md) — client, requests, errors, mapping
 - [security_standards.md](security_standards.md) — OWASP MASVS baseline

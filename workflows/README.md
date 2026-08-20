@@ -7,6 +7,7 @@ Outputs · Step-by-Step Process · Validation Steps · Failure Scenarios · AI A
 ## Build & Integrate
 
 - [create_feature.md](create_feature.md) — feature end-to-end
+- [migrate_uikit_to_swiftui.md](migrate_uikit_to_swiftui.md) — strangler-fig migration of UIKit screen to SwiftUI
 - [integrate_rest_api.md](integrate_rest_api.md)
 - [integrate_graphql.md](integrate_graphql.md)
 - [integrate_websocket.md](integrate_websocket.md)

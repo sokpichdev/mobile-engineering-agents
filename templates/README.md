@@ -13,6 +13,7 @@ in isolation — that's expected.)
 - [websocket_layer/](ios/websocket_layer/) — actor transport with state machine
 - [authentication_layer/](ios/authentication_layer/) — OAuth2/PKCE + Keychain + refresh
 - [swiftui_screen/](ios/swiftui_screen/) — MVVM screen with state enum
+- [uikit_mvp_screen/](ios/uikit_mvp_screen/) — MVP screen with injected repository and presenter tests
 - [unit_test_template/](ios/unit_test_template/) — Swift Testing patterns + `URLProtocol` stub (with `.swift` files)
 
 Each template links to the [skills](../skills/), [standards](../standards/), and

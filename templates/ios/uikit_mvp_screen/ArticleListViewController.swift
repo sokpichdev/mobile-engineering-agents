@@ -4,10 +4,13 @@
 //  per ../../../skills/ui/ios/uikit_view_layer.md) and never contains business logic (that
 //  lives in `ArticleListPresenter`, per ../../../skills/architecture/ios/mvp.md).
 //
-//  Uses a plain `UITableViewDataSource` conformance rather than a diffable data source: a
-//  diffable data source requires the element type to be `Hashable`, and this toolkit's
-//  `Article` entity (templates/ios/clean_architecture_feature/Domain.swift) declares only
-//  `Equatable, Identifiable, Sendable`.
+//  Uses a plain `UITableViewDataSource` conformance rather than a diffable data source: the
+//  contract's `reloadList()` method (../../../skills/architecture/ios/mvp.md) is an
+//  imperative "reload everything" command, not a diffable snapshot, so this screen has
+//  nothing to key a diff on. `Article` is already `Identifiable`, so a screen whose contract
+//  instead exposes state suited to diffing can adopt
+//  `UITableViewDiffableDataSource<Section, Article.ID>` — see the diffable example in
+//  ../../../skills/ui/ios/uikit_view_layer.md.
 
 import UIKit
 
@@ -20,8 +23,7 @@ final class ArticleListViewController: UIViewController, ArticleListViewProtocol
     // initializer requires a reference to this view controller (as `ArticleListViewProtocol`)
     // — the view controller must exist before the presenter can hold that reference, so it
     // cannot be passed into this view controller's own initializer instead. `make` below sets
-    // it immediately after construction and is the only supported way to build this screen;
-    // never call `ArticleListViewController()` directly.
+    // it immediately after construction and is the only supported way to build this screen.
     private var presenter: ArticleListPresenterProtocol!
     private weak var delegate: ArticleListCoordinatorDelegate?
 
@@ -32,6 +34,16 @@ final class ArticleListViewController: UIViewController, ArticleListViewProtocol
         viewController.presenter = ArticleListPresenter(view: viewController, articles: articles)
         return viewController
     }
+
+    // `private` so `make` is the only way to construct this screen — a bare
+    // `ArticleListViewController()` from outside this file would leave `presenter` nil and
+    // crash on first use. Still callable from `make` because `private` is file-scoped.
+    private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) { fatalError("init(coder:) is not supported") }
 
     override func loadView() { view = listView }
 

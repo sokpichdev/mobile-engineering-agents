@@ -5,14 +5,20 @@
 //
 //  `Article.fixture()` is expected from the host app's own test helpers (every screen's
 //  tests share one fixture factory per entity; this template does not redefine it).
-//  `ArticleListViewSpy` implements only the `ApiProtocol` members this screen's contract
-//  actually uses (`showLoading`, `hideLoading`, `handleApiError(error:)`) plus
-//  `reloadList()` from `ArticleListViewProtocol` — it is not a full `ApiProtocol` mock.
+//  `ArticleListViewSpy` implements the `ApiProtocol` members this screen's contract
+//  declares today (`showLoading`, `hideLoading`, `handleApiError(error:)`) plus
+//  `reloadList()` from `ArticleListViewProtocol`. If your host app's `ApiProtocol` declares
+//  additional members, add matching no-op/recording implementations to the spy below —
+//  partial conformance will not compile.
 //
 //  The presenter hops through `Task { }` for its repository call, so every assertion below
 //  waits on an `XCTestExpectation` fulfilled from the relevant view callback rather than
 //  reading state immediately after calling into the presenter — reading synchronously would
 //  race the `Task` and make the test flaky.
+//
+//  The three test doubles below are marked `private`, the norm for doubles scoped to a
+//  single test file, and `ArticleListTestError` is namespaced to this screen to avoid
+//  colliding with a same-named type elsewhere in a large host app.
 
 import XCTest
 
@@ -41,7 +47,7 @@ final class ArticleListPresenterTests: XCTestCase {
         let view = ArticleListViewSpy()
         let sut = ArticleListPresenter(
             view: view,
-            articles: ArticleRepositoryStub(result: .failure(TestError.any))
+            articles: ArticleRepositoryStub(result: .failure(ArticleListTestError.any))
         )
 
         let handled = expectation(description: "error handled")
@@ -71,9 +77,10 @@ final class ArticleListPresenterTests: XCTestCase {
 
 // MARK: - Test doubles
 
-enum TestError: Error { case any }
+private enum ArticleListTestError: Error { case any }
 
-final class ArticleRepositoryStub: ArticleRepository {
+@MainActor
+private final class ArticleRepositoryStub: ArticleRepository {
     let result: Result<[Article], Error>
     private(set) var receivedRefreshFlags: [Bool] = []
 
@@ -86,7 +93,7 @@ final class ArticleRepositoryStub: ArticleRepository {
 }
 
 @MainActor
-final class ArticleListViewSpy: ArticleListViewProtocol {
+private final class ArticleListViewSpy: ArticleListViewProtocol {
     private(set) var loadingShownCount = 0
     private(set) var loadingHiddenCount = 0
     var onReloadList: (() -> Void)?

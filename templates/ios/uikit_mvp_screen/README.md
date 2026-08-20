@@ -45,8 +45,12 @@ and the only conformer of `ArticleListCoordinatorDelegate` — see
   UIKit's own layout anchors (no third-party layout library) — see
   [`../../../skills/ui/ios/uikit_view_layer.md`](../../../skills/ui/ios/uikit_view_layer.md).
 - **View Controller** owns lifecycle, presenter wiring, and navigation triggers only, and
-  uses a plain `UITableViewDataSource` conformance (not a diffable data source, since this
-  toolkit's `Article` entity is not `Hashable`).
+  uses a plain `UITableViewDataSource` conformance: the contract's `reloadList()` is an
+  imperative "reload everything" command, not a diffable snapshot, so this screen has
+  nothing to key a diff on. `Article` is already `Identifiable`, so a screen whose contract
+  instead exposes diff-friendly state can adopt
+  `UITableViewDiffableDataSource<Section, Article.ID>` — see the diffable example in
+  [`../../../skills/ui/ios/uikit_view_layer.md`](../../../skills/ui/ios/uikit_view_layer.md).
 - **Presenter** is `@MainActor final`, holds the view `weak`, takes every dependency through
   `init` as a protocol, and does no work in `init` — loading starts from the explicit
   `onViewDidLoad()` entry point, and `refresh()` is a behaviorally distinct entry point that

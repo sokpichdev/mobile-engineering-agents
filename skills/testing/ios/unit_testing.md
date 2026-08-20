@@ -168,8 +168,8 @@ to a single test file.
 ## AI Implementation Notes
 
 - Generate unit tests alongside any non-trivial logic; inject `Date`/ids.
-- Prefer Swift Testing `@Test`/`#expect` where the toolchain supports it; on older
-  toolchains or legacy targets use XCTest — see
+- Prefer Swift Testing `@Test`/`#expect` where the toolchain supports it; on older toolchains
+  — common on projects with an iOS 13/14 floor — use XCTest, see
   [Testing Presenters (UIKit)](#testing-presenters-uikit). Use simple fakes.
 - Always include at least one error-path test.
 - Related: [`integration_testing.md`](integration_testing.md),

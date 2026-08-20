@@ -35,24 +35,24 @@ Two genuine red-green cycles do exist, and both are used:
 
 Every task's requirements implicitly include this section.
 
-**Repository hygiene**
+### Repository hygiene
 
 - This repository is **public**; the reference codebase is a bank's proprietary app. Ship patterns only: no institution name, no absolute filesystem paths, no proprietary flows, no copied source.
 - Conventional Commits are gated by commitlint on both commits and PR title. Use `feat(uikit): …` for new capability and `docs(uikit): …` for pure documentation edits.
 - Do not edit any existing content file except the fourteen named in Tasks 7 and 10-12.
 - Do not commit `node_modules/`, and do not stage the pre-existing unrelated changes in `.claude/agents/*.md`, `AGENTS.md`, `CLAUDE.md`, or `README.md` that were already in the working tree before this plan started. Stage only the exact paths each task lists.
 
-**Front-matter**
+### Front-matter
 
 - Every new file under `skills/` starts with front-matter: `platform: ios`, plus `ui: uikit` **only** if the content is specific to the UIKit view layer.
 - Omitting `ui:` means the file applies to both paradigms. When unsure, omit it.
 - Files outside `skills/` (standards, checklists, workflows, agents, templates) carry no front-matter, matching existing convention.
 
-**iOS version floor**
+### iOS version floor
 
 - Deployment target is **iOS 13.0**. Therefore: **XCTest, not Swift Testing**; no `@Observable`; no `NavigationStack`; no `async let` in examples that must run on 13.0. `async`/`await` and `UICollectionViewDiffableDataSource` are both available on iOS 13 and may be used.
 
-**Canonical example vocabulary — use these exact names in every task**
+### Canonical example vocabulary — use these exact names in every task
 
 Type consistency across files is a correctness requirement, not a style preference. All Swift samples in all tasks use this one domain:
 
@@ -70,7 +70,7 @@ Type consistency across files is a correctness requirement, not a style preferen
 
 Pre-existing host-app base protocols referenced but never redefined: `PresenterProtocol` (marked `@MainActor`, empty) and `ApiProtocol` (supplies `showLoading()`, `hideLoading()`, `handleApiError(error:)`).
 
-**Section conventions — match the existing files exactly**
+### Section conventions — match the existing files exactly
 
 - Skill files: `# Skill: <Name>` then `## Overview`, `## Use Cases`, `## Best Practices`, `## Anti-Patterns`, `## Checklist`, `## Swift Examples`, `## Common Interview Questions`, `## AI Implementation Notes`.
 - Workflow files: `# Workflow: <Name>` then `## Objective`, `## Inputs`, `## Outputs`, `## Step-by-Step Process`, `## Validation Steps`, `## Failure Scenarios`, `## AI Agent Instructions`, `## Acceptance Criteria`.
@@ -81,7 +81,7 @@ Pre-existing host-app base protocols referenced but never redefined: `PresenterP
 
 ## File Structure
 
-**Created (16 files)**
+### Created (16 files)
 
 | Path | Responsibility |
 |------|----------------|
@@ -102,7 +102,7 @@ Pre-existing host-app base protocols referenced but never redefined: `PresenterP
 | `agents/uikit_expert.md` | Tier 2 role definition |
 | `.claude/agents/uikit-expert.md` | Claude Code native subagent stub |
 
-**Modified (14 files)**
+### Modified (14 files)
 
 `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `.cursorrules`, `.windsurfrules`, `README.md`, `verify.sh`, `skills/testing/ios/unit_testing.md`, `agents/README.md`, `skills/README.md`, `standards/README.md`, `checklists/README.md`, `workflows/README.md`, `templates/README.md`.
 
@@ -113,10 +113,12 @@ Pre-existing host-app base protocols referenced but never redefined: `PresenterP
 ### Task 1: UIKit standard and review checklist
 
 **Files:**
+
 - Create: `standards/uikit_standards.md`
 - Create: `checklists/uikit_review.md`
 
 **Interfaces:**
+
 - Consumes: nothing. This is the root of the dependency chain.
 - Produces: `standards/uikit_standards.md` and `checklists/uikit_review.md`, linked by Tasks 2, 4, 5, 9.
 
@@ -170,9 +172,11 @@ git commit -m "feat(uikit): add UIKit standard and review checklist"
 ### Task 2: MVP skill
 
 **Files:**
+
 - Create: `skills/architecture/ios/mvp.md`
 
 **Interfaces:**
+
 - Consumes: `standards/uikit_standards.md` (Task 1), `checklists/uikit_review.md` (Task 1).
 - Produces: `skills/architecture/ios/mvp.md`, linked by Tasks 6, 9, 11.
 
@@ -295,9 +299,11 @@ git commit -m "feat(uikit): add MVP architecture skill"
 ### Task 3: PromiseKit-to-async bridging skill
 
 **Files:**
+
 - Create: `skills/concurrency/ios/promisekit_to_async.md`
 
 **Interfaces:**
+
 - Consumes: the `ArticleRepository` protocol shape defined in Task 2.
 - Produces: `skills/concurrency/ios/promisekit_to_async.md`, linked by Tasks 2 (optional back-link not required), 9, 11, 12.
 
@@ -390,10 +396,12 @@ git commit -m "feat(uikit): add PromiseKit to async/await bridging skill"
 ### Task 4: UIKit view-layer skills
 
 **Files:**
+
 - Create: `skills/ui/ios/uikit_view_layer.md`
 - Create: `skills/ui/ios/massive_view_controller.md`
 
 **Interfaces:**
+
 - Consumes: `standards/uikit_standards.md` (Task 1).
 - Produces: both files, linked by Tasks 9 and 11. `massive_view_controller.md` is additionally linked from the Refactoring Expert routing row in Task 11.
 
@@ -472,9 +480,11 @@ git commit -m "feat(uikit): add UIKit view layer and massive view controller ski
 ### Task 5: Coordinator navigation skill
 
 **Files:**
+
 - Create: `skills/architecture/ios/coordinator_navigation.md`
 
 **Interfaces:**
+
 - Consumes: `skills/architecture/ios/mvp.md` (Task 2).
 - Produces: `skills/architecture/ios/coordinator_navigation.md`. Resolves the dangling link left by Task 4.
 
@@ -540,6 +550,7 @@ git commit -m "feat(uikit): add coordinator navigation skill"
 ### Task 6: UIKit MVP screen template
 
 **Files:**
+
 - Create: `templates/ios/uikit_mvp_screen/README.md`
 - Create: `templates/ios/uikit_mvp_screen/ArticleListContract.swift`
 - Create: `templates/ios/uikit_mvp_screen/ArticleListView.swift`
@@ -548,6 +559,7 @@ git commit -m "feat(uikit): add coordinator navigation skill"
 - Create: `templates/ios/uikit_mvp_screen/ArticleListPresenterTests.swift`
 
 **Interfaces:**
+
 - Consumes: the contract and presenter from Task 2, the view style from Task 4, the repository protocol from Task 3.
 - Produces: `ArticleListCoordinatorDelegate` and `ArticleListViewController.make(articles:delegate:)`, both consumed by Task 5's example. **These signatures must match Task 5 exactly.**
 
@@ -696,9 +708,11 @@ git commit -m "feat(uikit): add UIKit MVP screen template with presenter tests"
 ### Task 7: Presenter testing section in the iOS unit testing skill
 
 **Files:**
+
 - Modify: `skills/testing/ios/unit_testing.md`
 
 **Interfaces:**
+
 - Consumes: the test doubles from Task 6 Step 5.
 - Produces: a `## Testing Presenters (UIKit)` section referenced by Task 9's agent file.
 
@@ -734,9 +748,11 @@ git commit -m "docs(uikit): add presenter testing guidance to iOS unit testing s
 ### Task 8: UIKit-to-SwiftUI migration workflow
 
 **Files:**
+
 - Create: `workflows/migrate_uikit_to_swiftui.md`
 
 **Interfaces:**
+
 - Consumes: `skills/architecture/ios/mvp.md` (Task 2), `skills/concurrency/ios/promisekit_to_async.md` (Task 3).
 - Produces: `workflows/migrate_uikit_to_swiftui.md`, referenced by the routing table in Task 11.
 
@@ -773,10 +789,12 @@ git commit -m "feat(uikit): add UIKit to SwiftUI migration workflow"
 ### Task 9: UIKit Expert agent
 
 **Files:**
+
 - Create: `agents/uikit_expert.md`
 - Create: `.claude/agents/uikit-expert.md`
 
 **Interfaces:**
+
 - Consumes: Tasks 1-8. Every link target must already exist.
 - Produces: the agent role referenced by the routing table in Task 11.
 
@@ -841,6 +859,7 @@ git commit -m "feat(uikit): add UIKit Expert agent"
 ### Task 10: Presentation-pattern default across all five entry points
 
 **Files:**
+
 - Modify: `AGENTS.md:15`, `AGENTS.md:20`
 - Modify: `CLAUDE.md:34`, `CLAUDE.md:38`
 - Modify: `GEMINI.md:18`
@@ -848,6 +867,7 @@ git commit -m "feat(uikit): add UIKit Expert agent"
 - Modify: `.windsurfrules:17`
 
 **Interfaces:**
+
 - Consumes: nothing.
 - Produces: the reworded defaults that Task 11's routing table depends on.
 
@@ -903,11 +923,13 @@ git commit -m "feat(uikit): select presentation pattern from UI framework across
 ### Task 11: Paradigm detection, routing, and README
 
 **Files:**
+
 - Modify: `AGENTS.md` — scoping section at line 29, shared-layer claim at line 51, routing table at line 115, Tier 2 mermaid graph
 - Modify: `CLAUDE.md:15` — detection step
 - Modify: `README.md` — lines 38, 127, 278, and the mermaid graph at line 331
 
 **Interfaces:**
+
 - Consumes: `agents/uikit_expert.md` (Task 9), `workflows/migrate_uikit_to_swiftui.md` (Task 8), `skills/ui/ios/massive_view_controller.md` (Task 4).
 - Produces: the wired control plane. This is the task that makes everything else reachable.
 
@@ -986,10 +1008,12 @@ git commit -m "feat(uikit): add UI paradigm detection, routing, and docs"
 ### Task 12: Directory indexes, verify thresholds, and full validation
 
 **Files:**
+
 - Modify: `verify.sh`
 - Modify: `agents/README.md`, `skills/README.md`, `standards/README.md`, `checklists/README.md`, `workflows/README.md`, `templates/README.md`
 
 **Interfaces:**
+
 - Consumes: every file created in Tasks 1-9.
 - Produces: a repository that passes all three CI gates.
 

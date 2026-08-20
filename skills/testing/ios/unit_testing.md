@@ -9,10 +9,11 @@ platform: ios
 Unit tests verify one component in isolation — a use case, ViewModel, mapper, or repository
 — with its dependencies replaced by test doubles. They are the **base of the test pyramid**:
 fast, deterministic, and numerous. On iOS, prefer the **Swift Testing** framework
-(`@Test`/`#expect`) for new code; XCTest remains fine for legacy. Swift Testing requires iOS
-16 tooling and a Swift 6 toolchain, so codebases with an iOS 13 or 14 deployment target
-should use XCTest, which remains fully supported. The prerequisite for good unit tests is
-testable design: dependency injection through protocols and injectable `Date`/ids.
+(`@Test`/`#expect`) for new code; XCTest remains fine for legacy. Swift Testing requires a
+Swift 6 toolchain (Xcode 16 or later) rather than any particular deployment target, so
+codebases pinned to older toolchains — common on projects still supporting an iOS 13 or 14
+floor — should use XCTest, which remains fully supported. The prerequisite for good unit
+tests is testable design: dependency injection through protocols and injectable `Date`/ids.
 
 ## Use Cases
 
@@ -167,7 +168,9 @@ to a single test file.
 ## AI Implementation Notes
 
 - Generate unit tests alongside any non-trivial logic; inject `Date`/ids.
-- Prefer Swift Testing `@Test`/`#expect`; use simple fakes.
+- Prefer Swift Testing `@Test`/`#expect` where the toolchain supports it; on older
+  toolchains or legacy targets use XCTest — see
+  [Testing Presenters (UIKit)](#testing-presenters-uikit). Use simple fakes.
 - Always include at least one error-path test.
 - Related: [`integration_testing.md`](integration_testing.md),
   [`../../../standards/testing_standards.md`](../../../standards/testing_standards.md),

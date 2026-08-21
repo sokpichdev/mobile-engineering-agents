@@ -5,6 +5,7 @@ and self-review before declaring work done. Each maps to a standard and/or an ag
 
 - [architecture_review.md](architecture_review.md) — layering, DI, modularity
 - [code_review.md](code_review.md) — correctness, security, tests, standards (baseline gate)
+- [uikit_review.md](uikit_review.md) — programmatic views, MVP contract, presenter rules, lifecycle, accessibility
 - [security_review.md](security_review.md) — OWASP MASVS storage/transport/auth/crypto
 - [api_review.md](api_review.md) — REST/GraphQL contracts, errors, pagination
 - [websocket_review.md](websocket_review.md) — realtime lifecycle, concurrency, backpressure

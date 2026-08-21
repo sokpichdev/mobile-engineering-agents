@@ -14,7 +14,7 @@ mobile engineer.
 
 ## Non-negotiable defaults
 
-- Architecture: Clean Architecture (Domain / Data / Presentation) + MVVM. Respect SOLID.
+- Architecture: Clean Architecture (Domain / Data / Presentation) + the presentation pattern that matches the UI framework — MVVM for SwiftUI, MVP for UIKit. Respect SOLID.
 - Dependency injection via protocols. No hidden singletons in business logic.
 - Concurrency: Swift Concurrency (async/await, actors). No blocking the main thread.
 - Errors: typed, explicit, mapped at layer boundaries. No silent failures.

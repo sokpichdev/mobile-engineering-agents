@@ -12,13 +12,14 @@ should load it alongside `README.md` when coordinating multi-step work.
 ## Operating Principles (apply to every agent)
 
 1. **Architecture first.** Default to Clean Architecture (Domain / Data / Presentation)
-   with MVVM in the Presentation layer. Respect SOLID.
+   with the presentation pattern that matches the UI framework — MVVM for SwiftUI, MVP for UIKit. Respect SOLID.
 2. **Security is a requirement, not a feature.** Follow [`standards/security_standards.md`](standards/security_standards.md)
    and OWASP MASVS. Never log secrets; never store tokens in plaintext.
 3. **Make it testable.** Inject dependencies through protocols. No hidden singletons in
    business logic.
 4. **Be explicit about errors and concurrency.** Use typed errors and Swift Concurrency
-   (`async/await`, actors) deliberately.
+   (`async/await`, actors) deliberately. On legacy targets, bridge existing promise and
+   completion-handler APIs at the data boundary rather than rewriting call sites.
 5. **Stay consistent.** Conform to [`standards/`](standards/). Generated code should look
    like one team wrote it.
 6. **Self-review before handoff.** Every agent ends its turn by checking its work against
@@ -26,13 +27,11 @@ should load it alongside `README.md` when coordinating multi-step work.
 
 ---
 
-## Platform Scoping
+## Platform & Paradigm Scoping
 
-This toolkit supports multiple platforms. **Detect the platform first, then load only that
-platform's subtree plus the shared layers** — this keeps context lean and prevents loading
-another platform's code.
+This toolkit supports multiple platforms and UI paradigms. **Detect the platform and paradigm first, then load only that platform/paradigm's subtree plus the shared layers** — this keeps context lean and prevents loading another platform's code.
 
-**Detect from the project:**
+**Detect platform from the project:**
 
 | Signal | Platform |
 |--------|----------|
@@ -43,14 +42,30 @@ another platform's code.
 
 When the signal is ambiguous or absent, **ask**; default to `ios`.
 
+**Detect UI paradigm (for iOS):**
+
+| Signal | Paradigm |
+|--------|----------|
+| `@main struct …: App` | `swiftui` |
+| `AppDelegate` + `SceneDelegate`, no `App` struct | `uikit` |
+| `UIViewController` subclasses dominate the UI tree | `uikit` |
+| Both present, plus `UIHostingController` | `mixed` |
+
+- **New projects default to `swiftui`.** With no existing UI tree to inspect, the paradigm is a choice rather than a discovery, and SwiftUI remains the toolkit's primary focus. UIKit is chosen for greenfield work only when the user asks.
+- **Existing codebases with conflicting signals: ask.** Never guess at a codebase's architecture silently.
+- **Mixed resolves to a dominant and a secondary paradigm.** Dominant holds the majority of the UI tree. Existing code is read and modified under the dominant paradigm's rules. New screens may use the secondary, but only via `workflows/migrate_uikit_to_swiftui.md` — never ad hoc.
+- **Loading rule.** Load files where `platform:` matches and (`ui:` is absent or matches the detected paradigm). In mixed mode, load both.
+
+Platform-specific files declare `platform:` and optional `ui:` (e.g. `platform: ios`, `ui: uikit`) in front-matter for precise filtering. Omitting `ui:` means the file applies to both paradigms.
+
 **What is platform-scoped vs shared:**
 
-- **Platform-scoped** (load only the detected platform): `skills/<topic>/<platform>/…`,
-  `templates/<platform>/…`. Each platform-specific file also declares `platform:` in its
+- **Platform-scoped** (load only the detected platform/paradigm): `skills/<topic>/<platform>/…`,
+  `templates/<platform>/…`. Each platform-specific file also declares `platform:` and optional `ui:` in its
   front-matter for precise filtering.
-- **Shared** (always in scope, never forked per platform): [`standards/`](standards/),
+- **Shared** (always in scope, never forked per platform): [`standards/`](standards/) (contains platform/paradigm specific standards filtered by front-matter rules),
   [`architecture/`](architecture/), [`checklists/`](checklists/), [`workflows/`](workflows/),
-  and the agents in [`agents/`](agents/) (selected by name, e.g. `swiftui_expert` for iOS).
+  and the agents in [`agents/`](agents/) (selected by name, e.g. `swiftui_expert` or `uikit_expert` for iOS).
 
 If the detected platform has no file for a needed topic yet (e.g. Android is mid-port), say so
 and fall back to the shared concept docs rather than silently using iOS code.
@@ -70,6 +85,7 @@ graph TD
     end
     subgraph Tier2[Tier 2 — Implementation]
         UI[SwiftUI Expert]
+        UIK[UIKit Expert]
         NET[Networking Expert]
         WS[WebSocket Expert]
         BE[Backend Integrator]
@@ -88,8 +104,8 @@ graph TD
     end
 
     SD --> ARCH
-    ARCH --> UI & NET & WS & BE
-    UI & NET & WS & BE --> SEC & TEST & PERF & A11Y
+    ARCH --> UI & UIK & NET & WS & BE
+    UI & UIK & NET & WS & BE --> SEC & TEST & PERF & A11Y
     SEC & TEST & PERF & A11Y --> REV
     REF -.-> REV
     REV --> REL
@@ -99,7 +115,7 @@ graph TD
 | Tier | Role | Agents |
 |------|------|--------|
 | 1 | Decide *what* and *how it is shaped* | System Design Expert, iOS Architect |
-| 2 | Build it | SwiftUI, Networking, WebSocket, Backend Integrator |
+| 2 | Build it | SwiftUI, UIKit, Networking, WebSocket, Backend Integrator |
 | 3 | Harden and prove it | Security, Testing, Performance, Accessibility, Refactoring |
 | 4 | Gate and ship it | Code Reviewer, Release Manager, DevOps |
 
@@ -112,7 +128,10 @@ Route the request to the **entry agent** based on intent, then follow the chain.
 | Request type | Entry agent | Typical chain |
 |--------------|-------------|---------------|
 | New feature | iOS Architect | Architect → UI/Net → Security → Testing → Reviewer |
-| New screen / UI change | SwiftUI Expert | SwiftUI → Accessibility → Testing → Reviewer |
+| New screen / UI change (SwiftUI) | SwiftUI Expert | SwiftUI → Accessibility → Testing → Reviewer |
+| New screen / UI change (UIKit) | UIKit Expert | UIKit → Accessibility → Testing → Reviewer |
+| Massive view controller / legacy cleanup | Refactoring Expert | Refactoring → UIKit → Testing → Reviewer |
+| UIKit → SwiftUI migration | iOS Architect | Architect → UIKit → SwiftUI → Testing → Reviewer |
 | New/changed API integration | Backend Integrator | Backend → Networking → Security → Testing → Reviewer |
 | Realtime feature | WebSocket Expert | Architect → WebSocket → Security → Testing → Reviewer |
 | Auth / login / tokens | Security Expert | Architect → Security → Networking → Testing → Reviewer |
@@ -123,6 +142,14 @@ Route the request to the **entry agent** based on intent, then follow the chain.
 | Release / store submission | Release Manager | Release → DevOps |
 | CI/CD / automation | DevOps Expert | DevOps → Reviewer |
 | `!verify` | (workflow) | Run [`workflows/verify_setup.md`](workflows/verify_setup.md) |
+
+The UI row is selected by the paradigm detected in Platform & Paradigm Scoping, not by user preference.
+
+**Claude Code:** each role has a matching native subagent in `.claude/agents/` (kebab-case,
+e.g. `swiftui-expert`). Prefer dispatching those subagents over inline role-play — dispatched
+agents appear as distinct named lanes in observability dashboards (see the "Visualizing agent
+activity" section in [`README.md`](README.md)). Other platforms keep reading the plain
+markdown roles in [`agents/`](agents/) as before.
 
 **Routing heuristic for an orchestrator:** classify the request by *primary deliverable*
 (architecture decision, UI, data, security, test, release). Pick the agent that owns that

@@ -15,6 +15,7 @@ Standards · Review Checklist · Common Mistakes · Example Tasks**.
 ## Tier 2 — Implementation
 
 - [swiftui_expert.md](swiftui_expert.md) — view composition, state, navigation
+- [uikit_expert.md](uikit_expert.md) — programmatic views, MVP contracts, presenters, navigation
 - [networking_expert.md](networking_expert.md) — REST/GraphQL clients, retries, error mapping
 - [websocket_expert.md](websocket_expert.md) — realtime transport, reconnection, backpressure
 - [backend_integrator.md](backend_integrator.md) — API contracts, DTO mapping, pagination

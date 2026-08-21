@@ -11,13 +11,19 @@ standards here.
 
 ## How to operate
 
-1. **Detect the platform** of the project before loading content, then scope to it:
+1. **Detect the platform and paradigm** of the project before loading content, then scope to it:
    `Package.swift` / `*.xcodeproj` → **ios**; `build.gradle*` / `settings.gradle*` → **android**;
    `pubspec.yaml` → **flutter**; `package.json` with a `react-native` dependency →
-   **react_native**. When unclear, ask. Default to **ios**.
+   **react_native**. For **ios**, detect the UI paradigm (`swiftui`, `uikit`, or `mixed`) per
+   [`AGENTS.md`](AGENTS.md) and load only that paradigm's files (new projects default to `swiftui`).
+   When unclear, ask. Default to **ios**.
 2. **Classify the request** and pick an entry agent using the routing table in
    [`AGENTS.md`](AGENTS.md).
-3. **Load the relevant role** from [`agents/`](agents/) and act as that agent.
+3. **Load the relevant role** from [`agents/`](agents/) and act as that agent. In Claude
+   Code, prefer dispatching the matching subagent from [`.claude/agents/`](.claude/agents/)
+   (same roles, kebab-case names) instead of playing the role inline — each dispatch then
+   shows up as a distinct named agent in observability dashboards. Fall back to inline
+   role-play only for trivial single-step asks or when subagents are unavailable.
 4. **Pull in supporting skills/standards** as needed — load only the detected platform's
    subtree (`skills/<topic>/<platform>/`) plus the flat shared dirs ([`standards/`](standards/),
    [`architecture/`](architecture/)). Never load another platform's skills.
@@ -27,11 +33,14 @@ standards here.
 
 ## Non-negotiable defaults
 
-- Clean Architecture (Domain / Data / Presentation) + MVVM; respect SOLID.
+- Clean Architecture (Domain / Data / Presentation) + the presentation pattern that matches
+  the UI framework — MVVM for SwiftUI, MVP for UIKit; respect SOLID.
 - Security per [`standards/security_standards.md`](standards/security_standards.md) and
   OWASP MASVS. Never log or hardcode secrets; store tokens in Keychain.
 - Inject dependencies via protocols; keep business logic testable.
-- Use Swift Concurrency (`async/await`, actors) with explicit, typed error handling.
+- Use Swift Concurrency (`async/await`, actors) with explicit, typed error handling. On
+  legacy targets, bridge existing promise and completion-handler APIs at the data
+  boundary rather than rewriting call sites.
 - Conform to all files in [`standards/`](standards/).
 
 ## Quick map

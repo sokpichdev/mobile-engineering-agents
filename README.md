@@ -35,7 +35,7 @@ data, and keeping the codebase maintainable as it grows.
 
 This repo encodes that judgment as machine-loadable **agents, skills, workflows, checklists,
 templates, prompts, standards, and architecture references**. Primary focus: **iOS / Swift /
-SwiftUI**; secondary: **Android/Kotlin** and **Flutter**.
+SwiftUI** (with legacy **UIKit + MVP** codebases supported as a first-class paradigm); secondary: **Android/Kotlin** and **Flutter**.
 
 It is **not** a tutorial or handbook. It's an operational toolkit you point your AI agent at.
 
@@ -125,6 +125,7 @@ off to each other (see [`AGENTS.md`](AGENTS.md)).
 ### Implementation
 
 - [SwiftUI Expert](agents/swiftui_expert.md) — view composition, state, navigation
+- [UIKit Expert](agents/uikit_expert.md) — programmatic views, MVP contracts, presenters, navigation
 - [Networking Expert](agents/networking_expert.md) — REST/GraphQL clients, retries, error mapping
 - [WebSocket Expert](agents/websocket_expert.md) — realtime transport, reconnection, backpressure
 - [Backend Integrator](agents/backend_integrator.md) — API contracts, DTO mapping, pagination
@@ -278,12 +279,38 @@ context stays lean. Naming a file yourself just overrides or sharpens this autom
 **Multi-platform by design.** The agent detects your project's platform (iOS, Android, Flutter,
 React Native) and loads only that platform's subtree — `skills/<topic>/<platform>/` and
 `templates/<platform>/` — plus the shared, platform-neutral layers (`standards/`,
-`architecture/`, `checklists/`, `workflows/`). It never pulls another platform's code into
-context. iOS is the most complete today; see
+`architecture/`, `checklists/`, `workflows/`). Within iOS, the agent also detects the UI paradigm
+(`swiftui` or `uikit`) and loads only that paradigm's files (omitting the `ui:` key means content
+applies to both). It never pulls another platform's code into context. iOS is the most complete today; see
 [Contributing](#contributing--everyone-is-welcome) to help port the rest.
 
 > See [`AGENTS.md`](AGENTS.md) for the full routing table and the tier hierarchy, or the
 > [Example Workflows](#example-workflows) diagram below for a real multi-agent handoff.
+
+---
+
+## Visualizing Agent Activity (Claude Code)
+
+Watch the agents work in real time with [agents-observe](https://github.com/simple10/agents-observe) —
+a local, open-source (MIT) observability dashboard. It captures Claude Code hook events into a
+local SQLite database and streams them to a live web UI: tool calls, subagent hierarchy, session
+replay, and token/cost stats. Nothing leaves your machine.
+
+Setup (requires Docker and Node):
+
+```bash
+claude plugin marketplace add simple10/agents-observe
+claude plugin install agents-observe
+```
+
+The plugin auto-starts its server on the next Claude Code session; the dashboard lives at
+<http://localhost:4981>. Manage it from inside Claude Code with `/observe status`,
+`/observe restart`, and `/observe logs`.
+
+Each role in [`agents/`](agents/) is mirrored as a native Claude Code subagent in
+[`.claude/agents/`](.claude/agents/) (e.g. `swiftui-expert`, `security-expert`), so when work is
+delegated, every specialist appears as its own named agent in the dashboard instead of one
+anonymous session.
 
 ---
 
@@ -303,7 +330,7 @@ Behind the scenes, a non-trivial task flows through multiple agents:
 ```mermaid
 flowchart LR
     R[Feature Request] --> A[iOS Architect]
-    A --> U[SwiftUI Expert]
+    A --> U[SwiftUI / UIKit Expert]
     U --> N[Networking Expert]
     N --> S[Security Expert]
     S --> T[Testing Expert]

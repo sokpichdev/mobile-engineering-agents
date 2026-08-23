@@ -8,9 +8,18 @@ jobs:
   dispatch:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger a rebuild of mobie-site
+      - name: Trigger Vercel deploy hook
+        if: env.VERCEL_DEPLOY_HOOK != ''
+        env:
+          VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+        run: |
+          curl -sS -X POST "$VERCEL_DEPLOY_HOOK"
+
+      - name: Trigger GitHub Actions dispatch
+        if: env.GH_TOKEN != '' && env.VERCEL_DEPLOY_HOOK == ''
         env:
           GH_TOKEN: ${{ secrets.SITE_DISPATCH_TOKEN }}
+          VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
         run: |
           gh api \
             --method POST \

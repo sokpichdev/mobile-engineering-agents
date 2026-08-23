@@ -241,7 +241,7 @@ One theme, two palettes, both extending the VitePress default theme.
 | Ground | `#faf8f4` | `#0b0d12` |
 | Text | `#1a1814` | `#e6e8ef` |
 | Muted text | `#5c574e` | `#8b93a7` |
-| Accent | `#c2410c` | `#7c5cff` |
+| Accent | `#c2410c` (4.88:1) | `#8a6dff` (5.29:1) |
 | Positive | `#15803d` | `#3ddc84` |
 | Negative | `#b91c1c` | `#ff6b6b` |
 | Display type | Georgia / serif | Georgia / serif |
@@ -250,7 +250,12 @@ One theme, two palettes, both extending the VitePress default theme.
 
 Light is warm paper with a serif display face, numbered section eyebrows, and hairline
 rules — a published engineering handbook rather than a product page. Dark inverts to
-near-black with a violet accent, matching the toolkit's existing badge colour.
+near-black with a violet accent, close to the toolkit's existing badge colour.
+
+Accent values are the link colour in each mode, so both must clear WCAG AA for body text
+(4.5:1). The dark accent was originally specified as `#7c5cff`; measured against the dark
+ground it is 4.47:1 and against the dark surface 4.23:1, so it was corrected to `#8a6dff`
+(5.29:1 / 5.00:1). Any future palette change must be measured, not eyeballed.
 
 ---
 

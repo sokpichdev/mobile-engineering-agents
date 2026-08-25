@@ -53,3 +53,6 @@ node_modules/
 .idea/
 .vscode/
 *.swp
+
+# Superpowers scratch (brainstorm mockups, SDD task files)
+.superpowers/

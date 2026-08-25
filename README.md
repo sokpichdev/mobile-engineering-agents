@@ -9,13 +9,13 @@ the judgment of an experienced mobile team — architecture, security, testing, 
 code they generate is production-grade, not just plausible.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Docs](https://img.shields.io/badge/docs-live-blue.svg)](https://sokpichdev.github.io/mobile-engineering-agents/)
+[![Docs](https://img.shields.io/badge/docs-mobie.sokpich.dev-blue.svg)](https://mobie.sokpich.dev)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![Platform](https://img.shields.io/badge/focus-iOS%20%7C%20Swift%20%7C%20SwiftUI-orange.svg)](#whats-inside)
 [![AI-ready](https://img.shields.io/badge/AI-Claude%20%C2%B7%20Codex%20%C2%B7%20Cursor%20%C2%B7%20Windsurf%20%C2%B7%20Gemini%20%C2%B7%20Aider-blueviolet.svg)](#how-to-use-the-agents)
 <img alt="" src="https://komarev.com/ghpvc/?username=sokpichdev&color=blueviolet"/>
 
-[Docs Site](https://sokpichdev.github.io/mobile-engineering-agents/) · [Quick Start](#quick-start) · [What's Inside](#whats-inside) · [The Agent Team](#the-agent-team) · [How to Use](#how-to-use-the-agents) · [How It Works](#how-it-works) · [Workflows](#example-workflows)
+[Docs Site](https://mobie.sokpich.dev) · [Quick Start](#quick-start) · [What's Inside](#whats-inside) · [The Agent Team](#the-agent-team) · [How to Use](#how-to-use-the-agents) · [How It Works](#how-it-works) · [Workflows](#example-workflows)
 
 </div>
 
@@ -108,6 +108,33 @@ right experts and scales its process to the task. Head to
 
 Plus [`AGENTS.md`](AGENTS.md) (orchestration), [`GLOSSARY.md`](GLOSSARY.md) (shared terms), and a
 `README.md` index inside every directory.
+
+---
+
+## Docs Site
+
+Everything above is browsable at **[mobie.sokpich.dev](https://mobie.sokpich.dev)** — a landing page
+plus the entire toolkit rendered as searchable docs.
+
+<div align="center">
+  <a href="https://mobie.sokpich.dev">
+    <img alt="mobie.sokpich.dev — the Mobile Engineering Agents docs site and landing page" src="https://mobie.sokpich.dev/og.png" width="720">
+  </a>
+</div>
+
+- **[Landing page](https://mobie.sokpich.dev)** — the pitch: before/after code, the four-tier agent map, live inventory counts
+- **[Introduction](https://mobie.sokpich.dev/introduction)** — this README, rendered
+- **[Orchestration](https://mobie.sokpich.dev/AGENTS)** — [`AGENTS.md`](AGENTS.md), the routing table
+- **Section indexes** — [Agents](https://mobie.sokpich.dev/agents/) · [Skills](https://mobie.sokpich.dev/skills/) · [Workflows](https://mobie.sokpich.dev/workflows/) · [Checklists](https://mobie.sokpich.dev/checklists/) · [Standards](https://mobie.sokpich.dev/standards/), plus full-text search across all of it
+
+**The site's code is deliberately not in this repo.** It lives in a separate `mobie-site` repo
+(VitePress) that clones this one at build time and points `srcDir` at the clone. Three things follow:
+site routes mirror repo paths, so existing relative `.md` links keep working; this repo stays
+agent-loadable content only, with no build tooling shipped into your project; and every page carries
+an *Edit this page on GitHub* link back here. Pushing to `main` triggers a rebuild.
+
+Design notes: [`docs/superpowers/specs/2026-08-23-docs-site-design.md`](docs/superpowers/specs/2026-08-23-docs-site-design.md)
+and [`docs/superpowers/plans/2026-08-23-docs-site.md`](docs/superpowers/plans/2026-08-23-docs-site.md).
 
 ---
 
@@ -376,7 +403,7 @@ to be an iOS engineer to help. Here's where people of every background fit in:
 | **Security reviewer** | Auditing the security standards and Keychain / crypto / pinning guidance |
 | **Critic / reviewer** | Running the agents on real tasks and filing where the output falls short |
 | **Writer / typo hunter** | Fixing typos, tightening wording, and improving clarity and examples |
-| **Web dev** | Building a docs site or landing page for the toolkit (open an issue to claim it) |
+| **Web dev** | Improving the [docs site](https://mobie.sokpich.dev) and landing page (open an issue — the site repo is separate) |
 | **Designer** | Improving the diagrams, the logo / banner, and visual explanations |
 | **Anyone** | Filing ideas and bug reports, starring, and sharing the repo |
 

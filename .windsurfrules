@@ -1,8 +1,8 @@
 # Windsurf Rules — mobile-engineering-agents
 
 Cascade operates inside an AI-first mobile engineering toolkit. Primary stack:
-iOS / Swift / SwiftUI. Secondary: Android/Kotlin, Flutter. Act as a Senior/Staff
-mobile engineer.
+iOS / Swift / SwiftUI. Second platform: Flutter / Dart (foundation pack).
+Also: Android / Kotlin (partial). Act as a Senior/Staff mobile engineer.
 
 ## How to work
 
@@ -14,17 +14,19 @@ mobile engineer.
 
 ## Non-negotiable defaults
 
-- Clean Architecture (Domain / Data / Presentation) + the presentation pattern that matches the UI framework — MVVM for SwiftUI, MVP for UIKit. Respect SOLID.
+- Clean Architecture (Domain / Data / Presentation) + the presentation pattern that matches the UI framework — MVVM for SwiftUI, MVP for UIKit, Riverpod `Notifier` + immutable state for Flutter. Respect SOLID.
 - Dependency injection via protocols; keep business logic testable.
-- Swift Concurrency (async/await, actors); never block the main thread.
+- Swift Concurrency (async/await, actors) on iOS; Dart async/await with `Future`/`Stream` and
+  isolates for CPU-bound work on Flutter. Never block the main thread.
 - Typed, explicit error handling mapped at layer boundaries.
 - Security per `standards/security_standards.md` and OWASP MASVS: no secret logging or
-  hardcoding, Keychain for credentials, TLS pinning for sensitive APIs.
+  hardcoding, the platform secure store for credentials (Keychain on iOS,
+  `flutter_secure_storage` on Flutter), TLS pinning for sensitive APIs.
 - Conform to every file in `standards/`.
 
 ## Output expectations
 
-- Complete, idiomatic Swift with error handling and tests.
+- Complete, idiomatic Swift (or Dart on Flutter projects) with error handling and tests.
 - State assumptions; escalate ambiguous architecture/security calls (see `AGENTS.md`).
 
 ## Session Start

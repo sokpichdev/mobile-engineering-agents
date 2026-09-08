@@ -117,3 +117,5 @@ For a tiny app, collapsing use cases into the repository is acceptable — but k
 - [feature_module_architecture.md](feature_module_architecture.md)
 - [`skills/architecture/ios/repository_pattern.md`](../skills/architecture/ios/repository_pattern.md)
 - [`templates/ios/clean_architecture_feature/`](../templates/ios/clean_architecture_feature/)
+- [`skills/architecture/flutter/clean_architecture.md`](../skills/architecture/flutter/clean_architecture.md) (Flutter)
+- [`templates/flutter/clean_architecture_feature/`](../templates/flutter/clean_architecture_feature/) (Flutter)

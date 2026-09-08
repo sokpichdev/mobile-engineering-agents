@@ -84,3 +84,5 @@ sequenceDiagram
 - [networking_architecture.md](networking_architecture.md)
 - [`templates/ios/authentication_layer/`](../templates/ios/authentication_layer/)
 - [`checklists/security_review.md`](../checklists/security_review.md)
+- [`skills/security/flutter/oauth2.md`](../skills/security/flutter/oauth2.md) (Flutter)
+- [`skills/security/flutter/secure_storage.md`](../skills/security/flutter/secure_storage.md) (Flutter)

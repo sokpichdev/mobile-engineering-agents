@@ -89,3 +89,5 @@ The UI can surface `pending`/`failed` (e.g. a small "not synced" indicator).
 - [`skills/storage/ios/caching.md`](../skills/storage/ios/caching.md)
 - [`skills/storage/ios/coredata.md`](../skills/storage/ios/coredata.md)
 - [`agents/system_design_expert.md`](../agents/system_design_expert.md)
+- [`skills/storage/flutter/offline_sync.md`](../skills/storage/flutter/offline_sync.md) (Flutter)
+- [`skills/storage/flutter/local_persistence.md`](../skills/storage/flutter/local_persistence.md) (Flutter)

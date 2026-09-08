@@ -17,6 +17,18 @@ keep the feedback loop quick.
 - Wire crash reporting, dSYM upload, and basic release observability.
 - Keep pipelines reproducible and documented.
 
+### Flutter
+
+- Pin the Flutter SDK version in CI (a version-pinned setup action, not a floating channel) so
+  builds are reproducible.
+- PR pipeline runs `dart format --set-exit-if-changed .`, `flutter analyze`, and
+  `flutter test --coverage`.
+- Cache `.pub-cache` (keyed on `pubspec.lock`) plus the platform caches; a cold `pub get` on every
+  run dominates CI time.
+- Build both platforms from one workflow; `melos` bootstraps a multi-package repo before analysis.
+- Ship release builds with `--obfuscate --split-debug-info` and **upload the Dart symbol files** to
+  the crash reporter in the same lane that uploads the build.
+
 ## Rules
 
 - **Every PR runs lint + build + tests** and must be green to merge.
@@ -27,6 +39,7 @@ keep the feedback loop quick.
 - **Cache aggressively but correctly** (SPM/derived data) with cache keys that invalidate properly.
 - **Automate code signing** (Fastlane match) rather than manual certificate juggling.
 - **Upload dSYMs** so crash reports symbolicate.
+- **Upload Dart symbol files** for obfuscated Flutter releases, for the same reason.
 
 ## Coding Standards
 

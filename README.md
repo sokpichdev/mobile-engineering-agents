@@ -133,9 +133,6 @@ site routes mirror repo paths, so existing relative `.md` links keep working; th
 agent-loadable content only, with no build tooling shipped into your project; and every page carries
 an *Edit this page on GitHub* link back here. Pushing to `main` triggers a rebuild.
 
-Design notes: [`docs/superpowers/specs/2026-08-23-docs-site-design.md`](docs/superpowers/specs/2026-08-23-docs-site-design.md)
-and [`docs/superpowers/plans/2026-08-23-docs-site.md`](docs/superpowers/plans/2026-08-23-docs-site.md).
-
 ---
 
 ## The Agent Team

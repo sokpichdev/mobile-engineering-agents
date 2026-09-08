@@ -89,3 +89,4 @@ actor ChatSocket {
 - [`checklists/websocket_review.md`](../checklists/websocket_review.md)
 - [`templates/ios/websocket_layer/`](../templates/ios/websocket_layer/)
 - [`workflows/integrate_websocket.md`](../workflows/integrate_websocket.md)
+- [`skills/networking/flutter/websocket.md`](../skills/networking/flutter/websocket.md) (Flutter)

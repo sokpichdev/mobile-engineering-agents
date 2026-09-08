@@ -1,3 +1,7 @@
+---
+platform: ios
+---
+
 # Standard: Swift Coding Standards
 
 Baseline rules for all Swift code. Enforced by [`.swiftlint.yml`](../.swiftlint.yml) where

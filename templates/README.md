@@ -1,10 +1,12 @@
 # Templates
 
-Copy-paste scaffolding with folder structure, boilerplate Swift, naming conventions, DI setup,
-error handling, and testing examples. Swift here is **illustrative** — rename the sample types
+Copy-paste scaffolding with folder structure, boilerplate Swift and Dart, naming conventions, DI
+setup, error handling, and testing examples. The code here is **illustrative** — rename the sample types
 (`Article`, `Checkout`, etc.) and split combined files into one-type-per-file when you copy them
 into a real module. (They aren't part of a compiled package, so cross-file symbols won't resolve
 in isolation — that's expected.)
+
+## iOS
 
 - [feature_module/](ios/feature_module/) — a full Swift Package feature slice
 - [clean_architecture_feature/](ios/clean_architecture_feature/) — Domain/Data/Presentation + DI + tests (with `.swift` files)
@@ -15,6 +17,12 @@ in isolation — that's expected.)
 - [swiftui_screen/](ios/swiftui_screen/) — MVVM screen with state enum
 - [uikit_mvp_screen/](ios/uikit_mvp_screen/) — MVP screen with injected repository and presenter tests
 - [unit_test_template/](ios/unit_test_template/) — Swift Testing patterns + `URLProtocol` stub (with `.swift` files)
+
+## Flutter
+
+- [clean_architecture_feature/](flutter/clean_architecture_feature/) — Domain/Data/Presentation + Riverpod providers + tests (with `.dart` files)
+- [riverpod_screen/](flutter/riverpod_screen/) — `AsyncNotifier` screen with every state handled
+- [networking_layer/](flutter/networking_layer/) — `dio` client, interceptor stack, sealed `Failure` mapping
 
 Each template links to the [skills](../skills/), [standards](../standards/), and
 [architecture](../architecture/) docs it implements.

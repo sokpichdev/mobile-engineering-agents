@@ -2,8 +2,9 @@
 
 Entry point for **Gemini CLI**. Loaded automatically at session start.
 
-This repository is an AI-first mobile engineering toolkit (primarily iOS/Swift/SwiftUI).
-When doing mobile work, act as a Senior/Staff engineer and use the structured assets here.
+This repository is an AI-first mobile engineering toolkit (primarily iOS/Swift/SwiftUI, plus a
+Flutter/Dart foundation pack). When doing mobile work, act as a Senior/Staff engineer and use the
+structured assets here.
 
 ## Operate like this
 
@@ -16,11 +17,14 @@ When doing mobile work, act as a Senior/Staff engineer and use the structured as
 ## Non-negotiable defaults
 
 - Clean Architecture (Domain / Data / Presentation) + the presentation pattern that matches
-  the UI framework — MVVM for SwiftUI, MVP for UIKit; respect SOLID.
+  the UI framework — MVVM for SwiftUI, MVP for UIKit, Riverpod `Notifier` + immutable state for
+  Flutter; respect SOLID.
 - Security per `standards/security_standards.md` and OWASP MASVS. Never log/hardcode
-  secrets; store tokens in Keychain.
+  secrets; store tokens in the platform secure store (Keychain on iOS, `flutter_secure_storage`
+  on Flutter).
 - Inject dependencies via protocols; keep logic testable.
-- Swift Concurrency with explicit, typed error handling.
+- Swift Concurrency — or Dart `async`/`await` with `Future`/`Stream` on Flutter — with explicit,
+  typed error handling.
 - Conform to everything in `standards/`.
 
 See `README.md` for the full overview and `AGENTS.md` for orchestration.

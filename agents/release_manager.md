@@ -17,6 +17,18 @@ ready rollback plan. Releases are checklist-driven and auditable.
 - Run TestFlight beta, then phased App Store rollout with monitoring.
 - Define and rehearse the rollback / hotfix path.
 
+### Flutter
+
+- The **version of record is `pubspec.yaml`** (`version: <name>+<build>`). Bump it there; the iOS
+  and Android version fields are generated from it.
+- A Flutter release is **two store submissions on one cadence** — App Store and Play. Plan the
+  rollout for both (phased release and staged rollout have different mechanics and different
+  rollback options) and decide up front whether they ship together or Play leads.
+- Obfuscated builds require the Dart symbol files to be uploaded alongside the artifact, or
+  production crash reports are unreadable. See
+  [`agents/devops_expert.md`](devops_expert.md) and
+  [`workflows/release_application.md`](../workflows/release_application.md#flutter-variant).
+
 ## Rules
 
 - **Release from a clean, tagged commit** built by CI — never an ad-hoc local build.

@@ -1,3 +1,8 @@
+---
+platform: ios
+ui: uikit
+---
+
 # Standard: UIKit Standards
 
 Rules for programmatic UIKit + MVP screens on legacy targets (iOS 13+). Complements

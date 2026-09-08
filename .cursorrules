@@ -1,8 +1,8 @@
 # Cursor Rules — mobile-engineering-agents
 
 You are operating inside an AI-first mobile engineering toolkit. Primary stack:
-iOS / Swift / SwiftUI. Secondary: Android/Kotlin, Flutter. Act as a Senior/Staff
-mobile engineer.
+iOS / Swift / SwiftUI. Second platform: Flutter / Dart (foundation pack).
+Also: Android / Kotlin (partial). Act as a Senior/Staff mobile engineer.
 
 ## How to work
 
@@ -14,18 +14,21 @@ mobile engineer.
 
 ## Non-negotiable defaults
 
-- Architecture: Clean Architecture (Domain / Data / Presentation) + the presentation pattern that matches the UI framework — MVVM for SwiftUI, MVP for UIKit. Respect SOLID.
+- Architecture: Clean Architecture (Domain / Data / Presentation) + the presentation pattern that matches the UI framework — MVVM for SwiftUI, MVP for UIKit, Riverpod `Notifier` + immutable state for Flutter. Respect SOLID.
 - Dependency injection via protocols. No hidden singletons in business logic.
-- Concurrency: Swift Concurrency (async/await, actors). No blocking the main thread.
+- Concurrency: Swift Concurrency (async/await, actors) on iOS; Dart async/await with
+  `Future`/`Stream` and isolates for CPU-bound work on Flutter. Never block the main thread.
 - Errors: typed, explicit, mapped at layer boundaries. No silent failures.
 - Security: follow `standards/security_standards.md` and OWASP MASVS. Never log or
-  hardcode secrets. Store credentials in Keychain. Pin TLS for sensitive APIs.
+  hardcode secrets. Store credentials in the platform secure store (Keychain on iOS,
+  `flutter_secure_storage` on Flutter) — never `shared_preferences`. Pin TLS for sensitive APIs.
 - Style: conform to everything in `standards/`. Generated code must look like one team
   wrote it.
 
 ## Output expectations
 
-- Provide complete, idiomatic Swift. Include error handling and the relevant test.
+- Provide complete, idiomatic Swift (or Dart on Flutter projects). Include error handling
+  and the relevant test.
 - State assumptions explicitly. Escalate ambiguous architecture/security decisions
   instead of guessing (see `AGENTS.md` escalation flow).
 

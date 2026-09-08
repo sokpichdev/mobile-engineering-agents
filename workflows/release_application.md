@@ -31,6 +31,36 @@ phased rollout, and a ready rollback plan.
 7. **Monitor + decide** — watch crash-free rate and key metrics; advance or roll back.
 8. **Review** against [`checklists/release_review.md`](../checklists/release_review.md).
 
+### Flutter variant
+
+The procedure above is unchanged; only the build and signing commands differ.
+
+- **Version of record is `pubspec.yaml`** (`version: 1.4.0+42` — name`+`build number). Bump it
+  there; do not hand-edit the generated iOS/Android version fields.
+- **Pre-flight gate:** `dart format --set-exit-if-changed .`, `flutter analyze`, and
+  `flutter test --coverage` must all be green.
+- **Environment/flavor config** comes from `--dart-define-from-file` (or `--dart-define`), never
+  from committed constants. Note that these values are **extractable strings in the binary** —
+  they are configuration, not secrets.
+- **Build both artifacts:**
+
+  ```bash
+  flutter build appbundle --release --flavor prod \
+    --dart-define-from-file=config/prod.json \
+    --obfuscate --split-debug-info=build/symbols
+  flutter build ipa --release --flavor prod \
+    --dart-define-from-file=config/prod.json \
+    --obfuscate --split-debug-info=build/symbols \
+    --export-options-plist=ios/ExportOptions.plist
+  ```
+
+- **Upload the Dart symbol files** from `build/symbols` to the crash reporter. This is the Flutter
+  analogue of the dSYM rule: an obfuscated release without uploaded symbols produces stack traces
+  nobody can read, and you only discover it after the first production crash.
+- Distribution is the same Fastlane surface — `upload_to_testflight` and `supply` — driven from one
+  lane set covering both stores.
+- Check bundle size with `flutter build --analyze-size` before submission.
+
 ## Validation Steps
 
 - Build originates from a tagged CI run; version/build numbers correct and unique.

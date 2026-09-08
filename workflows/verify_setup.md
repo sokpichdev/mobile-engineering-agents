@@ -35,12 +35,17 @@ Confirm that the toolkit has been properly initialized and all critical files an
    - `templates/`
    - `architecture/`
 
-3. **Check expected file counts** — ensure minimum thresholds are met:
-   - `agents/*.md` ≥ 14
-   - `skills/**/*.md` ≥ 31
-   - `workflows/*.md` ≥ 11
-   - `checklists/*.md` ≥ 8
-   - `standards/*.md` ≥ 7
+3. **Check expected file counts** — ensure minimum thresholds are met. These mirror
+   [`verify.sh`](../verify.sh); update both together:
+   - `agents/*.md` ≥ 17
+   - `skills/**/*.md` ≥ 53
+   - `workflows/*.md` ≥ 13
+   - `checklists/*.md` ≥ 10
+   - `standards/*.md` ≥ 10
+
+   Then check per-platform coverage:
+   - `skills/*/ios/**.md` ≥ 34, and `templates/ios/` exists
+   - `skills/*/flutter/**.md` ≥ 17, and `templates/flutter/` exists
 
 4. **Report each check** — display ✓ for pass, ✗ for fail.
 

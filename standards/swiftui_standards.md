@@ -1,3 +1,8 @@
+---
+platform: ios
+ui: swiftui
+---
+
 # Standard: SwiftUI Standards
 
 Rules for SwiftUI UI code. Complements [`coding_standards.md`](coding_standards.md). Enforced

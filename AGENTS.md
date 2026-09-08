@@ -12,14 +12,17 @@ should load it alongside `README.md` when coordinating multi-step work.
 ## Operating Principles (apply to every agent)
 
 1. **Architecture first.** Default to Clean Architecture (Domain / Data / Presentation)
-   with the presentation pattern that matches the UI framework — MVVM for SwiftUI, MVP for UIKit. Respect SOLID.
+   with the presentation pattern that matches the UI framework — MVVM for SwiftUI, MVP for UIKit,
+   Riverpod `Notifier` + immutable state for Flutter. Respect SOLID.
 2. **Security is a requirement, not a feature.** Follow [`standards/security_standards.md`](standards/security_standards.md)
    and OWASP MASVS. Never log secrets; never store tokens in plaintext.
 3. **Make it testable.** Inject dependencies through protocols. No hidden singletons in
    business logic.
 4. **Be explicit about errors and concurrency.** Use typed errors and Swift Concurrency
    (`async/await`, actors) deliberately. On legacy targets, bridge existing promise and
-   completion-handler APIs at the data boundary rather than rewriting call sites.
+   completion-handler APIs at the data boundary rather than rewriting call sites. On Flutter, the
+   equivalent is Dart `async`/`await` with `Future`/`Stream`, sealed failure types, and isolates
+   for CPU-bound work — never a bare `catch (_)`.
 5. **Stay consistent.** Conform to [`standards/`](standards/). Generated code should look
    like one team wrote it.
 6. **Self-review before handoff.** Every agent ends its turn by checking its work against
@@ -42,6 +45,14 @@ This toolkit supports multiple platforms and UI paradigms. **Detect the platform
 
 When the signal is ambiguous or absent, **ask**; default to `ios`.
 
+The `ui:` axis below applies **only to `ios`**. Flutter has a single UI paradigm: Riverpod
+`Notifier` + immutable state is the toolkit's default presentation pattern (see
+[`standards/flutter_standards.md`](standards/flutter_standards.md)). If a Flutter codebase is
+already on BLoC/Cubit, follow the existing pattern — read
+[`skills/architecture/flutter/state_management.md`](skills/architecture/flutter/state_management.md)
+§"When to Choose BLoC/Cubit Instead" — and never mix the two libraries in one codebase. Flutter
+files never carry `ui:`.
+
 **Detect UI paradigm (for iOS):**
 
 | Signal | Paradigm |
@@ -56,7 +67,7 @@ When the signal is ambiguous or absent, **ask**; default to `ios`.
 - **Mixed resolves to a dominant and a secondary paradigm.** Dominant holds the majority of the UI tree. Existing code is read and modified under the dominant paradigm's rules. New screens may use the secondary, but only via `workflows/migrate_uikit_to_swiftui.md` — never ad hoc.
 - **Loading rule.** Load files where `platform:` matches and (`ui:` is absent or matches the detected paradigm). In mixed mode, load both.
 
-Platform-specific files declare `platform:` and optional `ui:` (e.g. `platform: ios`, `ui: uikit`) in front-matter for precise filtering. Omitting `ui:` means the file applies to both paradigms.
+Platform-specific files declare `platform:` and optional `ui:` (e.g. `platform: ios`, `ui: uikit`) in front-matter for precise filtering. Omitting `ui:` means the file applies to both paradigms. **A file with no `platform:` key at all is shared and always loads** — that is how `architecture/`, `workflows/`, and the platform-neutral files in `standards/` and `checklists/` are scoped.
 
 **What is platform-scoped vs shared:**
 
@@ -65,10 +76,17 @@ Platform-specific files declare `platform:` and optional `ui:` (e.g. `platform: 
   front-matter for precise filtering.
 - **Shared** (always in scope, never forked per platform): [`standards/`](standards/) (contains platform/paradigm specific standards filtered by front-matter rules),
   [`architecture/`](architecture/), [`checklists/`](checklists/), [`workflows/`](workflows/),
-  and the agents in [`agents/`](agents/) (selected by name, e.g. `swiftui_expert` or `uikit_expert` for iOS).
+  and the agents in [`agents/`](agents/) (selected by name, e.g. `swiftui_expert` or `uikit_expert` for iOS, `flutter_expert` for Flutter).
 
-If the detected platform has no file for a needed topic yet (e.g. Android is mid-port), say so
-and fall back to the shared concept docs rather than silently using iOS code.
+**Coverage today.** iOS is complete. Flutter ships a **foundation pack** — architecture, state
+management, navigation, DI, repository, platform channels, networking, storage, security, testing,
+and rendering performance — plus its own standards, review checklist, and templates. Flutter has no
+notifications, GraphQL, SSE, file-upload, JWT, biometric, or crypto skill yet. Android and React
+Native are early.
+
+If the detected platform has no file for a needed topic, **say so** and fall back to the shared
+concept docs in [`architecture/`](architecture/) and [`standards/`](standards/) rather than silently
+translating the iOS file.
 
 ---
 
@@ -82,10 +100,12 @@ graph TD
     subgraph Tier1[Tier 1 — Strategy]
         SD[System Design Expert]
         ARCH[iOS Architect]
+        FARCH[Flutter Architect]
     end
     subgraph Tier2[Tier 2 — Implementation]
         UI[SwiftUI Expert]
         UIK[UIKit Expert]
+        FL[Flutter Expert]
         NET[Networking Expert]
         WS[WebSocket Expert]
         BE[Backend Integrator]
@@ -103,9 +123,10 @@ graph TD
         OPS[DevOps Expert]
     end
 
-    SD --> ARCH
+    SD --> ARCH & FARCH
     ARCH --> UI & UIK & NET & WS & BE
-    UI & UIK & NET & WS & BE --> SEC & TEST & PERF & A11Y
+    FARCH --> FL & NET & WS & BE
+    UI & UIK & FL & NET & WS & BE --> SEC & TEST & PERF & A11Y
     SEC & TEST & PERF & A11Y --> REV
     REF -.-> REV
     REV --> REL
@@ -114,8 +135,8 @@ graph TD
 
 | Tier | Role | Agents |
 |------|------|--------|
-| 1 | Decide *what* and *how it is shaped* | System Design Expert, iOS Architect |
-| 2 | Build it | SwiftUI, UIKit, Networking, WebSocket, Backend Integrator |
+| 1 | Decide *what* and *how it is shaped* | System Design Expert, iOS Architect, Flutter Architect |
+| 2 | Build it | SwiftUI, UIKit, Flutter, Networking, WebSocket, Backend Integrator |
 | 3 | Harden and prove it | Security, Testing, Performance, Accessibility, Refactoring |
 | 4 | Gate and ship it | Code Reviewer, Release Manager, DevOps |
 
@@ -125,25 +146,41 @@ graph TD
 
 Route the request to the **entry agent** based on intent, then follow the chain.
 
+Two entry-agent cells below are **platform slots**, resolved from the platform (and, on iOS, the
+paradigm) detected in [Platform & Paradigm Scoping](#platform--paradigm-scoping):
+
+| Slot | `ios` | `flutter` |
+|------|-------|-----------|
+| `Architect` | [iOS Architect](agents/ios_architect.md) | [Flutter Architect](agents/flutter_architect.md) |
+| `UI Expert` | [SwiftUI Expert](agents/swiftui_expert.md) (`ui: swiftui`) · [UIKit Expert](agents/uikit_expert.md) (`ui: uikit`) | [Flutter Expert](agents/flutter_expert.md) |
+
+`android` and `react_native` have no architect or UI expert yet. Fall back to the
+[System Design Expert](agents/system_design_expert.md) and say the platform role is missing, rather
+than answering with iOS or Flutter guidance.
+
 | Request type | Entry agent | Typical chain |
 |--------------|-------------|---------------|
-| New feature | iOS Architect | Architect → UI/Net → Security → Testing → Reviewer |
+| New feature | `Architect` | Architect → UI/Net → Security → Testing → Reviewer |
 | New screen / UI change (SwiftUI) | SwiftUI Expert | SwiftUI → Accessibility → Testing → Reviewer |
 | New screen / UI change (UIKit) | UIKit Expert | UIKit → Accessibility → Testing → Reviewer |
-| Massive view controller / legacy cleanup | Refactoring Expert | Refactoring → UIKit → Testing → Reviewer |
-| UIKit → SwiftUI migration | iOS Architect | Architect → UIKit → SwiftUI → Testing → Reviewer |
+| New screen / UI change (Flutter) | Flutter Expert | Flutter → Accessibility → Testing → Reviewer |
+| State management refactor *(Flutter)* | Flutter Architect | Architect → Flutter → Testing → Reviewer |
+| Native interop / platform channel *(Flutter)* | Flutter Architect | Architect → Flutter → Security → Testing → Reviewer |
+| Massive view controller / legacy cleanup *(iOS)* | Refactoring Expert | Refactoring → UIKit → Testing → Reviewer |
+| UIKit → SwiftUI migration *(iOS)* | iOS Architect | Architect → UIKit → SwiftUI → Testing → Reviewer |
 | New/changed API integration | Backend Integrator | Backend → Networking → Security → Testing → Reviewer |
 | Realtime feature | WebSocket Expert | Architect → WebSocket → Security → Testing → Reviewer |
 | Auth / login / tokens | Security Expert | Architect → Security → Networking → Testing → Reviewer |
 | Bug report | Code Reviewer | Reviewer (triage) → relevant specialist → Testing |
 | "It's slow / janky" | Performance Expert | Performance → relevant specialist → Testing |
 | Cleanup / tech debt | Refactoring Expert | Refactoring → Testing → Reviewer |
-| Architecture question | System Design / iOS Architect | (advisory, may not produce code) |
+| Architecture question | System Design / `Architect` | (advisory, may not produce code) |
 | Release / store submission | Release Manager | Release → DevOps |
 | CI/CD / automation | DevOps Expert | DevOps → Reviewer |
 | `!verify` | (workflow) | Run [`workflows/verify_setup.md`](workflows/verify_setup.md) |
 
-The UI row is selected by the paradigm detected in Platform & Paradigm Scoping, not by user preference.
+The UI row is selected by the platform and — on iOS — the paradigm detected in Platform & Paradigm
+Scoping, not by user preference.
 
 **Claude Code:** each role has a matching native subagent in `.claude/agents/` (kebab-case,
 e.g. `swiftui-expert`). Prefer dispatching those subagents over inline role-play — dispatched
@@ -198,7 +235,7 @@ escalates **up the hierarchy** rather than guessing.
 
 ```mermaid
 graph LR
-    Impl[Implementation agent] -->|architecture conflict| ARCH[iOS Architect]
+    Impl[Implementation agent] -->|architecture conflict| ARCH[Architect — iOS or Flutter]
     ARCH -->|cross-cutting / scale concern| SD[System Design Expert]
     Impl -->|security ambiguity| SEC[Security Expert]
     SD -->|product/requirements gap| Human[Human owner]
@@ -221,10 +258,14 @@ the agent's recommendation.
 
 These map directly to files in [`workflows/`](workflows/).
 
+`Architect` and `UI Expert` are the platform slots from [Task Routing Rules](#task-routing-rules) —
+on iOS they resolve to **iOS Architect** and **SwiftUI Expert** or **UIKit Expert**; on Flutter, to
+**Flutter Architect** and **Flutter Expert**.
+
 ### 1. Build a Feature
 
 ```text
-iOS Architect → SwiftUI Expert → Networking Expert → Security Expert → Testing Expert → Code Reviewer
+Architect → UI Expert → Networking Expert → Security Expert → Testing Expert → Code Reviewer
 ```
 
 See [`workflows/create_feature.md`](workflows/create_feature.md).
@@ -240,7 +281,7 @@ See [`workflows/integrate_rest_api.md`](workflows/integrate_rest_api.md).
 ### 3. Add Realtime
 
 ```text
-iOS Architect → WebSocket Expert → Security Expert → Performance Expert → Testing Expert → Code Reviewer
+Architect → WebSocket Expert → Security Expert → Performance Expert → Testing Expert → Code Reviewer
 ```
 
 See [`workflows/integrate_websocket.md`](workflows/integrate_websocket.md).
@@ -248,7 +289,7 @@ See [`workflows/integrate_websocket.md`](workflows/integrate_websocket.md).
 ### 4. Implement Authentication
 
 ```text
-iOS Architect → Security Expert → Networking Expert → Testing Expert → Code Reviewer
+Architect → Security Expert → Networking Expert → Testing Expert → Code Reviewer
 ```
 
 See [`workflows/implement_authentication.md`](workflows/implement_authentication.md).

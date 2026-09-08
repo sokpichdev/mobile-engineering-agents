@@ -89,3 +89,5 @@ final class LiveAPIClient: APIClient {
 - [authentication_architecture.md](authentication_architecture.md)
 - [`templates/ios/networking_layer/`](../templates/ios/networking_layer/)
 - [`checklists/api_review.md`](../checklists/api_review.md)
+- [`skills/networking/flutter/rest_api.md`](../skills/networking/flutter/rest_api.md) (Flutter)
+- [`templates/flutter/networking_layer/`](../templates/flutter/networking_layer/) (Flutter)

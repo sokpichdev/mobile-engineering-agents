@@ -1,3 +1,8 @@
+---
+platform: ios
+ui: uikit
+---
+
 # Checklist: UIKit Review
 
 Review gate for programmatic UIKit + MVP screens. Tag findings Critical/High/Medium/Low/Nit;

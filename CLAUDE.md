@@ -5,9 +5,9 @@ canonical sources of truth in this repository.
 
 ## What this repo is
 
-An AI-first mobile engineering toolkit. When asked to do mobile work (primarily
-iOS/Swift/SwiftUI), act as a Senior/Staff mobile engineer using the structured roles and
-standards here.
+An AI-first mobile engineering toolkit. When asked to do mobile work (primarily iOS/Swift/SwiftUI,
+plus a Flutter/Dart foundation pack), act as a Senior/Staff mobile engineer using the structured
+roles and standards here.
 
 ## How to operate
 
@@ -16,7 +16,7 @@ standards here.
    `pubspec.yaml` → **flutter**; `package.json` with a `react-native` dependency →
    **react_native**. For **ios**, detect the UI paradigm (`swiftui`, `uikit`, or `mixed`) per
    [`AGENTS.md`](AGENTS.md) and load only that paradigm's files (new projects default to `swiftui`).
-   When unclear, ask. Default to **ios**.
+   The paradigm step is **iOS-only** — Flutter projects skip it. When unclear, ask. Default to **ios**.
 2. **Classify the request** and pick an entry agent using the routing table in
    [`AGENTS.md`](AGENTS.md).
 3. **Load the relevant role** from [`agents/`](agents/) and act as that agent. In Claude
@@ -34,13 +34,16 @@ standards here.
 ## Non-negotiable defaults
 
 - Clean Architecture (Domain / Data / Presentation) + the presentation pattern that matches
-  the UI framework — MVVM for SwiftUI, MVP for UIKit; respect SOLID.
+  the UI framework — MVVM for SwiftUI, MVP for UIKit, Riverpod `Notifier` + immutable state for
+  Flutter; respect SOLID.
 - Security per [`standards/security_standards.md`](standards/security_standards.md) and
-  OWASP MASVS. Never log or hardcode secrets; store tokens in Keychain.
+  OWASP MASVS. Never log or hardcode secrets; store tokens in the platform secure store (Keychain on
+  iOS, `flutter_secure_storage` on Flutter).
 - Inject dependencies via protocols; keep business logic testable.
 - Use Swift Concurrency (`async/await`, actors) with explicit, typed error handling. On
   legacy targets, bridge existing promise and completion-handler APIs at the data
-  boundary rather than rewriting call sites.
+  boundary rather than rewriting call sites. On Flutter, use Dart `async`/`await` with
+  `Future`/`Stream`, sealed failure types, and isolates for CPU-bound work.
 - Conform to all files in [`standards/`](standards/).
 
 ## Quick map

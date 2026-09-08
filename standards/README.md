@@ -3,9 +3,11 @@
 Non-negotiable rules. Generated code and contributions must conform. Each standard pairs with
 a [checklist](../checklists/) used in review.
 
-- [coding_standards.md](coding_standards.md) — Swift naming, safety, concurrency, logging
-- [swiftui_standards.md](swiftui_standards.md) — views, state, navigation, styling, a11y
-- [uikit_standards.md](uikit_standards.md) — programmatic views, Auto Layout, VC lifecycle, cell reuse, presenter rules
+- [coding_standards.md](coding_standards.md) — Swift naming, safety, concurrency, logging (iOS)
+- [swiftui_standards.md](swiftui_standards.md) — views, state, navigation, styling, a11y (iOS)
+- [uikit_standards.md](uikit_standards.md) — programmatic views, Auto Layout, VC lifecycle, cell reuse, presenter rules (iOS)
+- [dart_coding_standards.md](dart_coding_standards.md) — Dart naming, null safety, immutability, errors, async (Flutter)
+- [flutter_standards.md](flutter_standards.md) — widgets, Riverpod state, go_router, theming, a11y, package baseline (Flutter)
 - [architecture_standards.md](architecture_standards.md) — layers, SOLID, DI, structure
 - [networking_standards.md](networking_standards.md) — client, requests, errors, mapping
 - [security_standards.md](security_standards.md) — OWASP MASVS baseline

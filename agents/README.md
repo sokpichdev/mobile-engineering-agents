@@ -10,12 +10,14 @@ Standards · Review Checklist · Common Mistakes · Example Tasks**.
 ## Tier 1 — Strategy
 
 - [system_design_expert.md](system_design_expert.md) — large-scale client/server & cross-cutting design
-- [ios_architect.md](ios_architect.md) — module boundaries, layering, tech decisions
+- [ios_architect.md](ios_architect.md) — module boundaries, layering, tech decisions (iOS)
+- [flutter_architect.md](flutter_architect.md) — Flutter module boundaries, layering, package decisions (Flutter)
 
 ## Tier 2 — Implementation
 
-- [swiftui_expert.md](swiftui_expert.md) — view composition, state, navigation
-- [uikit_expert.md](uikit_expert.md) — programmatic views, MVP contracts, presenters, navigation
+- [swiftui_expert.md](swiftui_expert.md) — view composition, state, navigation (iOS)
+- [uikit_expert.md](uikit_expert.md) — programmatic views, MVP contracts, presenters, navigation (iOS)
+- [flutter_expert.md](flutter_expert.md) — widget composition, Riverpod state, go_router navigation (Flutter)
 - [networking_expert.md](networking_expert.md) — REST/GraphQL clients, retries, error mapping
 - [websocket_expert.md](websocket_expert.md) — realtime transport, reconnection, backpressure
 - [backend_integrator.md](backend_integrator.md) — API contracts, DTO mapping, pagination

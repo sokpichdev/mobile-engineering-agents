@@ -10,7 +10,8 @@ Shared terminology used across the toolkit. Agents and skills assume these defin
   repository *protocols*. No framework or platform imports.
 - **Data layer** — Implements Domain repository protocols using data sources (network,
   database, cache). Maps DTOs ↔ domain entities.
-- **Presentation layer** — UI and view state. Uses **MVVM**: `View` ↔ `ViewModel` ↔ use cases.
+- **Presentation layer** — UI and view state. Uses **MVVM** on SwiftUI (`View` ↔ `ViewModel` ↔ use
+  cases), **MVP** on UIKit, and a Riverpod **Notifier** on Flutter.
 - **MVVM** — Model-View-ViewModel. The `ViewModel` exposes observable state and calls use
   cases; the `View` is a function of state.
 - **Use Case (Interactor)** — A single application operation in the Domain layer (e.g.
@@ -24,6 +25,23 @@ Shared terminology used across the toolkit. Agents and skills assume these defin
   public interface.
 - **SOLID** — Single responsibility, Open/closed, Liskov substitution, Interface segregation,
   Dependency inversion.
+
+### Flutter terms
+
+- **Widget** — An immutable description of part of the UI. Flutter rebuilds widgets cheaply;
+  `build()` is a pure function of state and must have no side effects.
+- **Notifier / AsyncNotifier** — Riverpod's state holder, the Flutter analogue of a ViewModel.
+  It owns an immutable state value and exposes methods that emit new values.
+- **Provider** — A Riverpod declaration of how to build a value. The provider graph doubles as the
+  app's DI container; `ProviderScope(overrides:)` is the test seam.
+- **`AsyncValue`** — Riverpod's union of loading / data / error. Switching over it exhaustively is
+  how a Flutter screen handles all its states.
+- **go_router** — The toolkit's standard declarative router: one route table covering in-app
+  navigation and deep links, with a `redirect` hook for auth gating.
+- **Isolate** — Dart's unit of concurrency, with its own memory. CPU-bound work moves here
+  (`Isolate.run`/`compute`) so it does not drop frames on the UI isolate.
+- **Platform channel** — The typed bridge from Dart to native Swift/Kotlin. `pigeon` generates
+  both sides from one schema; the channel itself is a Data-layer detail.
 
 ## Networking
 

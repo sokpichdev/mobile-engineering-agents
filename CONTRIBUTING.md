@@ -63,6 +63,13 @@ never load two conflicting copies.
   across platforms: `standards/`, `architecture/`, `checklists/`, `workflows/`. Don't fork these
   per platform; if a rule is platform-specific, add a clearly labeled subsection instead.
 
+  A whole *rule set* that is platform- or paradigm-scoped may instead live in its own flat,
+  platform-named file in that directory — `standards/swiftui_standards.md`,
+  `standards/uikit_standards.md`, `standards/flutter_standards.md`, `checklists/uikit_review.md`,
+  `checklists/flutter_review.md`. The filename carries the scope; the directory is not forked. Use a
+  labeled subsection when the difference is a paragraph, and a named file when it is a whole
+  rule set.
+
 - **Agents stay flat** and are distinguished by name (e.g. `swiftui_expert.md` vs a future
   `compose_expert.md`); they are selected individually, not globbed in bulk.
 
@@ -77,6 +84,11 @@ never load two conflicting copies.
 
   `_shared/` is reserved for a platform-neutral file inside an otherwise platform-split
   directory; such a file uses `platform: shared`.
+
+  In a **flat shared directory**, a file carries `platform:` only when it is platform-scoped by
+  name (e.g. `standards/flutter_standards.md`). **A file with no `platform:` key is shared and
+  always loads** — absence of the key is the signal, so don't add `platform: shared` to a
+  genuinely cross-platform file like `standards/git_standards.md`.
 
 ## How to Contribute
 
@@ -122,7 +134,7 @@ Use the canonical section set for each content type. Do not invent new section n
 | Type | Required sections |
 |------|-------------------|
 | `agents/*` | Purpose · Responsibilities · Rules · Coding Standards · Review Checklist · Common Mistakes · Example Tasks |
-| `skills/*` | Overview · Use Cases · Best Practices · Anti-Patterns · Checklist · Swift Examples · Common Interview Questions · AI Implementation Notes |
+| `skills/*` | Overview · Use Cases · Best Practices · Anti-Patterns · Checklist · *Language* Examples (Swift / Kotlin / Dart, matching `platform:`) · Common Interview Questions · AI Implementation Notes |
 | `workflows/*` | Objective · Inputs · Outputs · Step-by-Step Process · Validation Steps · Failure Scenarios · AI Agent Instructions · Acceptance Criteria |
 | `checklists/*` | Grouped checkbox items, each objective and measurable |
 | `prompts/*` | Role · Objective · Constraints · Output Format · Quality Requirements |
@@ -132,7 +144,8 @@ Use the canonical section set for each content type. Do not invent new section n
 ## Style
 
 - Markdown with ATX headings (`#`), one `H1` per file.
-- Fenced code blocks **must** declare a language (`swift`, `kotlin`, `bash`, `mermaid`, `json`).
+- Fenced code blocks **must** declare a language (`swift`, `kotlin`, `dart`, `bash`, `yaml`,
+  `xml`, `mermaid`, `json`, `text`).
 - Use `✅` for recommended and `❌` for discouraged examples.
 - Keep line length reasonable (~100 chars) for diff readability.
 - American English, present tense, imperative voice for instructions.

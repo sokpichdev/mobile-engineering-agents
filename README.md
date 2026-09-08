@@ -96,14 +96,14 @@ right experts and scales its process to the task. Head to
 
 | Directory | What it gives your agent | Count |
 |-----------|--------------------------|-------|
-| [`agents/`](agents/) | Loadable expert roles (architect, security, testing…) | 14 |
-| [`skills/`](skills/) | Deep, single-topic know-how (auth, websockets, caching…) | 31 |
-| [`workflows/`](workflows/) | Step-by-step procedures (build a feature, integrate an API…) | 11 |
-| [`checklists/`](checklists/) | Objective, automatable review gates | 8 |
-| [`standards/`](standards/) | Non-negotiable rules (coding, security, testing, git) | 7 |
+| [`agents/`](agents/) | Loadable expert roles (architect, security, testing…) | 17 |
+| [`skills/`](skills/) | Deep, single-topic know-how (auth, websockets, caching…) | 54 |
+| [`workflows/`](workflows/) | Step-by-step procedures (build a feature, integrate an API…) | 13 |
+| [`checklists/`](checklists/) | Objective, automatable review gates | 10 |
+| [`standards/`](standards/) | Non-negotiable rules (coding, security, testing, git) | 10 |
 | [`architecture/`](architecture/) | Reference designs with Mermaid diagrams | 6 |
 | [`prompts/`](prompts/) | Copy-paste prompts for common tasks | 10 |
-| [`templates/`](templates/) | Scaffolding with boilerplate Swift | 8 |
+| [`templates/`](templates/) | Scaffolding with boilerplate Swift and Dart | 12 |
 | [`examples/`](examples/) | Reference apps (banking, chat, CoffeeCraft, ecommerce, social) | 5 |
 
 Plus [`AGENTS.md`](AGENTS.md) (orchestration), [`GLOSSARY.md`](GLOSSARY.md) (shared terms), and a
@@ -147,12 +147,14 @@ off to each other (see [`AGENTS.md`](AGENTS.md)).
 ### Strategy
 
 - [System Design Expert](agents/system_design_expert.md) — large-scale client/server & cross-cutting design
-- [iOS Architect](agents/ios_architect.md) — module boundaries, layering, tech decisions
+- [iOS Architect](agents/ios_architect.md) — module boundaries, layering, tech decisions (iOS)
+- [Flutter Architect](agents/flutter_architect.md) — Flutter module boundaries, layering, package decisions (Flutter)
 
 ### Implementation
 
-- [SwiftUI Expert](agents/swiftui_expert.md) — view composition, state, navigation
-- [UIKit Expert](agents/uikit_expert.md) — programmatic views, MVP contracts, presenters, navigation
+- [SwiftUI Expert](agents/swiftui_expert.md) — view composition, state, navigation (iOS)
+- [UIKit Expert](agents/uikit_expert.md) — programmatic views, MVP contracts, presenters, navigation (iOS)
+- [Flutter Expert](agents/flutter_expert.md) — widget composition, Riverpod state, go_router navigation (Flutter)
 - [Networking Expert](agents/networking_expert.md) — REST/GraphQL clients, retries, error mapping
 - [WebSocket Expert](agents/websocket_expert.md) — realtime transport, reconnection, backpressure
 - [Backend Integrator](agents/backend_integrator.md) — API contracts, DTO mapping, pagination
@@ -308,7 +310,13 @@ React Native) and loads only that platform's subtree — `skills/<topic>/<platfo
 `templates/<platform>/` — plus the shared, platform-neutral layers (`standards/`,
 `architecture/`, `checklists/`, `workflows/`). Within iOS, the agent also detects the UI paradigm
 (`swiftui` or `uikit`) and loads only that paradigm's files (omitting the `ui:` key means content
-applies to both). It never pulls another platform's code into context. iOS is the most complete today; see
+applies to both); the paradigm axis is iOS-only. It never pulls another platform's code into context.
+
+iOS is the most complete today. **Flutter ships a foundation pack** — architecture, Riverpod state,
+go_router navigation, DI, repository, platform channels, networking, storage, security, testing, and
+rendering performance — with [`standards/flutter_standards.md`](standards/flutter_standards.md) as
+its package baseline and [`checklists/flutter_review.md`](checklists/flutter_review.md) as its review
+gate. Android and React Native are still early; see
 [Contributing](#contributing--everyone-is-welcome) to help port the rest.
 
 > See [`AGENTS.md`](AGENTS.md) for the full routing table and the tier hierarchy, or the
@@ -356,8 +364,8 @@ Behind the scenes, a non-trivial task flows through multiple agents:
 
 ```mermaid
 flowchart LR
-    R[Feature Request] --> A[iOS Architect]
-    A --> U[SwiftUI / UIKit Expert]
+    R[Feature Request] --> A[Architect]
+    A --> U[SwiftUI / UIKit / Flutter Expert]
     U --> N[Networking Expert]
     N --> S[Security Expert]
     S --> T[Testing Expert]
@@ -438,7 +446,9 @@ That's it — a maintainer will review and help you land it.
 
 ## Roadmap
 
-- [ ] Kotlin/Compose and Flutter parity for the iOS-first skills.
+- [x] Flutter foundation pack — agents, standards, checklist, templates, and the core skill set.
+- [ ] Full Flutter parity (notifications, GraphQL, SSE, file upload, JWT, biometrics, crypto).
+- [ ] Kotlin/Compose parity for the iOS-first skills.
 - [ ] Machine-readable agent manifests (YAML front-matter) for automated routing.
 - [ ] Expanded example apps with full test suites.
 - [ ] Evaluations that score agent output against the checklists.
